@@ -1,4 +1,220 @@
-.container
-{
-    
+.container {
+  padding: 60px 40px;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #ffffff;
+  color: #1c1c1c;
+}
+
+/* Top Section */
+.topBox {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px auto;
+}
+.topTitle {
+  font-size: 28px;
+  font-weight: 700;
+}
+.highlight {
+  color: #f89c1d;
+}
+.topDesc {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #444;
+}
+
+/* Middle Section - What We Offer */
+.middleBox {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 80px;
+}
+
+.leftofMiddle {
+  flex: 1;
+  max-width: 360px;
+}
+.middleTitle {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+.middleDesc {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Service Grid Layout */
+.serviceGrid {
+  display: flex;
+  gap: 20px;
+  flex: 2;
+  min-width: 500px;
+}
+
+/* Left Side - 2x2 Grid */
+.serviceLeft {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  flex: 2;
+}
+
+/* Right Side - 1 Tall Card */
+.serviceRight {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+}
+
+/* Service Cards Styling */
+.serviceCard {
+  background-color: #eee;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.serviceRight .serviceCard {
+  height: 100%;
+  min-height: 300px;
+}
+
+/* Image inside card */
+.serviceCard img {
+  height: 48px;
+  width: auto;
+  margin-bottom: 12px;
+}
+
+.serviceCard:hover {
+  transform: translateY(-5px);
+}
+
+/* Service Color Classes */
+.greenService {
+  background-color: #00754a;
+}
+.orangeService {
+  background-color: #f89c1d;
+}
+.redService {
+  background-color: #d32f2f;
+}
+.limeService {
+  background-color: #cde93d;
+  color: #000;
+}
+.purpleService {
+  background-color: #6b1e8d;
+}
+
+/* Bottom Section - Industries Served */
+.bottomBox {
+  text-align: center;
+}
+.bottomTitle {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.hoverInstruction {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+/* Industries Container */
+.industriesContainer {
+  display: flex;
+  justify-content: center;
+}
+.industriesWrapper {
+  display: flex;
+  gap: 4px;
+}
+
+/* Industry Cards */
+.industryCard {
+  width: 38px;
+  height: 169px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 4px;
+}
+.expanded {
+  width: 169px;
+  height: 38px;
+}
+.collapsed {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.industryContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.industryText {
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  transition: transform 0.3s ease;
+}
+.textHorizontal {
+  transform: rotate(0deg);
+}
+.textVertical {
+  transform: rotate(180deg);
+}
+
+.dimensionIndicator {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: #999;
+}
+
+/* Industry Colors */
+.greenIndustry {
+  background-color: #00754a;
+}
+.orangeIndustry {
+  background-color: #f89c1d;
+}
+.redIndustry {
+  background-color: #d32f2f;
+}
+.limeIndustry {
+  background-color: #cde93d;
+  color: #000;
+}
+.purpleIndustry {
+  background-color: #6b1e8d;
+}
+.tealIndustry {
+  background-color: #009688;
 }
