@@ -76,16 +76,15 @@
   border: 1px solid #000;
   border-radius: 999px;
   padding: 0.3rem 0.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    cursor: pointer;
+  width: 20%;
 }
 
 .contact {
   margin-left: 1rem;
 }
 
-.contact button {
+.contactbtn {
   background-color: #5C128B;
   color: white;
   border: none;
@@ -97,7 +96,9 @@
   gap: 0.5rem;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
+  text-decoration: none;
 }
+
 .con {
   width: 20%;
   display: flex;

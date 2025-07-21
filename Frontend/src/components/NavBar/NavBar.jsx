@@ -32,12 +32,13 @@ const NavBar = () => {
 
       <div className={s.toggle}>
         <BsSun />
+        
       </div>
 
       <div className={s.contact}>
-        <button>
+        <NavLink to="/contact" className={s.contactbtn}>
           <FiPhoneCall /> Contact Us
-        </button>
+        </NavLink>
       </div>
     </div>
     </div>
