@@ -1,7 +1,9 @@
 import React from 'react'
 
-export const Glider = () => {
+const Glider = () => {
   return (
     <div>Glider</div>
   )
 }
+
+export default Glider;

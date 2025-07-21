@@ -1,7 +1,9 @@
 import React from 'react'
 
-export const HorecaSupply = () => {
+const HorecaSupply = () => {
   return (
     <div>HorecaSupply</div>
   )
 }
+
+export default HorecaSupply;
