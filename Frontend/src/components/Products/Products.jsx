@@ -1,6 +1,8 @@
-import React from "react";
-import style from "./Products.module.css";
-import potatoImg from "../../assets/logo.jpg"; // Replace with real images
+import { MdSort } from "react-icons/md"; 
+import { AiFillFilter } from "react-icons/ai"; 
+import React from 'react';
+import style from './Products.module.css';
+import potatoImg from '../../assets/logo.jpg'; // Replace with real images
 
 const products = Array(12).fill({
   country: "Kenya",
@@ -10,13 +12,13 @@ const products = Array(12).fill({
   image: potatoImg,
 });
 
-const Products = () => {
+export const Products = () => {
   return (
     <div className={style.container}>
       <div className={style.header}>
-        <span className={style.filter}>🔽 Filter</span>
+        <span className={style.filter}><AiFillFilter /> Filter</span>
         <h2 className={style.title}>Our Products</h2>
-        <span className={style.sort}>🔽 Sort</span>
+        <span className={style.sort}><MdSort /> Sort</span>
       </div>
       <div className={style.grid}>
         {products.map((product, index) => (
@@ -47,4 +49,4 @@ const Products = () => {
     </div>
   );
 };
-export default Products;
+>>>>>>>>> Temporary merge branch 2

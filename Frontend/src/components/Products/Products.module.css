@@ -1,5 +1,6 @@
 .container {
-  padding: 2rem;
+  padding: 0 1rem;
+  
   font-family: 'Poppins', sans-serif;
   background-color: #fff;
   
@@ -14,29 +15,32 @@
 
 .filter,
 .sort {
-  font-size: 14px;
+  font-size: 18px;
   color: #444;
   cursor: pointer;
+  font-family: 'Quicksand';
 }
 
 .title {
-  font-size: 28px;
+  font-size: 40px;
   font-weight: 600;
   text-align: center;
   flex: 1;
+  font-family: 'Baloo 2';
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  gap: 2rem;
+    column-gap: 0;       /* ❌ No horizontal gap */
+  row-gap: 2rem;       /* ✅ Keep vertical gap */
   justify-content: center;
 }
 
 .card {
   background: #fff;
-  height: 471px;
-  width: 270px;
+  height: 400px;
+  width: 230px;
   border-radius: 20px;
   padding: 24px 16px;
   text-align: center;
@@ -67,8 +71,8 @@
 .imageWrapper {
   background: #fff;
   border-radius: 16px;
-  width: 238px;
-  height: 238px;
+  width: 210px;
+  height: 180px;
   margin: 1.5rem auto 1rem auto;
   display: flex;
   align-items: center;
@@ -78,9 +82,9 @@
 }
 
 .image {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .name {
@@ -88,9 +92,11 @@
   font-weight: 700;
   color: #111;
   margin: 0.5rem 0 0.25rem 0;
+  font-family: 'Baloo 2';
 }
 
 .desc {
+  font-family: 'Quicksand';
   font-size: 14px;
   color: #555;
   margin-bottom: 0.5rem;
@@ -100,6 +106,8 @@
 }
 
 .price {
+  font-family: 'Quicksand';
+
   font-size: 16px;
   color: #000;
   font-weight: 500;
@@ -119,6 +127,8 @@
   font-size: 15px;
   font-weight: 500;
   transition: 0.2s ease;
+  font-family: 'Quicksand';
+
 }
 
 .orderBtn img {
