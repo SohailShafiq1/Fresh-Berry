@@ -8,6 +8,7 @@ import Contact from "./components/ContactUs/Contact";
 import Products from "./components/Products/Products";
 import HorecaSupply from "./components/HorecaSupply/HorecaSupply";
 import Admin from "./components/Admin/Admin";
+import Qoute from "./components/Qoute/Qoute";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/products" element={<Products />} />
           <Route path="/horeca-supply" element={<HorecaSupply />} />
+          <Route path="/qoute" element={<Qoute />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>

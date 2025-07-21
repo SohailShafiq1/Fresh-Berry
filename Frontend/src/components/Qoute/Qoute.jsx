@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
-export const Qoute = () => {
-  return (
-    <div>Qoute</div>
-  )
-}
+const Qoute = () => {
+  return <div>Qoute</div>;
+};
+
+export default Qoute;
