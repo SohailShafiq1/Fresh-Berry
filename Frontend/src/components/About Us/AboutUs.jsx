@@ -4,7 +4,7 @@ import React from "react";
 import style from './AboutUs.module.css';
 import farmerImage from '../../assets/truck.png';  // replace with your image
 import globeImage from '../../assets/truck.png';    // replace with your image
-import { FaAward, FaGlobe, FaSnowflake, FaSeedling, FaClipboardCheck } from "react-icons/fa";
+import { FaAward, FaGlobe, FaSnowflake, FaSeedling, FaClipboardCheck, FaStar, FaUsers, FaHandshake, FaRecycle } from "react-icons/fa";
 
 const s = style;
 
@@ -76,6 +76,40 @@ const AboutUs = () => {
             <div className={s.icon} style={{ backgroundColor: "#55efc4" }}><BsPatchQuestionFill /></div>
             <h3>Our Mission</h3>
             <p>To consistently deliver freshness and quality with personalized service, creating long-term partnerships based on integrity and excellence.</p>
+          </div>
+        </div>
+      </div>
+      {/* Core Values Section */}
+      <div className={s.coreValuesSection}>
+        <h2 className={s.coreValuesTitle}>Core Values</h2>
+        <div className={s.coreValuesGrid}>
+          <div className={s.coreValueBox}>
+            <div className={s.coreValueIcon} style={{ backgroundColor: '#2C6B36' }}>
+              <FaStar style={{ color: '#fff', fontSize: '2rem' }} />
+            </div>
+            <h3>Quality First</h3>
+            <p>Premium quality in every product we deliver</p>
+          </div>
+          <div className={s.coreValueBox}>
+            <div className={s.coreValueIcon} style={{ backgroundColor: '#FDCB6E' }}>
+              <FaUsers style={{ color: '#fff', fontSize: '2rem' }} />
+            </div>
+            <h3>Customer-Centric Service</h3>
+            <p>Personalized solutions for every client</p>
+          </div>
+          <div className={s.coreValueBox}>
+            <div className={s.coreValueIcon} style={{ backgroundColor: '#D84343' }}>
+              <FaHandshake style={{ color: '#fff', fontSize: '2rem' }} />
+            </div>
+            <h3>Integrity in Every Transaction</h3>
+            <p>Honest and transparent business practices</p>
+          </div>
+          <div className={s.coreValueBox}>
+            <div className={s.coreValueIcon} style={{ backgroundColor: '#5C128B' }}>
+              <FaRecycle style={{ color: '#fff', fontSize: '2rem' }} />
+            </div>
+            <h3>Sustainability & Hygiene</h3>
+            <p>Environmental responsibility and food safety</p>
           </div>
         </div>
       </div>
