@@ -26,6 +26,7 @@ const NavBar = () => {
         <NavLink to="/horeca-supply">HoReCa Supply</NavLink>
         <NavLink to="/quote">Request a Quote</NavLink>
         <NavLink to="/about">About Us</NavLink>
+        <NavLink to="/contact">Contact</NavLink>
       </div>
 
     <div className={s.con}>

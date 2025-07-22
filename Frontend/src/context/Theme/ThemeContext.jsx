@@ -1,13 +1,22 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState } from "react";
 
-const ThemeContext = createContext();
+export const ThemeContext = createContext();
+
+const blackTheme = {
+  text: "#fff",
+};
+const whiteTheme = {
+  text: "#000",
+};
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState("white");
+  const [isBlack, setIsBlack] = useState(false);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "white" ? "black" : "white"));
+    setIsBlack((prev) => !prev);
   };
+
+  const theme = isBlack ? blackTheme : whiteTheme;
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
@@ -15,5 +24,3 @@ export const ThemeProvider = ({ children }) => {
     </ThemeContext.Provider>
   );
 };
-
-export const useTheme = () => useContext(ThemeContext);

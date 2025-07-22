@@ -1,4 +1,510 @@
-.container
-{
-    
+.container {
+  width: 100%;
+}
+.paddingBox {
+  padding: 0rem 2rem;
+}
+.topBox {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.topLeft {
+  flex: 1;
+}
+
+.topLeft h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.topLeft p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.topButtons {
+  display: flex;
+  gap: 15px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button:first-child {
+  background-color: #25d366;
+}
+
+.button:first-child:hover {
+  background-color: #20b954;
+  transform: translateY(-2px);
+}
+
+.button:last-child {
+  background-color: #6f42c1;
+}
+
+.button:last-child:hover {
+  background-color: #5a359a;
+  transform: translateY(-2px);
+}
+
+.topRight {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.topRight img {
+  max-width: 100%;
+  height: auto;
+  width: 400px;
+  object-fit: contain;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+  }
+
+  .topBox {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .topLeft h1 {
+    font-size: 2rem;
+  }
+
+  .topButtons {
+    justify-content: center;
+  }
+
+  .topRight {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .topLeft h1 {
+    font-size: 1.8rem;
+  }
+
+  .topButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button {
+    width: 200px;
+    justify-content: center;
+  }
+
+  .topRight img {
+    width: 250px;
+  }
+}
+
+.contactBox {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contactTitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.contactDesc {
+  font-size: 1rem;
+  margin-bottom: 50px;
+}
+
+.contactBoxes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.contactBoxItem {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 40px 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.contactBoxItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #ddd;
+}
+
+.icon {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.details .title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.details .info {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contactTitle {
+    font-size: 1.8rem;
+  }
+
+  .contactBoxes {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .contactBoxItem {
+    padding: 30px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contactBoxes {
+    grid-template-columns: 1fr;
+  }
+
+  .contactTitle {
+    font-size: 1.6rem;
+  }
+
+  .contactBoxItem {
+    padding: 25px 15px;
+  }
+
+  .icon {
+    font-size: 1.8rem;
+  }
+}
+
+.mapBusinessSection {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.findUsTitle,
+.businessHoursTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* Find Us Section */
+.findUsBox {
+  width: 100%;
+}
+
+.mapContainer {
+  width: 100%;
+  height: 250px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Business Hours Section */
+.businessHoursBox {
+  width: 100%;
+  height: inherit;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.hoursContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.hourRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.hourRow:last-of-type {
+  border-bottom: none;
+  margin-bottom: 20px;
+}
+
+.dayLabel {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.timeLabel {
+  font-size: 1rem;
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 15px;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  background-color: #25d366;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.statusText {
+  font-size: 0.95rem;
+}
+
+.statusText strong {
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mapBusinessSection {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .findUsTitle,
+  .businessHoursTitle {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .hoursContainer {
+    padding: 20px;
+  }
+
+  .mapContainer {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .findUsTitle,
+  .businessHoursTitle {
+    font-size: 1.3rem;
+  }
+
+  .hourRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 12px 0;
+  }
+
+  .statusRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+.stayConnectedSection {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.stayConnectedTitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.stayConnectedDesc {
+  font-size: 1rem;
+  margin-bottom: 50px;
+}
+
+.socialBoxes {
+  display: flex;
+  max-width: 1000px;
+  justify-content: space-between;
+  flex-direction: row;
+  margin: 0 auto;
+}
+
+.socialBox {
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: left;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  max-width: 400px;
+}
+
+.socialBox:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #ddd;
+}
+
+.socialHeader {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.socialIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.socialBox:first-child .socialIcon {
+  background-color: #e1306c;
+}
+
+.socialBox:last-child .socialIcon {
+  background-color: #25d366;
+}
+
+.socialInfo {
+  flex: 1;
+}
+
+.socialTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+}
+
+.socialSubtitle {
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.socialDescription {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.followButton,
+.joinButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.followButton {
+  background-color: #4285f4;
+}
+
+.followButton:hover {
+  background-color: #3367d6;
+  transform: translateY(-1px);
+}
+
+.joinButton {
+  background-color: #25d366;
+}
+
+.joinButton:hover {
+  background-color: #20b954;
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .stayConnectedTitle {
+    font-size: 1.8rem;
+  }
+
+  .socialBoxes {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .socialBox {
+    padding: 25px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stayConnectedTitle {
+    font-size: 1.6rem;
+  }
+
+  .socialBox {
+    padding: 20px 15px;
+  }
+
+  .socialHeader {
+    gap: 12px;
+  }
+
+  .socialIcon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+
+  .socialTitle {
+    font-size: 1.1rem;
+  }
 }

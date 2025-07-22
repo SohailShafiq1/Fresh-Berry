@@ -1,86 +1,109 @@
 import React from "react";
+import { useState } from "react";
 import style from "./HorecaSupply.module.css";
 import Delivery from "../../assets/delivery.png";
 import Files from "../../assets/files.png";
-import Notebook from "../../assets/notebook.png";
+import NoteBook from "../../assets/notebook.png";
 import Sack from "../../assets/sack.png";
 import Truck from "../../assets/truck.png";
 const s = style;
+
 const HorecaSupply = () => {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const handleCardClick = (index) => {
+    setActiveIndex(index === activeIndex ? null : index);
+  };
+
+  const industries = [
+    "Hotels",
+    "Restaurants",
+    "Cafeterias",
+    "Catering Companies",
+    "Cloud Kitchens",
+    "Airline Catering",
+  ];
+
   return (
     <>
       <div className={s.container}>
-        <div className={s.topBox}>
-          <h1 className={s.topTitle}>
-            Your Trusted <span className={s.highlight}>HoReCa</span> Supply
-            Partner
-          </h1>
-          <p className={s.topDesc}>
-            Fresh Berry understands the demands of the hospitality industry,
-            where timing, consistency, and quality are paramount. We tailor our
-            supply solutions to support hotels, restaurants, cafés, caterers,
-            and cloud kitchens with fresh produce that elevates every dish.
-          </p>
-        </div>
-        <div className={s.middleBox}>
-          <div className={s.leftofMiddle}>
-            <h1 className={s.middleTitle}>What We Offer</h1>
-            <p className={s.middleDesc}>
-              Our experienced team works closely with your kitchen to ensure
-              seamless supply management. We help you adjust orders to meet
-              demand fluctuations and provide ongoing quality assurance to
-              support your business success.
+        <div className={s.paddingBox}>
+          <div className={s.heroSection}>
+            <h2 className={s.title}>
+              Your Trusted <span className={s.highlight}>HoReCa</span> Supply
+              Partner
+            </h2>
+            <p className={s.description}>
+              Fresh Berry understands the demands of the hospitality industry,
+              where timing, consistency, and quality are paramount. We tailor
+              our supply solutions to support hotels, restaurants, cafés,
+              caterers, and cloud kitchens with fresh produce that elevates
+              every dish.
             </p>
           </div>
-          <div className={s.rightofMiddle}>
-            <div className={s.rightBox}>
-              <h1 className={s.rightBoxTitle}>Flexible daily deliveries</h1>
-              <img className={s.rightBoxImage} src={Delivery} alt="" />
+          <div className={s.weOffer}>
+            <div className={s.leftSide}>
+              <h1>What We Offer</h1>
+              <p>
+                Our experienced team works closely with your kitchen to ensure
+                seamless supply management. We help you adjust orders to meet
+                demand fluctuations and provide ongoing quality assurance to
+                support your business success.
+              </p>
             </div>
-            <div className={s.rightBox}>
-              <h1 className={s.rightBoxTitle}>Fixed pricing contracts </h1>
-              <img className={s.rightBoxImage} src={Notebook} alt="" />
-            </div>
-            <div className={s.rightBox}>
-              <h1 className={s.rightBoxTitle}>
-                Product preparation to your specifications 
-              </h1>
-              <img className={s.rightBoxImage} src={Sack} alt="" />
-            </div>
-            <div className={s.rightBox}>
-              <h1 className={s.rightBoxTitle}>
-                Cold chain logistics for freshness 
-              </h1>
-              <img className={s.rightBoxImage} src={Truck} alt="" />
-            </div>
-            <div className={s.rightBox}>
-              <h1 className={s.rightBoxTitle}>
-                Personalized account management 
-              </h1>
-              <img className={s.rightBoxImage} src={Files} alt="" />
+            <div className={s.rightSide}>
+              <div className={s.cards}>
+                <div className={s.leftCards}>
+                  <div className={s.rowOne}>
+                    <div className={s.greenCard}>
+                      <h1>Flexible daily deliveries</h1>
+                      <img src={Delivery} alt="Delivery" />
+                    </div>
+                    <div className={s.orangeCard}>
+                      <h1>Fixed pricing contracts</h1>
+                      <img src={NoteBook} alt="Notebook" />
+                    </div>
+                  </div>
+                  <div className={s.rowTwo}>
+                    <div className={s.redCard}>
+                      <h1>Product preparation to your specifications</h1>
+                      <img src={Sack} alt="Sack" />
+                    </div>
+                    <div className={s.LimeCard}>
+                      <h1>Cold chain logistics for freshness</h1>
+                      <img src={Truck} alt="Truck" />
+                    </div>
+                  </div>
+                </div>
+                <div className={s.rightCards}>
+                  <div className={s.purpleCard}>
+                    <h1>Personalized account management</h1>
+                    <img src={Files} alt="Files" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div className={s.bottomBox}>
-          <h1 className={s.bottomTitle}>Industries Served</h1>
-          <div className={s.cards}>
-            <div className={s.card}>
-              <h1>Hotels</h1>
-            </div>
-            <div className={s.card}>
-              <h1>Restaurants</h1>
-            </div>
-            <div className={s.card}>
-              <h1>Cafeterias</h1>
-            </div>
-            <div className={s.card}>
-              <h1>Catering Companies</h1>
-            </div>
-            <div className={s.card}>
-              <h1>Cloud Kitchens</h1>
-            </div>
-            <div className={s.card}>
-              <h1>Airline Catering</h1>
+          <div className={s.section}>
+            <h2 className={s.title}>Industries Served</h2>
+            <div className={s.wrapper}>
+              <p className={s.hint}>Hover to expand, click to rotate</p>
+              <div className={s.cardContainer}>
+                {industries.map((label, index) => (
+                  <div
+                    key={index}
+                    onClick={() => handleCardClick(index)}
+                    onMouseLeave={() =>
+                      activeIndex === index && setActiveIndex(null)
+                    }
+                    className={`${s.card} ${s["card" + index]} ${
+                      activeIndex === index ? s.active : ""
+                    }`}
+                  >
+                    {label}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
