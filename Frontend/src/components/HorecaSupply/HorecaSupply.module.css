@@ -285,144 +285,130 @@
   }
 }
 
-.industrySection {
+.section {
   padding: 50px;
   font-family: Arial, sans-serif;
+  background: #f9f9f9;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.industryTitle {
+.title {
   font-size: 24px;
   margin-bottom: 30px;
 }
 
-.industryWrapper {
+.wrapper {
   display: flex;
   align-items: center;
-  width: 100%;
-  justify-content: space-between;
   gap: 30px;
 }
 
-.industryHint {
+.hint {
   font-size: 14px;
   display: flex;
   align-items: center;
 }
 
-.industryHint::before {
+.hint::before {
   content: "←";
   margin-right: 5px;
   font-size: 16px;
 }
 
-.industryCardStack {
+.cardContainer {
   position: relative;
-  width: 300px;
+  width: 500px;
   height: 180px;
+  overflow: visible;
 }
 
-.industryCard {
+/* Base card style */
+.card {
   position: absolute;
   top: 0;
   width: 60px;
   height: 100%;
   border-radius: 10px;
-  transition: all 0.4s ease;
   color: white;
+  font-weight: bold;
+  font-size: 14px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
   display: flex;
   justify-content: center;
   align-items: center;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  font-weight: bold;
-  font-size: 14px;
   cursor: pointer;
+  transition: all 0.4s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform-origin: center;
 }
 
-/* Background color classes */
-.bg1 {
-  background-color: #005f30;
-}
-.bg2 {
-  background-color: #f9a825;
-}
-.bg3 {
-  background-color: #d32f2f;
-}
-.bg4 {
-  background-color: #7cb342;
-}
-.bg5 {
-  background-color: #6a1b9a;
-}
-.bg6 {
-  background-color: #005f30;
-}
-
-/* Left offset classes */
-.left0 {
+/* Initial visible stack state */
+.card0 {
   left: 0px;
-}
-.left1 {
-  left: 20px;
-}
-.left2 {
-  left: 40px;
-}
-.left3 {
-  left: 60px;
-}
-.left4 {
-  left: 80px;
-}
-.left5 {
-  left: 100px;
-}
-
-/* Z-index classes */
-.z6 {
+  background: #005f30;
   z-index: 6;
 }
-.z5 {
+.card1 {
+  left: 20px;
+  background: #f9a825;
   z-index: 5;
 }
-.z4 {
+.card2 {
+  left: 40px;
+  background: #d32f2f;
   z-index: 4;
 }
-.z3 {
+.card3 {
+  left: 60px;
+  background: #7cb342;
   z-index: 3;
 }
-.z2 {
+.card4 {
+  left: 80px;
+  background: #6a1b9a;
   z-index: 2;
 }
-.z1 {
+.card5 {
+  left: 100px;
+  background: #005f30;
   z-index: 1;
 }
 
-/* Hover expansion */
-.industryCardStack:hover .industryCard {
-  left: 0 !important;
-  width: 280px;
-  writing-mode: horizontal-tb;
-  text-orientation: initial;
+/* Hover expands */
+.cardContainer:hover .card0 {
+  left: 0px;
+}
+.cardContainer:hover .card1 {
+  left: 80px;
+}
+.cardContainer:hover .card2 {
+  left: 160px;
+}
+.cardContainer:hover .card3 {
+  left: 240px;
+}
+.cardContainer:hover .card4 {
+  left: 320px;
+}
+.cardContainer:hover .card5 {
+  left: 400px;
 }
 
-.industryCardStack:hover .industryCard:nth-child(2) {
-  top: 10px;
+/* Clicked: rotate card sideways */
+.active {
+  transform: rotateZ(90deg);
+  writing-mode: horizontal-tb;
+  text-orientation: initial;
+  width: 60px;
+  z-index: 10;
 }
-.industryCardStack:hover .industryCard:nth-child(3) {
-  top: 20px;
-}
-.industryCardStack:hover .industryCard:nth-child(4) {
-  top: 30px;
-}
-.industryCardStack:hover .industryCard:nth-child(5) {
-  top: 40px;
-}
-.industryCardStack:hover .industryCard:nth-child(6) {
-  top: 50px;
+
+.active span {
+  transform: rotateZ(-90deg);
+  display: block;
+  width: 100%;
+  text-align: left;
 }

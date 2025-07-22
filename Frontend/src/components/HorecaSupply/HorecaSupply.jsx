@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import style from "./HorecaSupply.module.css";
 import Delivery from "../../assets/delivery.png";
 import Files from "../../assets/files.png";
@@ -8,16 +9,20 @@ import Truck from "../../assets/truck.png";
 const s = style;
 
 const HorecaSupply = () => {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const handleCardClick = (index) => {
+    setActiveIndex(index === activeIndex ? null : index);
+  };
+
   const industries = [
-    { label: "Hotels", color: "#005F30" },
-    { label: "Restaurants", color: "#F9A825" },
-    { label: "Cafeterias", color: "#D32F2F" },
-    { label: "Catering Companies", color: "#7CB342" },
-    { label: "Cloud Kitchens", color: "#6A1B9A" },
-    { label: "Airline Catering", color: "#005F30" },
+    "Hotels",
+    "Restaurants",
+    "Cafeterias",
+    "Catering Companies",
+    "Cloud Kitchens",
+    "Airline Catering",
   ];
-  // State for which industry card is rotated
-  const [rotatedIndex, setRotatedIndex] = React.useState(null);
 
   return (
     <>
@@ -79,28 +84,23 @@ const HorecaSupply = () => {
               </div>
             </div>
           </div>
-          <div className={s.industrySection}>
-            <h2 className={s.industryTitle}>Industries Served</h2>
-            <div className={s.industryWrapper}>
-              <p className={s.industryHint}>Hover to expand cards</p>
-              <div className={s.industryCardStack}>
-                {industries.map((item, index) => (
+          <div className={s.section}>
+            <h2 className={s.title}>Industries Served</h2>
+            <div className={s.wrapper}>
+              <p className={s.hint}>Hover to expand, click to rotate</p>
+              <div className={s.cardContainer}>
+                {industries.map((label, index) => (
                   <div
                     key={index}
-                    className={`${s.industryCard} ${s[item.color]} ${
-                      s["z" + (industries.length - index)]
-                    } ${s["left" + index]} ${
-                      rotatedIndex === index ? s.rotated : ""
-                    }`}
-                    onClick={() =>
-                      setRotatedIndex(rotatedIndex === index ? null : index)
+                    onClick={() => handleCardClick(index)}
+                    onMouseLeave={() =>
+                      activeIndex === index && setActiveIndex(null)
                     }
+                    className={`${s.card} ${s["card" + index]} ${
+                      activeIndex === index ? s.active : ""
+                    }`}
                   >
-                    <span
-                      className={rotatedIndex === index ? s.horizontalText : ""}
-                    >
-                      {item.label}
-                    </span>
+                    {label}
                   </div>
                 ))}
               </div>
