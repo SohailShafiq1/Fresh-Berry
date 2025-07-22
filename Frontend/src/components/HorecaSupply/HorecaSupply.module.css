@@ -300,7 +300,6 @@
   flex-direction: column;
   align-items: center;
   padding: 3rem 0;
-  background: #f8f8f8;
 }
 
 .title {
@@ -313,7 +312,6 @@
 
 .wrapper {
   width: 90%;
-  max-width: 1200px;
   position: relative;
   margin-top: 1rem;
 }
@@ -321,7 +319,7 @@
 .hint {
   position: absolute;
   left: 0;
-  top: -30px;
+  top: 50px;
   font-style: italic;
   color: #666;
   font-size: 0.9rem;
@@ -410,6 +408,9 @@
   margin-right: 10px;
   transform: none !important;
 }
+.cardContainer:hover .hint {
+  display: none;
+}
 
 /* Hover state text alignment */
 .cardContainer:hover .card span {
@@ -446,4 +447,105 @@
 /* Make sure non-active cards maintain vertical text when expanded */
 .cardContainer:hover .card:not(.active) {
   writing-mode: vertical-rl;
+}
+@media (max-width: 1470px) {
+  .card {
+    width: 130px;
+  }
+  .cardContainer:hover .card {
+    width: 130px;
+  }
+}
+@media (max-width: 1330px) {
+  .card {
+    width: 110px;
+  }
+  .cardContainer:hover .card {
+    width: 110px;
+  }
+}
+@media (max-width: 1200px) {
+  .card {
+    width: 90px;
+  }
+  .cardContainer:hover .card {
+    width: 90px;
+  }
+}
+@media (max-width: 900px) {
+  .card {
+    width: 70px;
+  }
+  .cardContainer:hover .card {
+    width: 70px;
+  }
+}
+/* Mobile styles */
+@media (max-width: 768px) {
+  .hint {
+    display: none;
+  }
+  .wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .cardContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 90px;
+    gap: 50px;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+  /* Prevent vertical text on hover for mobile */
+  .cardContainer:hover .card:not(.active) {
+    writing-mode: horizontal-tb !important;
+    text-orientation: initial !important;
+  }
+
+  .card {
+    position: relative;
+    right: auto !important;
+    width: 200px;
+    max-width: 250px;
+    height: 100px;
+    writing-mode: horizontal-tb;
+    margin-right: 0 !important;
+    transform: none !important;
+    align-items: center;
+  }
+
+  .card span {
+    transform: none;
+    justify-content: flex-start;
+    padding-left: 15px;
+  }
+
+  .card::after {
+    justify-content: flex-start;
+    padding-left: 15px;
+  }
+
+  .card.active {
+    transform: rotateY(180deg);
+    justify-content: center;
+  }
+
+  /* Disable hover effect for cards on mobile */
+  .cardContainer:hover .card {
+    width: 200px;
+    height: 100px;
+    position: relative;
+    right: auto !important;
+    margin-right: 0 !important;
+    transform: none !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+  .cardContainer:hover .card span {
+    justify-content: center;
+    padding-left: 15px;
+  }
 }
