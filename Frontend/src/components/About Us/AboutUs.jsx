@@ -68,7 +68,7 @@ const AboutUs = () => {
         <p className={s.subtitle}>Committed to excellence and sustainability in everything we do</p>
         <div className={s.boxes}>
           <div className={s.box}>
-            <div className={s.icon} style={{ backgroundColor: "#FDCB6E" , colo}}><AiOutlineEye /></div>
+            <div className={s.icon} style={{ backgroundColor: "#FDCB6E" }}><AiOutlineEye /></div>
             <h3>Our Vision</h3>
             <p>To be the UAE’s most reliable and trusted supplier of fresh fruits and vegetables, setting the benchmark for quality and service.</p>
           </div>
