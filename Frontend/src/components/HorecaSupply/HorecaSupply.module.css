@@ -1,220 +1,428 @@
-.container {
-  padding: 60px 40px;
-  font-family: "Segoe UI", sans-serif;
-  background-color: #ffffff;
-  color: #1c1c1c;
+.paddingBox {
+  padding: 0 2rem;
 }
-
-/* Top Section */
-.topBox {
-  text-align: center;
+.heroSection {
   max-width: 800px;
-  margin: 0 auto 60px auto;
-}
-.topTitle {
-  font-size: 28px;
-  font-weight: 700;
-}
-.highlight {
-  color: #f89c1d;
-}
-.topDesc {
-  font-size: 16px;
-  margin-top: 10px;
-  color: #444;
-}
-
-/* Middle Section - What We Offer */
-.middleBox {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin-bottom: 80px;
-}
-
-.leftofMiddle {
-  flex: 1;
-  max-width: 360px;
-}
-.middleTitle {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 15px;
-}
-.middleDesc {
-  font-size: 15px;
-  color: #555;
-  line-height: 1.6;
-}
-
-/* Service Grid Layout */
-.serviceGrid {
-  display: flex;
-  gap: 20px;
-  flex: 2;
-  min-width: 500px;
-}
-
-/* Left Side - 2x2 Grid */
-.serviceLeft {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  flex: 2;
-}
-
-/* Right Side - 1 Tall Card */
-.serviceRight {
-  flex: 1;
-  display: flex;
-  align-items: stretch;
-}
-
-/* Service Cards Styling */
-.serviceCard {
-  background-color: #eee;
-  border-radius: 16px;
-  padding: 20px;
+  margin: 0 auto;
+  padding: 60px 20px;
   text-align: center;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
+  background-color: #ffffff;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+
+.highlight {
+  color: #ff6b35;
+  font-weight: 800;
+}
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #64748b;
+  font-weight: 400;
+  margin: 0;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .heroSection {
+    padding: 40px 16px;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .description {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .description {
+    font-size: 0.95rem;
+  }
+}
+
+.weOffer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.leftSide {
+  flex: 1;
+  max-width: 400px;
+  padding-right: 20px;
+}
+
+.leftSide h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.leftSide p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #5a6c7d;
+  margin: 0;
+}
+
+.rightSide {
+  flex: 1;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+  height: 100%;
+}
+
+.leftCards {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.rowOne,
+.rowTwo {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  height: 50%;
+}
+
+.rightCards {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.greenCard {
+  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+  color: white;
+  flex: 1.5;
+  border-radius: 20px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 140px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease;
-}
-
-.serviceRight .serviceCard {
-  height: 100%;
-  min-height: 300px;
-}
-
-/* Image inside card */
-.serviceCard img {
-  height: 48px;
-  width: auto;
-  margin-bottom: 12px;
-}
-
-.serviceCard:hover {
-  transform: translateY(-5px);
-}
-
-/* Service Color Classes */
-.greenService {
-  background-color: #00754a;
-}
-.orangeService {
-  background-color: #f89c1d;
-}
-.redService {
-  background-color: #d32f2f;
-}
-.limeService {
-  background-color: #cde93d;
-  color: #000;
-}
-.purpleService {
-  background-color: #6b1e8d;
-}
-
-/* Bottom Section - Industries Served */
-.bottomBox {
-  text-align: center;
-}
-.bottomTitle {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-.hoverInstruction {
-  font-size: 14px;
-  margin-bottom: 10px;
-  color: #444;
-}
-
-/* Industries Container */
-.industriesContainer {
-  display: flex;
-  justify-content: center;
-}
-.industriesWrapper {
-  display: flex;
-  gap: 4px;
-}
-
-/* Industry Cards */
-.industryCard {
-  width: 38px;
-  height: 169px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   position: relative;
-  border-radius: 4px;
+  overflow: hidden;
+  min-height: 140px;
+  min-width: 170px;
+  max-width: 330px;
 }
-.expanded {
-  width: 169px;
-  height: 38px;
+
+.orangeCard {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+  color: white;
+  flex: 0.7;
+  border-radius: 20px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  min-height: 140px;
+  min-width: 170px;
+  max-width: 230px;
 }
-.collapsed {
+
+.redCard {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: white;
+  flex: 0.7;
+  border-radius: 20px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  min-height: 140px;
+  min-width: 170px;
+  max-width: 230px;
+}
+
+.LimeCard {
+  background: linear-gradient(135deg, #8bc34a 0%, #4caf50 100%);
+  color: white;
+  flex: 1.5;
+  border-radius: 20px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  min-height: 140px;
+  min-width: 170px;
+  max-width: 330px;
+}
+
+.purpleCard {
+  background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+  color: white;
+  border-radius: 20px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 150px;
+}
+
+.greenCard h1,
+.orangeCard h1,
+.redCard h1,
+.LimeCard h1,
+.purpleCard h1 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+  z-index: 2;
+  position: relative;
+}
+
+.greenCard img,
+.orangeCard img,
+.redCard img,
+.LimeCard img {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  align-self: flex-end;
+  z-index: 2;
+  position: relative;
+}
+
+.purpleCard img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  align-self: flex-end;
+  z-index: 2;
+  position: relative;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .weOffer {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .leftSide {
+    max-width: 100%;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  .rightSide {
+    width: 100%;
+  }
+  .leftCards {
+    order: 1;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .rightCards {
+    order: 2;
+    min-height: 140px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .rowOne,
+  .rowTwo {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    justify-content: center !important;
+    align-items: center;
+  }
+
+  .greenCard,
+  .orangeCard,
+  .redCard,
+  .LimeCard,
+  .purpleCard {
+    max-width: 100% !important;
+    width: 80% !important;
+  }
+}
+
+.industrySection {
+  padding: 50px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.industryTitle {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.industryWrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.industryHint {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.industryHint::before {
+  content: "←";
+  margin-right: 5px;
+  font-size: 16px;
+}
+
+.industryCardStack {
+  position: relative;
+  width: 300px;
+  height: 180px;
+}
+
+.industryCard {
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  border-radius: 10px;
+  transition: all 0.4s ease;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   writing-mode: vertical-rl;
   text-orientation: mixed;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.industryContent {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
+/* Background color classes */
+.bg1 {
+  background-color: #005f30;
 }
-.industryText {
-  color: white;
-  font-weight: 600;
-  font-size: 13px;
-  transition: transform 0.3s ease;
+.bg2 {
+  background-color: #f9a825;
 }
-.textHorizontal {
-  transform: rotate(0deg);
-}
-.textVertical {
-  transform: rotate(180deg);
-}
-
-.dimensionIndicator {
-  position: absolute;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 11px;
-  color: #999;
-}
-
-/* Industry Colors */
-.greenIndustry {
-  background-color: #00754a;
-}
-.orangeIndustry {
-  background-color: #f89c1d;
-}
-.redIndustry {
+.bg3 {
   background-color: #d32f2f;
 }
-.limeIndustry {
-  background-color: #cde93d;
-  color: #000;
+.bg4 {
+  background-color: #7cb342;
 }
-.purpleIndustry {
-  background-color: #6b1e8d;
+.bg5 {
+  background-color: #6a1b9a;
 }
-.tealIndustry {
-  background-color: #009688;
+.bg6 {
+  background-color: #005f30;
+}
+
+/* Left offset classes */
+.left0 {
+  left: 0px;
+}
+.left1 {
+  left: 20px;
+}
+.left2 {
+  left: 40px;
+}
+.left3 {
+  left: 60px;
+}
+.left4 {
+  left: 80px;
+}
+.left5 {
+  left: 100px;
+}
+
+/* Z-index classes */
+.z6 {
+  z-index: 6;
+}
+.z5 {
+  z-index: 5;
+}
+.z4 {
+  z-index: 4;
+}
+.z3 {
+  z-index: 3;
+}
+.z2 {
+  z-index: 2;
+}
+.z1 {
+  z-index: 1;
+}
+
+/* Hover expansion */
+.industryCardStack:hover .industryCard {
+  left: 0 !important;
+  width: 280px;
+  writing-mode: horizontal-tb;
+  text-orientation: initial;
+}
+
+.industryCardStack:hover .industryCard:nth-child(2) {
+  top: 10px;
+}
+.industryCardStack:hover .industryCard:nth-child(3) {
+  top: 20px;
+}
+.industryCardStack:hover .industryCard:nth-child(4) {
+  top: 30px;
+}
+.industryCardStack:hover .industryCard:nth-child(5) {
+  top: 40px;
+}
+.industryCardStack:hover .industryCard:nth-child(6) {
+  top: 50px;
 }

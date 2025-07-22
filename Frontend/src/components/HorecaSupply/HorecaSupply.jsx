@@ -1,155 +1,114 @@
-// HorecaSupply.jsx
-import React, { useState } from "react";
+import React from "react";
 import style from "./HorecaSupply.module.css";
 import Delivery from "../../assets/delivery.png";
 import Files from "../../assets/files.png";
-import Notebook from "../../assets/notebook.png";
+import NoteBook from "../../assets/notebook.png";
 import Sack from "../../assets/sack.png";
 import Truck from "../../assets/truck.png";
-
 const s = style;
 
 const HorecaSupply = () => {
-  const [hoveredCard, setHoveredCard] = useState(null);
-
-  const services = [
-    {
-      title: "Flexible daily deliveries",
-      className: s.greenService,
-      image: Delivery,
-    },
-    {
-      title: "Fixed pricing contracts",
-      className: s.orangeService,
-      image: Notebook,
-    },
-    {
-      title: "Product preparation to your specifications",
-      className: s.redService,
-      image: Sack,
-    },
-    {
-      title: "Cold chain logistics for freshness",
-      className: s.limeService,
-      image: Truck,
-    },
-    {
-      title: "Personalized account management",
-      className: s.purpleService,
-      image: Files,
-    },
-  ];
-
   const industries = [
-    { name: "Hotels", className: s.greenIndustry },
-    { name: "Restaurants", className: s.orangeIndustry },
-    { name: "Cafeterias", className: s.redIndustry },
-    { name: "Catering Companies", className: s.limeIndustry },
-    { name: "Cloud Kitchens", className: s.purpleIndustry },
-    { name: "Airline Catering", className: s.tealIndustry },
+    { label: "Hotels", color: "#005F30" },
+    { label: "Restaurants", color: "#F9A825" },
+    { label: "Cafeterias", color: "#D32F2F" },
+    { label: "Catering Companies", color: "#7CB342" },
+    { label: "Cloud Kitchens", color: "#6A1B9A" },
+    { label: "Airline Catering", color: "#005F30" },
   ];
+  // State for which industry card is rotated
+  const [rotatedIndex, setRotatedIndex] = React.useState(null);
 
   return (
-    <div className={s.container}>
-      {/* Top Section */}
-      <div className={s.topBox}>
-        <h1 className={s.topTitle}>
-          Your Trusted <span className={s.highlight}>HoReCa</span> Supply
-          Partner
-        </h1>
-        <p className={s.topDesc}>
-          Fresh Berry understands the demands of the hospitality industry, where
-          timing, consistency, and quality are paramount. We tailor our supply
-          solutions to support hotels, restaurants, cafés, caterers, and cloud
-          kitchens with fresh produce that elevates every dish.
-        </p>
-      </div>
-
-      {/* Middle Section - What We Offer */}
-      <div className={s.middleBox}>
-        <div className={s.leftofMiddle}>
-          <h1 className={s.middleTitle}>What We Offer</h1>
-          <p className={s.middleDesc}>
-            Our experienced team works closely with your kitchen to ensure
-            seamless supply management. We help you adjust orders to meet demand
-            fluctuations and provide ongoing quality assurance to support your
-            business success.
-          </p>
-        </div>
-
-        {/* Service Cards Grid */}
-        <div className={s.serviceGrid}>
-          <div className={s.serviceLeft}>
-            <div className={s.serviceRow1}>
-              {services.slice(0, 2).map((service, index) => (
-                <div
-                  key={index}
-                  className={`${s.serviceCard} ${service.className}`}
-                >
-                  <img src={service.image} alt={service.title} />
-                  <span className={s.serviceText}>{service.title}</span>
-                </div>
-              ))}
-            </div>
-            <div className={s.serviceRow2}>
-              {services.slice(2, 4).map((service, index) => (
-                <div
-                  key={index}
-                  className={`${s.serviceCard} ${service.className}`}
-                >
-                  <img src={service.image} alt={service.title} />
-                  <span className={s.serviceText}>{service.title}</span>
-                </div>
-              ))}
-            </div>
+    <>
+      <div className={s.container}>
+        <div className={s.paddingBox}>
+          <div className={s.heroSection}>
+            <h2 className={s.title}>
+              Your Trusted <span className={s.highlight}>HoReCa</span> Supply
+              Partner
+            </h2>
+            <p className={s.description}>
+              Fresh Berry understands the demands of the hospitality industry,
+              where timing, consistency, and quality are paramount. We tailor
+              our supply solutions to support hotels, restaurants, cafés,
+              caterers, and cloud kitchens with fresh produce that elevates
+              every dish.
+            </p>
           </div>
-          <div className={s.serviceRight}>
-            <div className={s.serviceCard}>
-              <img src={services[4].image} alt={services[4].title} />
-              <span className={s.serviceText}>{services[4].title}</span>
+          <div className={s.weOffer}>
+            <div className={s.leftSide}>
+              <h1>What We Offer</h1>
+              <p>
+                Our experienced team works closely with your kitchen to ensure
+                seamless supply management. We help you adjust orders to meet
+                demand fluctuations and provide ongoing quality assurance to
+                support your business success.
+              </p>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Section - Industries Served */}
-      <div className={s.bottomBox}>
-        <h1 className={s.bottomTitle}>Industries Served</h1>
-
-        <div className={s.hoverInstruction}>
-          <span>← Hover to expand cards</span>
-        </div>
-
-        <div className={s.industriesContainer}>
-          <div className={s.industriesWrapper}>
-            {industries.map((industry, index) => (
-              <div
-                key={index}
-                className={`${s.industryCard} ${industry.className} ${
-                  hoveredCard === index ? s.expanded : s.collapsed
-                }`}
-                onMouseEnter={() => setHoveredCard(index)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                <div className={s.industryContent}>
-                  <span
-                    className={`${s.industryText} ${
-                      hoveredCard === index ? s.textHorizontal : s.textVertical
-                    }`}
-                  >
-                    {industry.name}
-                  </span>
+            <div className={s.rightSide}>
+              <div className={s.cards}>
+                <div className={s.leftCards}>
+                  <div className={s.rowOne}>
+                    <div className={s.greenCard}>
+                      <h1>Flexible daily deliveries</h1>
+                      <img src={Delivery} alt="Delivery" />
+                    </div>
+                    <div className={s.orangeCard}>
+                      <h1>Fixed pricing contracts</h1>
+                      <img src={NoteBook} alt="Notebook" />
+                    </div>
+                  </div>
+                  <div className={s.rowTwo}>
+                    <div className={s.redCard}>
+                      <h1>Product preparation to your specifications</h1>
+                      <img src={Sack} alt="Sack" />
+                    </div>
+                    <div className={s.LimeCard}>
+                      <h1>Cold chain logistics for freshness</h1>
+                      <img src={Truck} alt="Truck" />
+                    </div>
+                  </div>
                 </div>
-
-                {hoveredCard === index && (
-                  <div className={s.dimensionIndicator}>169 × 38</div>
-                )}
+                <div className={s.rightCards}>
+                  <div className={s.purpleCard}>
+                    <h1>Personalized account management</h1>
+                    <img src={Files} alt="Files" />
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
+          </div>
+          <div className={s.industrySection}>
+            <h2 className={s.industryTitle}>Industries Served</h2>
+            <div className={s.industryWrapper}>
+              <p className={s.industryHint}>Hover to expand cards</p>
+              <div className={s.industryCardStack}>
+                {industries.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`${s.industryCard} ${s[item.color]} ${
+                      s["z" + (industries.length - index)]
+                    } ${s["left" + index]} ${
+                      rotatedIndex === index ? s.rotated : ""
+                    }`}
+                    onClick={() =>
+                      setRotatedIndex(rotatedIndex === index ? null : index)
+                    }
+                  >
+                    <span
+                      className={rotatedIndex === index ? s.horizontalText : ""}
+                    >
+                      {item.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
