@@ -3,7 +3,10 @@
   padding: 4rem 8%;
   background-color: #f9f9f9;
 }
-
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
 .section {
   display: flex;
   justify-content: space-between;
@@ -21,7 +24,7 @@
 .rightCard, .leftCard {
   flex: 1;
   padding: 2rem;
-  border-radius: 25px;
+  border-radius: 25px 25px 0 0; /* Only top corners rounded */
   color: white;
   display: flex;
   flex-direction: column;
@@ -110,4 +113,60 @@ h1, h2 {
   justify-content: center;
   border-radius: 10px;
   margin-bottom: 1rem;
+}
+
+.coreValuesSection {
+  background: #fafafa;
+  padding: 3rem 0 4rem 0;
+  text-align: center;
+}
+
+.coreValuesTitle {
+  font-family: 'Baloo 2', cursive;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+  color: #222;
+}
+
+.coreValuesGrid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.coreValueBox {
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 220px;
+  min-width: 180px;
+  margin: 0 1rem;
+}
+
+.coreValueIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+}
+
+.coreValueBox h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.coreValueBox p {
+  font-size: 0.95rem;
+  color: #222;
+  margin: 0;
+  line-height: 1.4;
 }
