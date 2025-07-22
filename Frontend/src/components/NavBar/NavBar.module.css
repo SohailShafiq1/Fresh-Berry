@@ -1,59 +1,109 @@
-.navBar
-{
-    display: flex;
-    width: 100%;
-    height: 7rem;
-    background-color: lemonchiffon;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
-}
-.logo
-{
-  width: 20%;
-  height: 100%;
-  background-color: lightblue;
+
+.navBar {
+    font-family: 'Quicksand';
   display: flex;
-  justify-content: center;
+  width: 100%;
+  height: 7rem;
+  background-color: #ffffff;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  width: 15%;
+  display: flex;
   align-items: center;
 }
-.logo img 
-{
-    width: 60%;
-    height: 90%;
-    object-fit: cover;
-}
-.search
-{
-   width: 20%;
-   height: 50%;
-   border-radius: 12px;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
+.logo img {
+  height: 60%;
+  width: 100%;
+  object-fit: cover;
 }
-.search input
-{
-    width: 80%;
-    height: 80%;
-    font-size: medium;
-    font-weight: 400;
-    background-color: transparent;
-    border: none;
-}
-.btn
-{
-    width: 45%;
-    height: 100%;
-    background-color: lightgray;
 
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #000;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 40px;
+  width: 20%;
 }
-.contact
-{
-    width: 15%;
-    height: 100%;
-    background-color: lightseagreen;
+
+.searchWrapper input {
+  border: none;
+  outline: none;
+  padding: 0 0.5rem;
+  height: 100%;
+  width: 100%;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.searchWrapper button {
+  background-color: #014421;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btns {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.btns a {
+  text-decoration: none;
+  color: black;
+}
+
+.btns a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.toggle {
+  border: 1px solid #000;
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+    cursor: pointer;
+  width: 20%;
+}
+
+.contact {
+  margin-left: 1rem;
+}
+
+.contactbtn {
+  background-color: #5C128B;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 20px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.con {
+  width: 20%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  margin-right: 1rem;
 }

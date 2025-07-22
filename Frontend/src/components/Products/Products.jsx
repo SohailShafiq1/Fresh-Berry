@@ -4,12 +4,18 @@ import React from "react";
 import style from "./Products.module.css";
 import potatoImg from "../../assets/logo.jpg"; // Replace with real images
 
-const products = Array(12).fill({
-  country: "Kenya",
-  name: "Name of fruit",
-  desc: "Something about pr...",
-  price: "Dhs. 20",
-  image: potatoImg,
+const imageModules = import.meta.glob('../../Products/*.{png,jpg,jpeg}', { eager: true });
+const productImageFiles = Object.keys(imageModules);
+
+const products = productImageFiles.map((file) => {
+  const fileName = file.split('/').pop();
+  return {
+    country: "UAE",
+    name: fileName.replace(/\.[^/.]+$/, ""),
+    desc: "Fresh and premium quality.",
+    price: "Dhs. 20",
+    image: imageModules[file].default || imageModules[file],
+  };
 });
 
 export const Products = () => {
