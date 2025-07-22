@@ -1,7 +1,7 @@
-import { GiFallingLeaf } from "react-icons/gi"; 
 import React, { useState, useEffect } from 'react';
 import style from './HeroSection.module.css';
 import freshImg from './fresh.png';
+import leafImg from './leaf.png';
 import { NavLink } from 'react-router-dom';
 import { FaUsers, FaCheckCircle, FaTruck, FaQuestionCircle } from 'react-icons/fa';
 const s = style;
@@ -35,12 +35,14 @@ export const HeroSection = () => {
 
   return (
     <section className={s.heroSection}>
-      {/* Animated Leaves using GiFallingLeaf */}
+      {/* Animated Leaves using leaf.png */}
       {leaves.map((leaf, idx) => (
-        <GiFallingLeaf
+        <img
+          src={leafImg}
+          alt="leaf"
           key={idx}
           className={s.leaf}
-          style={{ top: leaf.top, left: leaf.left, transform: `rotate(${leaf.rotate})`, position: 'absolute', color: '#016327', fontSize: '2.2rem', zIndex: 1 }}
+          style={{ top: leaf.top, left: leaf.left, transform: `rotate(${leaf.rotate})`, position: 'absolute', zIndex: 1, width: '54px', height: 'auto' }}
         />
       ))}
       <div className={s.topText}>
@@ -61,9 +63,20 @@ export const HeroSection = () => {
           <h2 className={s.moreFresh}>More Than Fresh</h2>
           <h2 className={s.freshBerry}><span style={{ color: '#016327' }}>Fresh</span> <span style={{ color: '#5C128B' }}>Berry</span> Fresh!</h2>
           <div className={s.statsRow}>
-            <div className={s.statBox}><FaUsers className={s.statIcon} style={{ color: '#5C128B' }} /><span className={s.statTitle}>Customers</span><span className={s.statValue}>10k Plus</span></div>
-            <div className={s.statBox}><FaCheckCircle className={s.statIcon} style={{ color: '#016327' }} /><span className={s.statTitle}>Quality</span><span className={s.statValue}>Fully Fresh</span></div>
-            <div className={s.statBox}><FaTruck className={s.statIcon} style={{ color: '#5C128B' }} /><span className={s.statTitle}>Delivery</span><span className={s.statValue}>Same Day</span></div>
+            <div className={s.statBox}>
+              <span className={s.statTitle}>Customers</span>
+              <span className={s.statValue}>10k Plus</span>
+            </div>
+            <div className={s.statDivider}></div>
+            <div className={s.statBox}>
+              <span className={s.statTitle}>Quality</span>
+              <span className={s.statValue}>Fully Fresh</span>
+            </div>
+            <div className={s.statDivider}></div>
+            <div className={s.statBox}>
+              <span className={s.statTitle}>Delivery</span>
+              <span className={s.statValue}>Same Day</span>
+            </div>
           </div>
           <NavLink to="/contact" className={s.contactBtn}>
             <span className={s.contactIcon}>📞</span> Contact Us

@@ -80,8 +80,9 @@
 
 .statsRow {
   display: flex;
-  gap: 40px;
+  gap: 0;
   margin-bottom: 30px;
+  align-items: center;
 }
 
 .statBox {
@@ -89,6 +90,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 2px;
+  padding: 0 32px;
+  font-family: 'Quicksand';
 }
 
 .statIcon {
@@ -97,14 +100,25 @@
 }
 
 .statTitle {
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 700;
+  color: #5C128B;
+  margin-bottom: 2px;
 }
 
 .statValue {
-  font-size: 1rem;
-  color: #888;
-  font-weight: 500;
+  font-size: 0.7rem;
+  color: #5C128B;
+  font-weight: 400;
+}
+
+.statDivider {
+  width: 2px;
+  height: 48px;
+  background: #5C128B;
+  border-radius: 2px;
+  margin: 0 8px;
+  opacity: 0.7;
 }
 
 .contactBtn {
