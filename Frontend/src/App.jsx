@@ -9,6 +9,7 @@ import HorecaSupply from "./components/HorecaSupply/HorecaSupply";
 import Admin from "./components/Admin/Admin";
 import Qoute from "./components/Qoute/Qoute";
 import { ThemeProvider } from "./context/Theme/ThemeContext";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/qoute" element={<Qoute />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>
+          <Footer/>
         </Router>
       </div>
     </ThemeProvider>

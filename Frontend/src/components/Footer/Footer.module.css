@@ -1,0 +1,123 @@
+.footer {
+  width: 100%;
+  background: #fafafa;
+  border-top: 2px solid #222;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 40px 60px 20px 60px;
+  font-family: 'Quicksand', sans-serif;
+  color: #222;
+  box-sizing: border-box;
+}
+
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 420px;
+  justify-content: flex-end;
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 80px;
+  height: auto;
+  object-fit: contain;
+}
+
+.companyName {
+  font-size: 1.18rem;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.licensingRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
+  color: #222;
+}
+
+.dot {
+  font-size: 1.5rem;
+  margin: 0 6px;
+}
+
+.socialRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 1rem;
+  margin-top: 8px;
+}
+
+.socialIcon {
+  font-size: 1.3rem;
+  color: #222;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.socialIcon:hover {
+  color: #5C128B;
+}
+
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 420px;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.linksRow {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #222;
+  margin-bottom: 0;
+}
+
+.link {
+  color: #222;
+  text-decoration: none;
+  margin: 0 2px;
+  transition: color 0.2s;
+  font-size: 1rem;
+}
+.link:hover {
+  color: #5C128B;
+}
+
+.copyright {
+  font-size: 1rem;
+  color: #888;
+  margin-top: 0;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px 20px 15px 20px;
+    gap: 30px;
+  }
+  .leftSection, .rightSection {
+    min-width: unset;
+    width: 100%;
+    align-items: flex-start;
+  }
+  .rightSection {
+    align-items: flex-start;
+  }
+  .copyright {
+    text-align: left;
+  }
+}
