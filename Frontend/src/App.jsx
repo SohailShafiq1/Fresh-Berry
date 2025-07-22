@@ -26,7 +26,7 @@ function App() {
             <Route path="/qoute" element={<Qoute />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>
-          <Footer/>
+          <Footer />
         </Router>
       </div>
     </ThemeProvider>
