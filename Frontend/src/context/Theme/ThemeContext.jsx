@@ -10,7 +10,7 @@ const whiteTheme = {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [isBlack, setIsBlack] = useState(false);
+  const [isBlack, setIsBlack] = useState(0); // Default to white theme
 
   const toggleTheme = () => {
     setIsBlack((prev) => !prev);
