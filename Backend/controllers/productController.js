@@ -3,7 +3,16 @@ import path from "path";
 
 export const getProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const filter = {};
+    if (req.query.hotselling === "true") {
+      filter.hotselling = true;
+    }
+    let query = Product.find(filter);
+    if (req.query.limit) {
+      const limit = parseInt(req.query.limit, 10);
+      if (!isNaN(limit)) query = query.limit(limit);
+    }
+    const products = await query;
     res.json(products);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch products" });
