@@ -1,1 +1,57 @@
-alert("check")
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import morgan from "morgan";
+import cors from "cors";
+import adminAuthRouter from "./routes/adminAuth.js";
+import User from "./models/User.js";
+import bcrypt from "bcryptjs";
+import dotenv from "dotenv";
+dotenv.config();
+
+const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
+app.use(morgan("dev"));
+app.use(bodyParser.json());
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+app.use("/api", adminAuthRouter);
+
+const PORT = process.env.PORT || 5000;
+
+// Insert predefined admin credentials if not present
+async function createDefaultAdmin() {
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  const existingAdmin = await User.findOne({
+    email: adminEmail,
+    role: "admin",
+  });
+  if (!existingAdmin) {
+    const hashedPassword = await bcrypt.hash(adminPassword, 10);
+    await User.create({
+      email: adminEmail,
+      password: hashedPassword,
+      role: "admin",
+    });
+    console.log("Default admin user created.");
+  } else {
+    console.log("Default admin user already exists.");
+  }
+}
+
+mongoose.connection.once("open", () => {
+  createDefaultAdmin();
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+});
