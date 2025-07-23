@@ -7,7 +7,7 @@
 }
 
 .heading {
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #333;
   margin-bottom: 50px;
@@ -27,44 +27,47 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 260px;
-  height: 180px;
-  border-radius: 24px;
+  height: 300px;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
 
 .card:hover {
-  transform: scale(0.95);
-  height: 90px;
+  height: 200px;
+  transform: translateY(45px);
 }
 
 .imageWrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  height: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Allow image to overflow upward */
+  overflow: visible;
+  /* Position relative so child .image can move outside */
+  position: relative;
   z-index: 2;
+  overflow: visible;
 }
 
 .image {
-  width: 100px;
-  height: 100px;
+  width: 80%;
+  height: 80%;
   object-fit: contain;
-  transition: all 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
+/* On hover, move image upward outside the card, keep size unchanged */
 .card:hover .image {
-  width: 80px;
-  height: 80px;
+  transform: translateY(-60px);
 }
 
 .label {

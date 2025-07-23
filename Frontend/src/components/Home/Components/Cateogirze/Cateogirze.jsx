@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './Cateogirze.module.css';
 
-import Fruits from '../../../../Products/Strawberry.png'; // Replace with actual path to the image
+import Fruits from '../../../../Products/Strawberry.png'; 
 import Vegetables from '../../../../Products/Logistics.png';
 import Egg from '../../../../Products/egg.png';
 import Leaf from '../../../../Products/Leaf.png';
