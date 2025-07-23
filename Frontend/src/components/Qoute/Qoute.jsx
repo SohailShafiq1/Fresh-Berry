@@ -27,10 +27,35 @@ const Quote = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Quote request submitted:", formData);
-    // Handle form submission here
+    setSubmitStatus(null);
+    try {
+      const response = await fetch("http://localhost:5000/api/quotes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        setSubmitStatus("success");
+        setFormData({
+          fullName: "",
+          businessName: "",
+          email: "",
+          phone: "",
+          deliveryLocation: "",
+          specialInstructions: "",
+        });
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch {
+      setSubmitStatus("error");
+    }
   };
 
   const handleWhatsAppClick = () => {
@@ -68,6 +93,16 @@ const Quote = () => {
           }}
         >
           <form className={s.form} onSubmit={handleSubmit}>
+            {submitStatus === "success" && (
+              <div style={{ color: "green", marginBottom: 12 }}>
+                Thank you! We received your quote request.
+              </div>
+            )}
+            {submitStatus === "error" && (
+              <div style={{ color: "red", marginBottom: 12 }}>
+                Something went wrong. Please try again later.
+              </div>
+            )}
             <div className={s.formRow}>
               <div className={s.inputGroup}>
                 <label
@@ -156,6 +191,7 @@ const Quote = () => {
                     color: isBlack ? "#fff" : "#000",
                     borderColor: isBlack ? "#333" : "#d1d5db",
                   }}
+                  required
                 />
               </div>
             </div>

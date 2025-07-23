@@ -1,13 +1,14 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import cors from "cors";
 import adminAuthRouter from "./routes/adminAuth.js";
+import quoteRouter from "./routes/quote.js";
 import User from "./models/User.js";
 import bcrypt from "bcryptjs";
-import dotenv from "dotenv";
-dotenv.config();
 
 const app = express();
 
@@ -27,8 +28,9 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 app.use("/api", adminAuthRouter);
+app.use("/api/quotes", quoteRouter);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 // Insert predefined admin credentials if not present
 async function createDefaultAdmin() {
@@ -55,3 +57,5 @@ mongoose.connection.once("open", () => {
   createDefaultAdmin();
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 });
+
+export default app;

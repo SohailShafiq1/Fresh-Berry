@@ -17,6 +17,7 @@ import { AdminAuthProvider } from "./context/Theme/AdminAuthContext";
 import Login from "./Admin/Login/Login";
 import AdminHome from "./Admin/AdminHome/AdminHome";
 import AdminRoute from "./Admin/AdminRoute/AdminRoute";
+import AdminQoute from "./Admin/AdminQoute/AdminQoute";
 import Footer from "./components/Footer/Footer";
 
 function App() {
@@ -39,6 +40,14 @@ function App() {
                 element={
                   <AdminRoute>
                     <AdminHome />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/admin/quotes"
+                element={
+                  <AdminRoute>
+                    <AdminQoute />
                   </AdminRoute>
                 }
               />

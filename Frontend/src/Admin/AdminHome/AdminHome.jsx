@@ -30,20 +30,37 @@ const AdminHome = () => {
         This is your admin dashboard. Here you can manage products, view orders,
         and more.
       </p>
-      <button
-        onClick={logout}
-        style={{
-          padding: "10px 24px",
-          background: "#e53935",
-          color: "#fff",
-          border: "none",
-          borderRadius: 5,
-          fontSize: 16,
-          cursor: "pointer",
-        }}
-      >
-        Logout
-      </button>
+      <div style={{ margin: "32px 0 0 0" }}>
+        <button
+          onClick={() => (window.location.href = "/admin/quotes")}
+          style={{
+            padding: "10px 24px",
+            background: "#7c3aed",
+            color: "#fff",
+            border: "none",
+            borderRadius: 5,
+            fontSize: 16,
+            cursor: "pointer",
+            marginRight: 16,
+          }}
+        >
+          View Quotes
+        </button>
+        <button
+          onClick={logout}
+          style={{
+            padding: "10px 24px",
+            background: "#e53935",
+            color: "#fff",
+            border: "none",
+            borderRadius: 5,
+            fontSize: 16,
+            cursor: "pointer",
+          }}
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 };
