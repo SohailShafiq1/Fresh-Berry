@@ -16,9 +16,9 @@ const NavBar = () => {
 
   return (
     <div className={s.navBar} data-theme={theme}>
-      <div className={s.logo}>
+      <NavLink to="/" className={s.logo} onClick={() => setMenuOpen(false)}>
         <img src={logo} alt="Fresh Berry Logo" />
-      </div>
+      </NavLink>
 
       <div className={s.searchWrapper}>
         <input type="text" placeholder="Type to search" />
