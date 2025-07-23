@@ -4,6 +4,7 @@ import Cateogirze from "./Components/Cateogirze/Cateogirze";
 import OurProducts from "./Components/OurProducts/OurProducts";
 import Services from "./Components/Services/Services";
 import IntroScreen from "../IntroScreen/IntroScreen";
+import { Comitments } from "./Components/Comitments/Comitments";
 
 const Home = () => {
   const [showIntro, setShowIntro] = useState(() => {
@@ -38,6 +39,7 @@ const Home = () => {
       <Cateogirze />
       <OurProducts />
       <Services />
+      <Comitments/>
     </div>
   );
 };
