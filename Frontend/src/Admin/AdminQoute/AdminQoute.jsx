@@ -56,11 +56,14 @@ const AdminQoute = () => {
         <button
           className={s.button}
           style={{ marginRight: 16 }}
-          onClick={() => navigate("/admin")}
+          onClick={() => navigate("/admin/home")}
         >
           ⬅ Back
         </button>
-        <div className={s.title} style={{ flex: 1, textAlign: "center", margin: 0 }}>
+        <div
+          className={s.title}
+          style={{ flex: 1, textAlign: "center", margin: 0 }}
+        >
           Quote Requests
         </div>
         <button
