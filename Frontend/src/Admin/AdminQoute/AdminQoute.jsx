@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL;
 import styles from "./AdminQoute.module.css";
 
 const s = styles;
@@ -15,7 +17,7 @@ const AdminQoute = () => {
   const fetchQuotes = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get("http://localhost:5000/api/quotes");
+      const { data } = await axios.get(`${API_URL}/api/quotes`);
       setQuotes(data);
       setError(null);
     } catch {
@@ -33,7 +35,7 @@ const AdminQoute = () => {
   const handleMarkDone = async (id) => {
     setMarking(id);
     try {
-      await axios.patch(`http://localhost:5000/api/quotes/${id}/done`);
+      await axios.patch(`${API_URL}/api/quotes/${id}/done`);
       setQuotes((prev) =>
         prev.map((q) => (q._id === id ? { ...q, done: true } : q))
       );

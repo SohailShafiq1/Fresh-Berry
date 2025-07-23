@@ -18,6 +18,7 @@ import Login from "./Admin/Login/Login";
 import AdminHome from "./Admin/AdminHome/AdminHome";
 import AdminRoute from "./Admin/AdminRoute/AdminRoute";
 import AdminQoute from "./Admin/AdminQoute/AdminQoute";
+import AdminProducts from "./Admin/AdminProducts/AdminProducts";
 import Footer from "./components/Footer/Footer";
 
 function App() {
@@ -48,6 +49,14 @@ function App() {
                 element={
                   <AdminRoute>
                     <AdminQoute />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/admin/products"
+                element={
+                  <AdminRoute>
+                    <AdminProducts />
                   </AdminRoute>
                 }
               />

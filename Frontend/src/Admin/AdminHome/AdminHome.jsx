@@ -47,6 +47,21 @@ const AdminHome = () => {
           View Quotes
         </button>
         <button
+          onClick={() => (window.location.href = "/admin/products")}
+          style={{
+            padding: "10px 24px",
+            background: "#059669",
+            color: "#fff",
+            border: "none",
+            borderRadius: 5,
+            fontSize: 16,
+            cursor: "pointer",
+            marginRight: 16,
+          }}
+        >
+          Manage Products
+        </button>
+        <button
           onClick={logout}
           style={{
             padding: "10px 24px",

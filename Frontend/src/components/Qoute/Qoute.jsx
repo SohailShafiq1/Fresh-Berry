@@ -33,7 +33,8 @@ const Quote = () => {
     e.preventDefault();
     setSubmitStatus(null);
     try {
-      const response = await fetch("http://localhost:5000/api/quotes", {
+      const API_URL = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${API_URL}/api/quotes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

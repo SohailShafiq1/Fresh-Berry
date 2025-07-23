@@ -7,6 +7,8 @@ import morgan from "morgan";
 import cors from "cors";
 import adminAuthRouter from "./routes/adminAuth.js";
 import quoteRouter from "./routes/quote.js";
+import productRouter from "./routes/product.js";
+import path from "path";
 import User from "./models/User.js";
 import bcrypt from "bcryptjs";
 
@@ -19,7 +21,9 @@ app.use(
   })
 );
 app.use(morgan("dev"));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "20mb" }));
+app.use(express.json({ limit: "20mb" }));
+app.use(express.urlencoded({ limit: "20mb", extended: true }));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
@@ -29,6 +33,8 @@ mongoose.connect(process.env.MONGO_URI, {
 
 app.use("/api", adminAuthRouter);
 app.use("/api/quotes", quoteRouter);
+app.use("/api/products", productRouter);
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 const PORT = process.env.PORT;
 
