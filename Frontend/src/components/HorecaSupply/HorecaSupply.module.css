@@ -6,13 +6,11 @@
   margin: 0 auto;
   padding: 60px 20px;
   text-align: center;
-  background-color: #ffffff;
 }
 
 .title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #2c3e50;
   margin-bottom: 24px;
   line-height: 1.2;
 }
@@ -25,7 +23,6 @@
 .description {
   font-size: 1.125rem;
   line-height: 1.7;
-  color: #64748b;
   font-weight: 400;
   margin: 0;
   max-width: 720px;
@@ -286,129 +283,254 @@
 }
 
 .section {
-  padding: 50px;
-  font-family: Arial, sans-serif;
-  background: #f9f9f9;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 3rem 0;
 }
 
 .title {
-  font-size: 24px;
-  margin-bottom: 30px;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 600;
 }
 
 .wrapper {
-  display: flex;
-  align-items: center;
-  gap: 30px;
+  width: 90%;
+  position: relative;
+  margin-top: 1rem;
 }
 
 .hint {
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-}
-
-.hint::before {
-  content: "←";
-  margin-right: 5px;
-  font-size: 16px;
+  position: absolute;
+  left: 0;
+  top: 50px;
+  font-style: italic;
+  font-size: 0.9rem;
 }
 
 .cardContainer {
-  position: relative;
-  width: 500px;
+  display: flex;
+  justify-content: flex-end;
   height: 180px;
-  overflow: visible;
+  position: relative;
+  perspective: 1000px;
 }
 
-/* Base card style */
 .card {
-  position: absolute;
-  top: 0;
-  width: 60px;
-  height: 100%;
-  border-radius: 10px;
+  width: 150px;
+  height: 150px;
   color: white;
-  font-weight: bold;
-  font-size: 14px;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: all 0.4s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transform-origin: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  position: absolute;
+  right: 0;
+  padding: 10px;
+  overflow: visible;
+  font-weight: 500;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
 
-/* Initial visible stack state */
+/* Stacked positioning with proper text alignment */
 .card0 {
-  left: 0px;
-  background: #005f30;
   z-index: 6;
+  right: 0px;
+  background-color: #016327;
 }
 .card1 {
-  left: 20px;
-  background: #f9a825;
   z-index: 5;
+  right: 30px;
+  background-color: #5c128b;
 }
 .card2 {
-  left: 40px;
-  background: #d32f2f;
   z-index: 4;
+  right: 60px;
+  background-color: #a1d70a;
 }
 .card3 {
-  left: 60px;
-  background: #7cb342;
   z-index: 3;
+  right: 90px;
+  background-color: #d72323;
 }
 .card4 {
-  left: 80px;
-  background: #6a1b9a;
   z-index: 2;
+  right: 120px;
+  background-color: #ffa928;
 }
 .card5 {
-  left: 100px;
-  background: #005f30;
   z-index: 1;
+  right: 150px;
+  background-color: #016327;
 }
 
-/* Hover expands */
-.cardContainer:hover .card0 {
-  left: 0px;
-}
-.cardContainer:hover .card1 {
-  left: 80px;
-}
-.cardContainer:hover .card2 {
-  left: 160px;
-}
-.cardContainer:hover .card3 {
-  left: 240px;
-}
-.cardContainer:hover .card4 {
-  left: 320px;
-}
-.cardContainer:hover .card5 {
-  left: 400px;
+/* Text styling for stacked cards */
+.card span {
+  white-space: nowrap;
+  transform: rotate(180deg);
+  width: 100%;
+  padding-left: 5px; /* Adjust this for left alignment */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
 }
 
-/* Clicked: rotate card sideways */
-.active {
-  transform: rotateZ(90deg);
+/* Hover state - all cards expand side by side */
+.cardContainer:hover .card {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  right: auto;
+  margin-right: 10px;
+  transform: none !important;
+}
+.cardContainer:hover .hint {
+  display: none;
+}
+
+/* Hover state text alignment */
+.cardContainer:hover .card span {
+  justify-content: center;
+  padding-left: 0;
+}
+
+/* Active state - clicked card rotates */
+.card.active {
+  transform: rotateY(180deg);
   writing-mode: horizontal-tb;
-  text-orientation: initial;
-  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 10;
 }
 
-.active span {
-  transform: rotateZ(-90deg);
-  display: block;
+/* Back face of card */
+.card::after {
+  content: attr(data-text);
+  position: absolute;
   width: 100%;
-  text-align: left;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+
+  transform: rotateY(180deg);
+  border-radius: 8px;
+  writing-mode: horizontal-tb;
+}
+
+/* Make sure non-active cards maintain vertical text when expanded */
+.cardContainer:hover .card:not(.active) {
+  writing-mode: vertical-rl;
+}
+@media (max-width: 1470px) {
+  .card {
+    width: 130px;
+  }
+  .cardContainer:hover .card {
+    width: 130px;
+  }
+}
+@media (max-width: 1330px) {
+  .card {
+    width: 110px;
+  }
+  .cardContainer:hover .card {
+    width: 110px;
+  }
+}
+@media (max-width: 1200px) {
+  .card {
+    width: 90px;
+  }
+  .cardContainer:hover .card {
+    width: 90px;
+  }
+}
+@media (max-width: 900px) {
+  .card {
+    width: 70px;
+  }
+  .cardContainer:hover .card {
+    width: 70px;
+  }
+}
+/* Mobile styles */
+@media (max-width: 768px) {
+  .hint {
+    display: none;
+  }
+  .wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .cardContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 90px;
+    gap: 50px;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+  /* Prevent vertical text on hover for mobile */
+  .cardContainer:hover .card:not(.active) {
+    writing-mode: horizontal-tb !important;
+    text-orientation: initial !important;
+  }
+
+  .card {
+    position: relative;
+    right: auto !important;
+    width: 200px;
+    max-width: 250px;
+    height: 100px;
+    writing-mode: horizontal-tb;
+    margin-right: 0 !important;
+    transform: none !important;
+    align-items: center;
+  }
+
+  .card span {
+    transform: none;
+    justify-content: flex-start;
+    padding-left: 15px;
+  }
+
+  .card::after {
+    justify-content: flex-start;
+    padding-left: 15px;
+  }
+
+  .card.active {
+    transform: rotateY(180deg);
+    justify-content: center;
+  }
+
+  /* Disable hover effect for cards on mobile */
+  .cardContainer:hover .card {
+    width: 200px;
+    height: 100px;
+    position: relative;
+    right: auto !important;
+    margin-right: 0 !important;
+    transform: none !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+  .cardContainer:hover .card span {
+    justify-content: center;
+    padding-left: 15px;
+  }
 }

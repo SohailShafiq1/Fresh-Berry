@@ -1,0 +1,110 @@
+.wrapper {
+  width: 100%;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 50px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1400px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  height: 300px;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  cursor: pointer;
+  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.card:hover {
+  height: 200px;
+  transform: translateY(45px);
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Allow image to overflow upward */
+  overflow: visible;
+  /* Position relative so child .image can move outside */
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+}
+
+.image {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* On hover, move image upward outside the card, keep size unchanged */
+.card:hover .image {
+  transform: translateY(-60px);
+}
+
+.label {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: #fff;
+  font-size: 1.5rem;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  text-align: left;
+  z-index: 3;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    gap: 15px;
+  }
+  .card {
+    width: 200px;
+    height: 140px;
+  }
+  .imageWrapper {
+    width: 80px;
+    height: 80px;
+  }
+  .image {
+    width: 70px;
+    height: 70px;
+  }
+  .card:hover .image {
+    width: 60px;
+    height: 60px;
+  }
+  .label {
+    font-size: 1.2rem;
+    bottom: 15px;
+    left: 15px;
+  }
+}

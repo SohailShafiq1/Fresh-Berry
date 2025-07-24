@@ -1,0 +1,234 @@
+.heroSection {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.leaf {
+  position: absolute;
+  width: 54px;
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
+  animation: leafFloat 4s infinite ease-in-out alternate;
+}
+@keyframes leafFloat {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(18px) scale(1.05); }
+}
+
+.topText {
+  text-align: center;
+  z-index: 2;
+}
+
+.heading {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  font-family: 'Quicksand', 'Baloo 2', sans-serif;
+}
+
+.subheading {
+  font-size: 1.25rem;
+  color: #016327;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+.heroContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  max-width: 1400px;
+  gap: 0;
+  min-height: 200px;
+  z-index: 2;
+}
+
+.leftBlock {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 60px;
+  min-width: 350px;
+}
+
+.moreFresh {
+  font-size: 2.1rem;
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.freshBerry {
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  font-family: 'Quicksand', 'Baloo 2', sans-serif;
+}
+
+.statsRow {
+  display: flex;
+  gap: 0;
+  margin-bottom: 30px;
+  align-items: center;
+}
+
+.statBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 0 32px;
+  font-family: 'Quicksand';
+}
+
+.statIcon {
+  font-size: 1.2rem;
+  margin-bottom: 2px;
+}
+
+.statTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #5C128B;
+  margin-bottom: 2px;
+}
+
+.statValue {
+  font-size: 0.7rem;
+  color: #5C128B;
+  font-weight: 400;
+}
+
+.statDivider {
+  width: 2px;
+  height: 48px;
+  background: #5C128B;
+  border-radius: 2px;
+  margin: 0 8px;
+  opacity: 0.7;
+}
+
+.contactBtn {
+  margin-top: 18px;
+  padding: 10px 32px;
+  border: 2px solid #5C128B;
+  border-radius: 30px;
+  background: #fff;
+  color: #5C128B;
+  font-size: 1.15rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none;
+}
+.contactBtn:hover {
+  background: #5C128B;
+  color: #fff;
+}
+.contactIcon {
+  font-size: 1.3rem;
+}
+
+.centerImageBlock {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 400px;
+  z-index: 2;
+}
+
+.freshImg {
+  width: 270px; /* Decreased from 370px to 270px */
+  object-fit: cover;
+  height: auto; /* Use auto for aspect ratio */
+}
+/* To adjust the image height, change the 'width' value above. For example, use 220px for a smaller image, or 370px for a larger image. */
+
+.rightBlock {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 350px;
+  padding-right: 60px;
+}
+
+.whyTagline {
+  font-size: 1.05rem;
+  color: #5C128B;
+  font-weight: 500;
+  margin-bottom: 30px;
+  text-align: right;
+  min-height: 24px;
+  transition: opacity 0.3s;
+}
+
+.whyUsBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.whyUsIcon {
+  font-size: 2.2rem;
+  color: #5C128B;
+  margin-bottom: 8px;
+}
+
+.whyUsText {
+  font-size: 1.2rem;
+  color: #5C128B;
+  font-family: 'Quicksand', 'Baloo 2', sans-serif;
+  font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+  .heroContent {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    min-height: unset;
+  }
+  .leftBlock, .rightBlock {
+    padding-left: 0;
+    padding-right: 0;
+    min-width: unset;
+    align-items: center;
+    text-align: center;
+  }
+  .centerImageBlock {
+    min-width: unset;
+  }
+}
+
+@media (max-width: 700px) {
+  .heading {
+    font-size: 2rem;
+  }
+  .freshImg {
+    width: 220px;
+  }
+  .heroContent {
+    gap: 20px;
+  }
+}
