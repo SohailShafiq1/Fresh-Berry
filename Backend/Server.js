@@ -16,10 +16,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://freshberryuae.com"],
     credentials: true,
   })
 );
+
 app.use(morgan("dev"));
 app.use(bodyParser.json({ limit: "20mb" }));
 app.use(express.json({ limit: "20mb" }));
