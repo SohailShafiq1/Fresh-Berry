@@ -6,7 +6,7 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { BsWhatsapp } from "react-icons/bs";
 import { ThemeContext } from "../../context/Theme/ThemeContext";
 import styles from "./Contact.module.css";
-import Bag from "../../assets/Bag.png";
+import Bag from "../../assets/bag.png";
 const s = styles;
 
 const Contact = () => {
