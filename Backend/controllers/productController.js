@@ -1,3 +1,32 @@
+// Delete a product by ID
+export const deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByIdAndDelete(id);
+    if (!product) return res.status(404).json({ error: "Product not found" });
+    res.json({ message: "Product deleted successfully" });
+  } catch (err) {
+    res.status(400).json({ error: "Failed to delete product" });
+  }
+};
+
+// Edit/update a product by ID
+export const editProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateData = { ...req.body };
+    if (req.file) {
+      updateData.image = `/uploads/${req.file.filename}`;
+    }
+    const product = await Product.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
+    if (!product) return res.status(404).json({ error: "Product not found" });
+    res.json(product);
+  } catch (err) {
+    res.status(400).json({ error: "Failed to update product" });
+  }
+};
 import Product from "../models/Product.js";
 import path from "path";
 

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import style from "./OurProducts.module.css";
+import { ThemeContext } from "../../../../context/Theme/ThemeContext";
+import { useContext } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -8,6 +10,8 @@ const OurProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { theme } = useContext(ThemeContext);
+  const isBlack = theme.text === "#fff";
 
   useEffect(() => {
     const fetchHotProducts = async () => {
@@ -28,11 +32,27 @@ const OurProducts = () => {
   }, []);
 
   return (
-    <div className={style.container}>
+    <div
+      style={{ background: isBlack ? "#111" : "#fafafa" }}
+      className={style.container}
+    >
       <div className={style.header}>
         <div></div>
-        <h2 className={style.title}>Our Products</h2>
-        <NavLink to="/products" className={style.seeAll}>
+        <h2
+          className={style.title}
+          style={{
+            color: isBlack ? "#fff" : "#111",
+          }}
+        >
+          Our Products
+        </h2>
+        <NavLink
+          to="/products"
+          style={{
+            color: isBlack ? "#fff" : "#333",
+          }}
+          className={style.seeAll}
+        >
           See all
         </NavLink>
       </div>
@@ -43,9 +63,20 @@ const OurProducts = () => {
       ) : (
         <div className={style.grid}>
           {products.map((product, index) => (
-            <div className={style.card} key={index}>
+            <div
+              className={style.card}
+              style={{
+                background: isBlack ? "#222" : "#fafafa",
+              }}
+              key={index}
+            >
               <span className={style.country}>{product.country || "UAE"}</span>
-              <div className={style.imageWrapper}>
+              <div
+                className={style.imageWrapper}
+                style={{
+                  background: isBlack ? "#111" : "#fafafa",
+                }}
+              >
                 <img
                   src={
                     product.image && product.image.startsWith("/uploads/")
@@ -56,11 +87,24 @@ const OurProducts = () => {
                   className={style.image}
                 />
               </div>
-              <h4 className={style.name}>{product.name}</h4>
-              <p className={style.desc}>
+              <h4
+                style={{ color: isBlack ? "#fff" : "#222" }}
+                className={style.name}
+              >
+                {product.name}
+              </h4>
+              <p
+                style={{ color: isBlack ? "#fff" : "#222" }}
+                className={style.desc}
+              >
                 {product.description || product.desc}
               </p>
-              <p className={style.price}>{product.price}</p>
+              <p
+                style={{ color: isBlack ? "#fff" : "#222" }}
+                className={style.price}
+              >
+                {product.price}
+              </p>
               <a
                 href="https://wa.me/"
                 className={style.orderBtn}

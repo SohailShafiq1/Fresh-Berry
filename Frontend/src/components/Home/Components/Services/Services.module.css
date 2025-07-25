@@ -1,64 +1,65 @@
 .wrapper {
-  width: 100vw;
-  background: #fafafa;
+  width: 100%;
   padding: 10px 0 10px 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  margin-top: 1rem;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+  margin: 0 auto;
 }
-
 .heading {
   font-size: 2rem;
   font-weight: 700;
-  color: #111;
-  margin-left: 8vw;
   margin-bottom: 32px;
-  font-family: 'Quicksand', 'Baloo 2', sans-serif;
+  font-family: "Quicksand", "Baloo 2", sans-serif;
 }
 
 .contentRow {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   gap: 48px;
 }
 
 .left {
+  width: 50%;
   flex: 1.2;
-  margin-left: 8vw;
   max-width: 600px;
   display: flex;
   flex-direction: column;
 }
-
+.left p {
+  padding: 0 1rem;
+}
 .intro {
   font-size: 1.4rem;
-  color: #222;
-  font-family: 'Quicksand', 'Baloo 2', sans-serif;
+  font-family: "Quicksand", "Baloo 2", sans-serif;
   margin-bottom: 32px;
   line-height: 1.2;
 }
 
 .right {
+  max-width: 750px;
   flex: 1.5;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  min-width: 520px;
+  margin-right: 1rem;
 }
 
 .serviceCard {
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   gap: 32px;
   padding: 2px 36px;
-  min-width: 480px;
+  width: 100%;
+  max-width: 90%;
   min-height: 110px;
   cursor: pointer;
 }
@@ -74,14 +75,14 @@
   font-size: 1.4rem;
   font-weight: 700;
   color: #111;
-  font-family: 'Quicksand', 'Baloo 2', sans-serif;
+  font-family: "Quicksand", "Baloo 2", sans-serif;
   margin-bottom: 8px;
 }
 
 .serviceDesc {
   font-size: 1.1rem;
   color: #444;
-  font-family: 'Quicksand', 'Baloo 2', sans-serif;
+  font-family: "Quicksand", "Baloo 2", sans-serif;
 }
 
 @media (max-width: 1100px) {
@@ -90,38 +91,44 @@
     gap: 32px;
   }
   .right {
-    min-width: unset;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
   }
   .serviceCard {
-    min-width: unset;
     padding: 24px 18px;
   }
-  .heading, .left {
-    margin-left: 4vw;
+  .left {
+    width: 100%;
+  }
+  .left p {
+    margin-bottom: 10px;
+    padding: 0 1rem;
   }
 }
 
-@media (max-width: 700px) {
-  .heading, .left {
-    margin-left: 2vw;
-  }
+@media (max-width: 730px) {
   .intro {
     font-size: 1.2rem;
   }
   .serviceCard {
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
-    padding: 16px 8px;
+    gap: 10px;
+    padding: 8px 4px;
+    min-height: 60px;
+    max-width: 90%;
   }
   .serviceImg {
-    width: 80px;
-    height: 60px;
+    width: 48px;
+    height: 36px;
+    margin-right: 0;
   }
   .serviceTitle {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
   }
   .serviceDesc {
-    font-size: 1rem;
+    font-size: 0.85rem;
   }
 }

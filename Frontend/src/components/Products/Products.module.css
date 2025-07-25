@@ -1,9 +1,8 @@
 .container {
   padding: 0 1rem;
-  
-  font-family: 'Poppins', sans-serif;
+
+  font-family: "Poppins", sans-serif;
   background-color: #fff;
-  
 }
 
 .header {
@@ -18,7 +17,7 @@
   font-size: 18px;
   color: #444;
   cursor: pointer;
-  font-family: 'Quicksand';
+  font-family: "Quicksand";
 }
 
 .title {
@@ -26,15 +25,15 @@
   font-weight: 600;
   text-align: center;
   flex: 1;
-  font-family: 'Baloo 2';
+  font-family: "Baloo 2";
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    column-gap: 0;       /* ❌ No horizontal gap */
-  row-gap: 2rem;       /* ✅ Keep vertical gap */
+  display: flex;
+  gap: 20px;
   justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .card {
@@ -52,14 +51,14 @@
 
 .card:hover {
   transform: scale(1.02);
-  border: 2px solid #5C128B;
+  border: 2px solid #5c128b;
 }
 
 .country {
   position: absolute;
   top: 16px;
   left: 16px;
-  background: #5C128B;
+  background: #5c128b;
   color: white;
   font-size: 12px;
   padding: 4px 10px;
@@ -77,8 +76,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
- box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
-
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .image {
@@ -92,11 +90,11 @@
   font-weight: 700;
   color: #111;
   margin: 0.5rem 0 0.25rem 0;
-  font-family: 'Baloo 2';
+  font-family: "Baloo 2";
 }
 
 .desc {
-  font-family: 'Quicksand';
+  font-family: "Quicksand";
   font-size: 14px;
   color: #555;
   margin-bottom: 0.5rem;
@@ -106,7 +104,7 @@
 }
 
 .price {
-  font-family: 'Quicksand';
+  font-family: "Quicksand";
 
   font-size: 16px;
   color: #000;
@@ -119,7 +117,7 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  background: #075E54;
+  background: #075e54;
   color: white;
   padding: 10px;
   border-radius: 16px;
@@ -127,8 +125,7 @@
   font-size: 15px;
   font-weight: 500;
   transition: 0.2s ease;
-  font-family: 'Quicksand';
-
+  font-family: "Quicksand";
 }
 
 .orderBtn img {
@@ -138,4 +135,50 @@
 
 .orderBtn:hover {
   background: #005548;
+}
+@media (max-width: 768px) {
+  .title {
+    font-size: 1rem;
+  }
+  .grid {
+    gap: 10px;
+  }
+  .card {
+    height: 180px;
+    width: 110px;
+    border-radius: 10px;
+    padding: 8px 4px;
+  }
+  .imageWrapper {
+    width: 60px;
+    height: 45px;
+    border-radius: 6px;
+    margin: 0.5rem auto 0.3rem auto;
+  }
+  .image {
+    width: 100%;
+    height: 100%;
+  }
+  .name {
+    font-size: 0.85rem;
+    margin: 0.2rem 0 0.1rem 0;
+  }
+  .desc {
+    font-size: 9px;
+    margin-bottom: 0.2rem;
+  }
+  .price {
+    font-size: 10px;
+    margin-bottom: 0.2rem;
+  }
+  .orderBtn {
+    font-size: 9px;
+    padding: 4px;
+    border-radius: 6px;
+    gap: 3px;
+  }
+  .orderBtn img {
+    width: 10px;
+    height: 10px;
+  }
 }

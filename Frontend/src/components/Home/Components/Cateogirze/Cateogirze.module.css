@@ -1,6 +1,5 @@
 .wrapper {
   width: 100%;
-  background: #fafafa;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,9 +8,8 @@
 .heading {
   font-size: 2rem;
   font-weight: 700;
-  color: #333;
   margin-bottom: 50px;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
 }
 
 .grid {
@@ -34,7 +32,8 @@
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   cursor: pointer;
-  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
 
@@ -67,7 +66,7 @@
 
 /* On hover, move image upward outside the card, keep size unchanged */
 .card:hover .image {
-  transform: translateY(-60px);
+  transform: translateY(-10px);
 }
 
 .label {
@@ -76,7 +75,7 @@
   left: 20px;
   color: #fff;
   font-size: 1.5rem;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-weight: 600;
   text-align: left;
   z-index: 3;
@@ -87,24 +86,43 @@
     gap: 15px;
   }
   .card {
-    width: 200px;
-    height: 140px;
+    width: 130px;
+    height: 100%;
+    /* Remove hover effect on mobile */
+    transition: none;
+    transform: none !important;
   }
   .imageWrapper {
     width: 80px;
     height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .image {
     width: 70px;
     height: 70px;
+    /* Remove hover effect on image */
+    transition: none;
+    transform: none !important;
   }
+  /* Remove hover effect on mobile */
+  .card:hover,
   .card:hover .image {
-    width: 60px;
-    height: 60px;
+    pointer-events: none;
+    transform: none !important;
+    width: 130px;
+    height: 100%;
   }
   .label {
-    font-size: 1.2rem;
-    bottom: 15px;
-    left: 15px;
+    position: static;
+    display: block;
+    margin-top: 4px;
+    padding-bottom: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    left: unset;
+    bottom: unset;
+    z-index: 1;
   }
 }

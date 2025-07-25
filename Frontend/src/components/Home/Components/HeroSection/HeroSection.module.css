@@ -1,6 +1,6 @@
 .heroSection {
-  width: 100vw;
-  min-height: 100vh;
+  width: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,6 +8,7 @@
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
+  margin: 0 auto;
 }
 
 .leaf {
@@ -19,8 +20,12 @@
   animation: leafFloat 4s infinite ease-in-out alternate;
 }
 @keyframes leafFloat {
-  0% { transform: translateY(0) scale(1); }
-  100% { transform: translateY(18px) scale(1.05); }
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(18px) scale(1.05);
+  }
 }
 
 .topText {
@@ -33,12 +38,11 @@
   font-weight: 700;
   letter-spacing: 1px;
   margin-bottom: 10px;
-  font-family: 'Quicksand', 'Baloo 2', sans-serif;
+  font-family: "Quicksand", "Baloo 2", sans-serif;
 }
 
 .subheading {
   font-size: 1.25rem;
-  color: #016327;
   margin-bottom: 30px;
   font-weight: 500;
 }
@@ -75,7 +79,7 @@
   font-size: 2.3rem;
   font-weight: 700;
   margin-bottom: 30px;
-  font-family: 'Quicksand', 'Baloo 2', sans-serif;
+  font-family: "Quicksand", "Baloo 2", sans-serif;
 }
 
 .statsRow {
@@ -91,7 +95,7 @@
   align-items: flex-start;
   gap: 2px;
   padding: 0 32px;
-  font-family: 'Quicksand';
+  font-family: "Quicksand";
 }
 
 .statIcon {
@@ -102,20 +106,18 @@
 .statTitle {
   font-size: 1rem;
   font-weight: 700;
-  color: #5C128B;
   margin-bottom: 2px;
 }
 
 .statValue {
   font-size: 0.7rem;
-  color: #5C128B;
   font-weight: 400;
 }
 
 .statDivider {
   width: 2px;
   height: 48px;
-  background: #5C128B;
+  background: #5c128b;
   border-radius: 2px;
   margin: 0 8px;
   opacity: 0.7;
@@ -124,10 +126,10 @@
 .contactBtn {
   margin-top: 18px;
   padding: 10px 32px;
-  border: 2px solid #5C128B;
+  border: 2px solid #5c128b;
   border-radius: 30px;
   background: #fff;
-  color: #5C128B;
+  color: #5c128b;
   font-size: 1.15rem;
   font-weight: 500;
   display: inline-flex;
@@ -138,7 +140,7 @@
   text-decoration: none;
 }
 .contactBtn:hover {
-  background: #5C128B;
+  background: #5c128b;
   color: #fff;
 }
 .contactIcon {
@@ -173,7 +175,6 @@
 
 .whyTagline {
   font-size: 1.05rem;
-  color: #5C128B;
   font-weight: 500;
   margin-bottom: 30px;
   text-align: right;
@@ -191,14 +192,12 @@
 
 .whyUsIcon {
   font-size: 2.2rem;
-  color: #5C128B;
   margin-bottom: 8px;
 }
 
 .whyUsText {
   font-size: 1.2rem;
-  color: #5C128B;
-  font-family: 'Quicksand', 'Baloo 2', sans-serif;
+  font-family: "Quicksand", "Baloo 2", sans-serif;
   font-weight: 700;
 }
 
@@ -209,7 +208,8 @@
     gap: 40px;
     min-height: unset;
   }
-  .leftBlock, .rightBlock {
+  .leftBlock,
+  .rightBlock {
     padding-left: 0;
     padding-right: 0;
     min-width: unset;
@@ -230,5 +230,11 @@
   }
   .heroContent {
     gap: 20px;
+  }
+  .statBox {
+    padding: 0 16px;
+  }
+  .whyUsBox {
+    margin-bottom: 1rem;
   }
 }
