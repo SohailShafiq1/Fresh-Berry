@@ -2,10 +2,13 @@ import { MdSort } from "react-icons/md";
 import { AiFillFilter } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
 import style from "./Products.module.css";
-
+import { ThemeContext } from "../../context/Theme/ThemeContext";
+import { useContext } from "react";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const Products = () => {
+  const { theme } = useContext(ThemeContext);
+  const isBlack = theme.text === "#fff";
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -68,7 +71,13 @@ export const Products = () => {
   };
 
   return (
-    <div className={style.container}>
+    <div
+      className={style.container}
+      style={{
+        background: isBlack ? "#111" : "#fff",
+        color: isBlack ? "#fff" : "#000",
+      }}
+    >
       {/* Filter Popup */}
       {showFilter && (
         <div
@@ -88,7 +97,8 @@ export const Products = () => {
         >
           <div
             style={{
-              background: "#fff",
+              background: isBlack ? "#111" : "#fff",
+              color: isBlack ? "#fff" : "#000",
               padding: "2rem",
               borderRadius: "12px",
               minWidth: "220px",
@@ -164,7 +174,8 @@ export const Products = () => {
         >
           <div
             style={{
-              background: "#fff",
+              background: isBlack ? "#111" : "#fff",
+              color: isBlack ? "#fff" : "#000",
               padding: "2rem",
               borderRadius: "12px",
               minWidth: "220px",
@@ -199,7 +210,12 @@ export const Products = () => {
           </div>
         </div>
       )}
-      <div className={style.header}>
+      <div
+        className={style.header}
+        style={{
+          color: isBlack ? "#fff" : "#333",
+        }}
+      >
         {isFilterApplied ? (
           <span
             className={style.filter}
@@ -225,9 +241,20 @@ export const Products = () => {
       ) : (
         <div className={style.grid}>
           {filteredProducts.map((product, index) => (
-            <div className={style.card} key={index}>
+            <div
+              className={style.card}
+              style={{
+                background: isBlack ? "#333" : "#fff",
+              }}
+              key={index}
+            >
               <span className={style.country}>{product.country || "UAE"}</span>
-              <div className={style.imageWrapper}>
+              <div
+                className={style.imageWrapper}
+                style={{
+                  background: isBlack ? "#111" : "#fff",
+                }}
+              >
                 <img
                   src={
                     product.image && product.image.startsWith("/uploads/")
@@ -238,11 +265,30 @@ export const Products = () => {
                   className={style.image}
                 />
               </div>
-              <h4 className={style.name}>{product.name}</h4>
-              <p className={style.desc}>
+              <h4
+                style={{
+                  color: isBlack ? "#fff" : "#333",
+                }}
+                className={style.name}
+              >
+                {product.name}
+              </h4>
+              <p
+                style={{
+                  color: isBlack ? "#fff" : "#333",
+                }}
+                className={style.desc}
+              >
                 {product.description || product.desc}
               </p>
-              <p className={style.price}>{product.price}</p>
+              <p
+                style={{
+                  color: isBlack ? "#fff" : "#333",
+                }}
+                className={style.price}
+              >
+                {product.price}
+              </p>
               <a
                 href="https://wa.me/"
                 className={style.orderBtn}

@@ -1,8 +1,6 @@
 .container {
   padding: 0 1rem;
-
   font-family: "Poppins", sans-serif;
-  background-color: #fff;
 }
 
 .header {
@@ -15,7 +13,6 @@
 .filter,
 .sort {
   font-size: 18px;
-  color: #444;
   cursor: pointer;
   font-family: "Quicksand";
 }
