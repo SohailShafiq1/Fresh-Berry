@@ -1,11 +1,11 @@
 import React from "react";
 import style from "./Cateogirze.module.css";
 
-import Fruits from "../../../../Products/Strawberry.png";
-import Vegetables from "../../../../Products/Logistics.png";
-import Egg from "../../../../Products/egg.png";
-import Leaf from "../../../../Products/Leaf.png";
-import Bag from "../../../../Products/bag.jpeg";
+import Fruits from "./assets/fruite.png";
+import Vegetables from "./assets/vegetable.png";
+import Egg from "./assets/egg.png";
+import Leaf from "./assets/picks.png";
+import Bag from "./assets/box.png";
 import { ThemeContext } from "../../../../context/Theme/ThemeContext";
 import { useContext } from "react";
 
