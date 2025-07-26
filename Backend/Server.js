@@ -20,6 +20,9 @@ app.use(
     credentials: true,
   })
 );
+app.get("/", (req, res) => {
+  res.send("🚀 FreshBerry Backend is Live!");
+});
 
 app.use(morgan("dev"));
 app.use(bodyParser.json({ limit: "20mb" }));
