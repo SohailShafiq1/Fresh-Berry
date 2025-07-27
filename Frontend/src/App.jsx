@@ -25,6 +25,7 @@ function App() {
   return (
     <ThemeProvider>
       <AdminAuthProvider>
+        
         <div className="App">
           <Router>
             <NavBar />
