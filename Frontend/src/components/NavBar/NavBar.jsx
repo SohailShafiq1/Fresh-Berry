@@ -43,6 +43,9 @@ const NavBar = () => {
         <NavLink to="/about" onClick={() => setMenuOpen(false)}>
           About Us
         </NavLink>
+          <NavLink to="/admin/login" onClick={() => setMenuOpen(false)}>
+          Admin
+        </NavLink>
         <NavLink
           to="/contact"
           onClick={() => setMenuOpen(false)}
