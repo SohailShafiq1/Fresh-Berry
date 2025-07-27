@@ -2,3 +2,15 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/index.html"
+  status = 200
+
+# For API proxy if needed
+[[redirects]]
+  from = "/api/*"
+  to = "https://api.freshberryuae.com/:splat"
+  status = 200
+  force = true
