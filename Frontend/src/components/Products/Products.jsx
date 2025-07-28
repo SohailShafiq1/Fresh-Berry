@@ -1,6 +1,7 @@
 import { MdSort } from "react-icons/md";
 import { AiFillFilter } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import style from "./Products.module.css";
 import { ThemeContext } from "../../context/Theme/ThemeContext";
 import { useContext } from "react";
@@ -9,6 +10,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 export const Products = () => {
   const { theme } = useContext(ThemeContext);
   const isBlack = theme.text === "#fff";
+  const location = useLocation();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,6 +21,15 @@ export const Products = () => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [nameSearch, setNameSearch] = useState("");
+
+  // Get search query from URL parameters
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const searchQuery = searchParams.get('search');
+    if (searchQuery) {
+      setNameSearch(searchQuery);
+    }
+  }, [location.search]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -36,15 +47,22 @@ export const Products = () => {
     fetchProducts();
   }, []);
 
-  // Filtered and sorted products (simple demo logic)
+  // Enhanced filtered and sorted products
   const filteredProducts = products
     .filter((p) => {
-      // Name search filter (starts with)
-      if (
-        nameSearch &&
-        !(p.name || "").toLowerCase().startsWith(nameSearch.toLowerCase())
-      )
-        return false;
+      // Enhanced name search filter (includes partial matches in name, description, and origin)
+      if (nameSearch) {
+        const searchTerm = nameSearch.toLowerCase();
+        const productName = (p.name || "").toLowerCase();
+        const productDesc = (p.description || "").toLowerCase();
+        const productOrigin = (p.origin || "").toLowerCase();
+        
+        if (!productName.includes(searchTerm) && 
+            !productDesc.includes(searchTerm) && 
+            !productOrigin.includes(searchTerm)) {
+          return false;
+        }
+      }
       // Price range filter
       const price = Number(p.price) || 0;
       if (minPrice && price < Number(minPrice)) return false;

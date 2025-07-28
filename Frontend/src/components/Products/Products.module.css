@@ -1,6 +1,9 @@
 .container {
   padding: 0 1rem;
   font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .header {
@@ -18,7 +21,7 @@
 }
 
 .title {
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 600;
   text-align: center;
   flex: 1;
@@ -129,57 +132,110 @@
   width: 20px;
   height: 20px;
 }
-
+ 
 .orderBtn:hover {
   background: #005548;
 }
 @media (max-width: 768px) {
-  .title {
-    font-size: 1rem;
+  .container {
+    padding: 0 0.5rem;
   }
+  
+  .header {
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+  }
+  
+  .title {
+    font-size: 24px;
+  }
+  
   .grid {
     flex-direction: column;
     gap: 15px;
     align-items: center;
     width: 100%;
+    padding: 0;
   }
+  
   .card {
-    height: 400px;
-    width: 280px;
-    max-width: 90%;
+    width: calc(100vw - 2rem);
+    max-width: 320px;
+    padding: 1rem;
     border-radius: 20px;
-    padding: 24px 16px;
+    height: auto;
+    box-sizing: border-box;
   }
+  
   .imageWrapper {
-    width: 60px;
-    height: 45px;
-    border-radius: 6px;
-    margin: 0.5rem auto 0.3rem auto;
+    border-radius: 16px;
+    width: 180px;
+    height: 150px;
+    margin: 1rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
   }
+  
   .image {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
   }
+  
   .name {
-    font-size: 0.85rem;
-    margin: 0.2rem 0 0.1rem 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111;
+    margin: 0.5rem 0 0.25rem 0;
+    font-family: "Baloo 2";
   }
+  
   .desc {
-    font-size: 9px;
-    margin-bottom: 0.2rem;
+    font-family: "Quicksand";
+    font-size: 13px;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
+  
   .price {
-    font-size: 10px;
-    margin-bottom: 0.2rem;
+    font-family: "Quicksand";
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 1rem;
   }
+  
   .orderBtn {
-    font-size: 9px;
-    padding: 4px;
-    border-radius: 6px;
-    gap: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background: #075e54;
+    color: white;
+    padding: 12px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s ease;
+    font-family: "Quicksand";
+    width: 100%;
+    box-sizing: border-box;
   }
+  
   .orderBtn img {
-    width: 10px;
-    height: 10px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  .country {
+    top: 12px;
+    left: 12px;
+    font-size: 11px;
+    padding: 3px 8px;
   }
 }
