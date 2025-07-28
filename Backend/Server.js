@@ -17,6 +17,7 @@ const app = express();
 app.use(
   cors({
      origin: ["http://localhost:5173", "https://freshberryuae.com","https://freshberryproject.netlify.app","https://api.freshberryuae.com"],
+     credentials: true,
   })
 );
 app.get("/", (req, res) => {
