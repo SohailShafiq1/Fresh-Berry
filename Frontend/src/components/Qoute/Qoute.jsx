@@ -107,12 +107,14 @@ const Quote = () => {
             <div className={s.formRow}>
               <div className={s.inputGroup}>
                 <label
+                  htmlFor="fullName"
                   className={s.label}
                   style={{ color: isBlack ? "#fff" : "#000" }}
                 >
                   Full Name *
                 </label>
                 <input
+                  id="fullName"
                   type="text"
                   name="fullName"
                   value={formData.fullName}
@@ -129,12 +131,14 @@ const Quote = () => {
               </div>
               <div className={s.inputGroup}>
                 <label
+                  htmlFor="businessName"
                   className={s.label}
                   style={{ color: isBlack ? "#fff" : "#000" }}
                 >
                   Business Name *
                 </label>
                 <input
+                  id="businessName"
                   type="text"
                   name="businessName"
                   value={formData.businessName}
@@ -153,12 +157,14 @@ const Quote = () => {
             <div className={s.formRow}>
               <div className={s.inputGroup}>
                 <label
+                  htmlFor="email"
                   className={s.label}
                   style={{ color: isBlack ? "#fff" : "#000" }}
                 >
                   Email Address *
                 </label>
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   value={formData.email}
@@ -175,12 +181,14 @@ const Quote = () => {
               </div>
               <div className={s.inputGroup}>
                 <label
+                  htmlFor="phone"
                   className={s.label}
                   style={{ color: isBlack ? "#fff" : "#000" }}
                 >
                   Phone Number (WhatsApp Preferred)
                 </label>
                 <input
+                  id="phone"
                   type="tel"
                   name="phone"
                   value={formData.phone}
@@ -198,12 +206,14 @@ const Quote = () => {
             </div>
             <div className={s.inputGroup}>
               <label
+                htmlFor="deliveryLocation"
                 className={s.label}
                 style={{ color: isBlack ? "#fff" : "#000" }}
               >
                 Delivery Location *
               </label>
               <input
+                id="deliveryLocation"
                 type="text"
                 name="deliveryLocation"
                 value={formData.deliveryLocation}
@@ -220,12 +230,14 @@ const Quote = () => {
             </div>
             <div className={s.inputGroup}>
               <label
+                htmlFor="specialInstructions"
                 className={s.label}
                 style={{ color: isBlack ? "#fff" : "#000" }}
               >
                 Special Instructions
               </label>
               <textarea
+                id="specialInstructions"
                 name="specialInstructions"
                 value={formData.specialInstructions}
                 onChange={handleInputChange}

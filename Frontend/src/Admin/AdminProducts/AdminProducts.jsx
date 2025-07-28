@@ -178,6 +178,7 @@ const AdminProducts = () => {
       <h2 className={s.title}>Admin Products</h2>
       <form className={s.form} onSubmit={handleAdd}>
         <input
+          id="product-name"
           name="name"
           value={form.name}
           onChange={handleChange}
@@ -185,12 +186,14 @@ const AdminProducts = () => {
           required
         />
         <input
+          id="product-image"
           type="file"
           accept="image/*"
           onChange={handleImageChange}
           ref={fileInputRef}
         />
         <input
+          id="product-description"
           name="description"
           value={form.description}
           onChange={handleChange}
@@ -198,6 +201,7 @@ const AdminProducts = () => {
           required
         />
         <input
+          id="product-price"
           name="price"
           value={form.price}
           onChange={handleChange}
@@ -289,6 +293,7 @@ const AdminProducts = () => {
           <div className={s.modal} onClick={(e) => e.stopPropagation()}>
             <h3 className={s.modalTitle}>Edit Product</h3>
             <input
+              id="edit-product-name"
               name="name"
               value={editForm.name}
               onChange={handleEditChange}
@@ -296,12 +301,14 @@ const AdminProducts = () => {
               className={s.input}
             />
             <input
+              id="edit-product-image"
               type="file"
               accept="image/*"
               onChange={handleEditImageChange}
               className={s.input}
             />
             <input
+              id="edit-product-description"
               name="description"
               value={editForm.description}
               onChange={handleEditChange}
@@ -309,6 +316,7 @@ const AdminProducts = () => {
               className={s.input}
             />
             <input
+              id="edit-product-price"
               name="price"
               value={editForm.price}
               onChange={handleEditChange}
