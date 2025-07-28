@@ -2,6 +2,20 @@ import React, { useState, useEffect } from "react";
 import style from "./HeroSection.module.css";
 import freshImg from "./fresh.png";
 import leafImg from "./leaf.png";
+import leaf1 from "./leafs/leaf1.png";
+import leaf2 from "./leafs/leaf2.png";
+import leaf3 from "./leafs/leaf3.png";
+import leaf4 from "./leafs/leaf4.png";
+import leaf5 from "./leafs/leaf5.png";
+import leaf6 from "./leafs/leaf6.png";
+import leaf7 from "./leafs/leaf7.png";
+import leaf8 from "./leafs/leaf8.png";
+import leaf9 from "./leafs/leaf9.png";
+import leaf10 from "./leafs/leaf10.png";
+import leaf11 from "./leafs/leaf11.png";
+import leaf12 from "./leafs/leaf12.png";
+import leaf13 from "./leafs/leaf13.png";
+import leaf14 from "./leafs/leaf14.png";
 import { NavLink } from "react-router-dom";
 import {
   FaUsers,
@@ -19,15 +33,17 @@ const taglines = [
   "Professional service & competitive pricing",
 ];
 
+const leafImages = [leaf1, leaf2, leaf3, leaf4, leaf5, leaf6, leaf7, leaf8, leaf9, leaf10, leaf11, leaf12, leaf13, leaf14];
+
 const leaves = [
-  { top: "8%", left: "18%", rotate: "10deg" },
-  { top: "20%", left: "70%", rotate: "-15deg" },
-  { top: "60%", left: "10%", rotate: "25deg" },
-  { top: "75%", left: "40%", rotate: "-10deg" },
-  { top: "30%", left: "50%", rotate: "0deg" },
-  { top: "80%", left: "80%", rotate: "20deg" },
-  { top: "50%", left: "85%", rotate: "-20deg" },
-  { top: "10%", left: "85%", rotate: "15deg" },
+  { top: "8%", left: "18%", rotate: "10deg", image: leaf1, delay: 0.2 },
+  { top: "20%", left: "70%", rotate: "-15deg", image: leaf2, delay: 0.5 },
+  { top: "60%", left: "10%", rotate: "25deg", image: leaf3, delay: 0.8 },
+  { top: "75%", left: "40%", rotate: "-10deg", image: leaf4, delay: 1.1 },
+  { top: "30%", left: "50%", rotate: "0deg", image: leaf5, delay: 1.4 },
+  { top: "80%", left: "80%", rotate: "20deg", image: leaf6, delay: 1.7 },
+  { top: "50%", left: "85%", rotate: "-20deg", image: leaf7, delay: 2.0 },
+  { top: "10%", left: "85%", rotate: "15deg", image: leaf8, delay: 2.3 },
 ];
 
 export const HeroSection = () => {
@@ -170,10 +186,10 @@ export const HeroSection = () => {
         </div>
       </div>
 
-      {/* Animated Leaves using leaf.png */}
+      {/* Static Leaves using different leaf images */}
       {leaves.map((leaf, idx) => (
         <img
-          src={leafImg}
+          src={leaf.image}
           alt="leaf"
           key={idx}
           className={s.leaf}
