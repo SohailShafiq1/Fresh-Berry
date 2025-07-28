@@ -4,19 +4,28 @@ import axios from "axios";
 export const AdminAuthContext = createContext();
 
 export const AdminAuthProvider = ({ children }) => {
+  console.log("🔐 AdminAuthProvider - Component initialized");
+  
   const [admin, setAdmin] = useState(() => {
     const stored = localStorage.getItem("adminUser");
-    return stored ? JSON.parse(stored) : null;
+    console.log("🔐 AdminAuthProvider - Initial stored admin:", stored);
+    const parsedAdmin = stored ? JSON.parse(stored) : null;
+    console.log("🔐 AdminAuthProvider - Initial parsed admin:", parsedAdmin);
+    return parsedAdmin;
   });
+  
   // Sync context with localStorage changes (login/logout from other tabs or after reload)
   React.useEffect(() => {
+    console.log("🔐 AdminAuthProvider - Setting up storage listener");
     const syncAdmin = () => {
       const stored = localStorage.getItem("adminUser");
+      console.log("🔐 AdminAuthProvider - Storage event - stored admin:", stored);
       setAdmin(stored ? JSON.parse(stored) : null);
     };
     window.addEventListener("storage", syncAdmin);
     return () => window.removeEventListener("storage", syncAdmin);
   }, []);
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 

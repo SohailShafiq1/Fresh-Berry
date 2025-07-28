@@ -2,16 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useAdminAuth } from "../../context/Theme/useAdminAuth";
 
 const AdminHome = () => {
+  console.log("🏠 AdminHome - Component rendered");
+  
   const { admin, logout } = useAdminAuth();
+  console.log("🏠 AdminHome - admin from context:", admin);
 
   const [_, setRerender] = useState(0);
 
   // Force rerender on mount to ensure AdminRoute check runs after context sync
   useEffect(() => {
+    console.log("🏠 AdminHome - useEffect triggered");
     setRerender((r) => r + 1);
   }, []);
 
-  if (!admin) return null;
+  if (!admin) {
+    console.log("🏠 AdminHome - No admin found, returning null");
+    return null;
+  }
+
+  console.log("🏠 AdminHome - Admin found, rendering component");
 
   return (
     <div

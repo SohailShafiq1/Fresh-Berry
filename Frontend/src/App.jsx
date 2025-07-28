@@ -1,6 +1,7 @@
 import "./App.css";
+import React from "react";
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
@@ -22,6 +23,13 @@ import AdminProducts from "./Admin/AdminProducts/AdminProducts";
 import Footer from "./components/Footer/Footer";
 
 function App() {
+  console.log("📱 App - Component rendered");
+  
+  // Add a simple test to see if routing is working
+  React.useEffect(() => {
+    console.log("📱 App - Current location:", window.location.pathname);
+  }, []);
+  
   return (
     <ThemeProvider>
       <AdminAuthProvider>
@@ -36,6 +44,10 @@ function App() {
               <Route path="/products" element={<Products />} />
               <Route path="/horeca-supply" element={<HorecaSupply />} />
               <Route path="/qoute" element={<Qoute />} />
+              
+              {/* Test route to verify routing works */}
+              <Route path="/test" element={<div>Test Route Works!</div>} />
+              
               <Route path="/admin/login" element={<Login />} />
               <Route
                 path="/admin/home"
