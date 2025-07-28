@@ -47,6 +47,129 @@ export const HeroSection = () => {
       style={{ background: isBlack ? "#111" : "#fafafa" }}
       className={s.heroSection}
     >
+      {/* Mobile Header: Just the Title */}
+      <div className={s.mobileHeader}>
+        <div className={s.mobileTitle}>
+          <h1 className={s.mobileHeading}>
+            <span style={{ color: isBlack ? "#04d755ff" : "#016327" }}>U</span>
+            <span style={{ color: isBlack ? "#f60909ff" : "#D72323" }}>A</span>
+            <span style={{ color: isBlack ? "#04d755ff" : "#016327" }}>E</span>
+            <span style={{ color: isBlack ? "#fff" : "#222" }}>'s NO.1</span>
+            <br />
+            <span style={{ color: "#FFA928" }}>HORECA</span>
+            <span style={{ color: isBlack ? "#fff" : "#222" }}> PARTNER</span>
+          </h1>
+        </div>
+      </div>
+
+      {/* Mobile Subheading */}
+      <p 
+        className={s.mobileSubheading}
+        style={{ color: isBlack ? "#04d755ff" : "#016327" }}
+      >
+        for reliable fresh fruits and vegetables supply – picked, packed and delivered fast.
+      </p>
+
+      {/* Mobile Main Content: Content + Image in same row */}
+      <div className={s.mobileMainContent}>
+        <div className={s.mobileContentSection}>
+          <h2
+            className={s.mobileMoreFresh}
+            style={{ color: isBlack ? "#fff" : "#222" }}
+          >
+            More Than Fresh
+          </h2>
+          <h2 className={s.mobileFreshBerry}>
+            <span style={{ color: isBlack ? "#04d755ff" : "#016327" }}>
+              Fresh
+            </span>{" "}
+            <span style={{ color: isBlack ? "#9101eaff" : "#5C128B" }}>
+              Berry
+            </span>{" "}
+            <span style={{ color: isBlack ? "#fff" : "#222" }}> Fresh!</span>
+          </h2>
+          
+          <div className={s.mobileStatsSection}>
+            <div 
+              className={s.mobileStatBox}
+              style={{ color: isBlack ? "#9101eaff" : "#5C128B" }}
+            >
+              <span className={s.mobileStatTitle}>Customers</span>
+              <span className={s.mobileStatValue}>10k Plus</span>
+            </div>
+            <div 
+              className={s.mobileStatBox}
+              style={{ color: isBlack ? "#9101eaff" : "#5C128B" }}
+            >
+              <span className={s.mobileStatTitle}>Quality</span>
+              <span className={s.mobileStatValue}>Fully Fresh</span>
+            </div>
+            <div 
+              className={s.mobileStatBox}
+              style={{ color: isBlack ? "#9101eaff" : "#5C128B" }}
+            >
+              <span className={s.mobileStatTitle}>Delivery</span>
+              <span className={s.mobileStatValue}>Same Day</span>
+            </div>
+          </div>
+          
+          <NavLink to="/contact" className={s.mobileContactBtnBottom}>
+            <span>📞</span> Contact Us
+          </NavLink>
+        </div>
+        
+        <div className={s.mobileImageSection}>
+          <img
+            src={freshImg}
+            alt="Fresh Fruits and Vegetables"
+            className={s.mobileFreshImg}
+          />
+        </div>
+      </div>
+
+      {/* Mobile Bottom Section: Why Us */}
+      <div className={s.mobileBottomSection}>
+        <div
+          style={{ color: isBlack ? "#9101eaff" : "#5C128B" }}
+          className={s.mobileTagline}
+        >
+          {taglines[taglineIndex]}
+        </div>
+        <div className={s.mobileWhyUsBox}>
+          <FaQuestionCircle
+            className={s.mobileWhyUsIcon}
+            style={{
+              color: isBlack ? "#9101eaff" : "#5C128B",
+            }}
+          />
+          <svg
+            width="60"
+            height="40"
+            viewBox="0 0 60 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10 30 Q30 10 50 30"
+              stroke="#5C128B"
+              strokeWidth="2"
+              fill="none"
+            />
+            <circle cx="10" cy="30" r="2" fill="#5C128B" />
+            <circle cx="50" cy="30" r="2" fill="#5C128B" />
+            <circle cx="30" cy="10" r="2" fill="#5C128B" />
+          </svg>
+          <div
+            className={s.mobileWhyUsText}
+            style={{
+              color: isBlack ? "#9101eaff" : "#5C128B",
+            }}
+          >
+            Why Us?
+          </div>
+        </div>
+      </div>
+
       {/* Animated Leaves using leaf.png */}
       {leaves.map((leaf, idx) => (
         <img
@@ -65,6 +188,8 @@ export const HeroSection = () => {
           }}
         />
       ))}
+      
+      {/* Desktop Layout */}
       <div className={s.topText}>
         <h1 className={s.heading}>
           <span style={{ color: isBlack ? "#04d755ff" : "#016327" }}>U</span>
