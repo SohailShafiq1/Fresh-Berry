@@ -49,22 +49,36 @@ export const getProducts = async (req, res) => {
 };
 
 export const addProduct = async (req, res) => {
+  console.log("🔧 addProduct endpoint hit");
+  console.log("📝 Request body:", req.body);
+  console.log("📷 Request file:", req.file);
+  
   try {
     const { name, description, price } = req.body;
+    
+    console.log("📋 Extracted data:", { name, description, price });
+    
     let imagePath = "";
     if (req.file) {
       imagePath = `/uploads/${req.file.filename}`;
+      console.log("📷 Image path:", imagePath);
     }
+    
     const product = new Product({
       name,
       image: imagePath,
       description,
       price,
     });
+    
+    console.log("💾 Product to save:", product);
+    
     await product.save();
+    console.log("✅ Product saved successfully:", product);
+    
     res.status(201).json(product);
   } catch (err) {
-    console.error("Add Product Error:", err);
+    console.error("❌ Add Product Error:", err);
     res
       .status(400)
       .json({ error: "Failed to add product", details: err.message });

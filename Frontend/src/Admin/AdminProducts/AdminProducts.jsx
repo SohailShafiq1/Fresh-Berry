@@ -59,6 +59,11 @@ const AdminProducts = () => {
   const handleAdd = async (e) => {
     e.preventDefault();
     setAdding(true);
+    
+    console.log("🔧 Adding product...");
+    console.log("📝 Form data:", form);
+    console.log("🌐 API_URL:", API_URL);
+    
     try {
       const formData = new FormData();
       formData.append("name", form.name);
@@ -66,19 +71,26 @@ const AdminProducts = () => {
       formData.append("price", form.price);
       if (form.image) {
         formData.append("image", form.image);
+        console.log("📷 Image added to FormData:", form.image.name);
       }
 
-      const response = await axios.post(`${API_URL}/api/products`, formData, {
+      console.log("🚀 Sending POST request to:", `${API_URL}/api/products`);
+      
+      const response = await axios.post(`${API_URL}/api/products/add`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
+      console.log("✅ Product added successfully:", response.data);
       setProducts((prev) => [...prev, response.data]);
       setForm({ name: "", image: "", description: "", price: "" });
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
     } catch (err) {
-      alert("Failed to add product");
+      console.error("❌ Failed to add product:", err);
+      console.error("Error response:", err.response?.data);
+      console.error("Error status:", err.response?.status);
+      alert(`Failed to add product: ${err.response?.data?.error || err.message}`);
     }
     setAdding(false);
   };
