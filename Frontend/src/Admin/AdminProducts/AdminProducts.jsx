@@ -14,12 +14,14 @@ const AdminProducts = () => {
     image: "",
     description: "",
     price: "",
+    origin: "",
   });
   const [editId, setEditId] = useState(null);
   const [editForm, setEditForm] = useState({
     name: "",
     description: "",
     price: "",
+    origin: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -69,6 +71,7 @@ const AdminProducts = () => {
       formData.append("name", form.name);
       formData.append("description", form.description);
       formData.append("price", form.price);
+      formData.append("origin", form.origin);
       if (form.image) {
         formData.append("image", form.image);
         console.log("📷 Image added to FormData:", form.image.name);
@@ -82,7 +85,7 @@ const AdminProducts = () => {
 
       console.log("✅ Product added successfully:", response.data);
       setProducts((prev) => [...prev, response.data]);
-      setForm({ name: "", image: "", description: "", price: "" });
+      setForm({ name: "", image: "", description: "", price: "", origin: "" });
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
@@ -112,6 +115,7 @@ const AdminProducts = () => {
       name: product.name,
       description: product.description,
       price: product.price,
+      origin: product.origin,
     });
   };
 
@@ -132,6 +136,7 @@ const AdminProducts = () => {
       formData.append("name", editForm.name);
       formData.append("description", editForm.description);
       formData.append("price", editForm.price);
+      formData.append("origin", editForm.origin);
       if (editForm.image) {
         formData.append("image", editForm.image);
       }
@@ -148,7 +153,7 @@ const AdminProducts = () => {
         prev.map((p) => (p._id === id ? response.data : p))
       );
       setEditId(null);
-      setEditForm({ name: "", description: "", price: "" });
+      setEditForm({ name: "", description: "", price: "", origin: "" });
     } catch (err) {
       alert("Failed to update product");
     }
@@ -156,7 +161,7 @@ const AdminProducts = () => {
 
   const handleEditCancel = () => {
     setEditId(null);
-    setEditForm({ name: "", description: "", price: "" });
+    setEditForm({ name: "", description: "", price: "", origin: "" });
   };
 
   const handleMarkHot = async (id) => {
@@ -221,6 +226,14 @@ const AdminProducts = () => {
           type="number"
           required
         />
+        <input
+          id="product-origin"
+          name="origin"
+          value={form.origin}
+          onChange={handleChange}
+          placeholder="Origin"
+          required
+        />
         <button className={s.button} type="submit" disabled={adding}>
           {adding ? "Adding..." : "Add Product"}
         </button>
@@ -251,6 +264,7 @@ const AdminProducts = () => {
                 <div className={s.name}>{p.name}</div>
                 <div className={s.desc}>{p.description}</div>
                 <div className={s.price}>{p.price}</div>
+                <div className={s.origin}>Origin: {p.origin}</div>
                 <div
                   className={s.hot}
                   style={{ color: p.hotselling ? "#20b958" : "#e53935" }}
@@ -334,6 +348,14 @@ const AdminProducts = () => {
               onChange={handleEditChange}
               placeholder="Price"
               type="number"
+              className={s.input}
+            />
+            <input
+              id="edit-product-origin"
+              name="origin"
+              value={editForm.origin}
+              onChange={handleEditChange}
+              placeholder="Origin"
               className={s.input}
             />
             <div className={s.modalActions}>

@@ -70,7 +70,7 @@ const OurProducts = () => {
               }}
               key={index}
             >
-              <span className={style.country}>{product.country || "UAE"}</span>
+              <span className={style.country}>{product.origin || "UAE"}</span>
               <div
                 className={style.imageWrapper}
                 style={{

@@ -54,9 +54,9 @@ export const addProduct = async (req, res) => {
   console.log("📷 Request file:", req.file);
   
   try {
-    const { name, description, price } = req.body;
+    const { name, description, price, origin } = req.body;
     
-    console.log("📋 Extracted data:", { name, description, price });
+    console.log("📋 Extracted data:", { name, description, price, origin });
     
     let imagePath = "";
     if (req.file) {
@@ -69,6 +69,7 @@ export const addProduct = async (req, res) => {
       image: imagePath,
       description,
       price,
+      origin,
     });
     
     console.log("💾 Product to save:", product);
