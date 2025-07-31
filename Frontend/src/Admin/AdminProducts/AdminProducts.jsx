@@ -28,7 +28,10 @@ const AdminProducts = () => {
   const [adding, setAdding] = useState(false);
   const [marking, setMarking] = useState("");
   const [deleting, setDeleting] = useState("");
+  const [csvUploading, setCsvUploading] = useState(false);
+  const [csvResults, setCsvResults] = useState(null);
   const fileInputRef = useRef(null);
+  const csvInputRef = useRef(null);
 
   // Fetch products on component mount
   useEffect(() => {
@@ -72,9 +75,25 @@ const AdminProducts = () => {
       formData.append("description", form.description);
       formData.append("price", form.price);
       formData.append("origin", form.origin);
+      
       if (form.image) {
         formData.append("image", form.image);
         console.log("📷 Image added to FormData:", form.image.name);
+      } else {
+        // If no image provided, check if default logo exists and use it
+        const existingProductWithLogo = products.find(p => 
+          p.image && (
+            p.image.includes('fresh-berry-logo') || 
+            p.image.includes('fresh-berry-default-logo') ||
+            p.image.includes('default-logo') ||
+            p.image.includes('logo.jpg')
+          )
+        );
+        
+        if (existingProductWithLogo) {
+          formData.append("imageUrl", `${API_URL}${existingProductWithLogo.image}`);
+          console.log("🔗 Using existing default logo for new product:", existingProductWithLogo.image);
+        }
       }
 
       console.log("🚀 Sending POST request to:", `${API_URL}/api/products`);
@@ -190,9 +209,277 @@ const AdminProducts = () => {
     setMarking("");
   };
 
+  // CSV Upload functionality
+  const handleCsvUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setCsvUploading(true);
+    setCsvResults(null);
+
+    try {
+      const text = await file.text();
+      const lines = text.split('\n').filter(line => line.trim());
+      
+      if (lines.length === 0) {
+        alert("CSV file is empty");
+        setCsvUploading(false);
+        return;
+      }
+
+      // Parse CSV headers
+      const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+      const requiredHeaders = ['name', 'description', 'price', 'origin'];
+      const optionalHeaders = ['image', 'imageurl', 'image_url'];
+      
+      // Check if required headers exist
+      const missingHeaders = requiredHeaders.filter(header => 
+        !headers.includes(header)
+      );
+      
+      if (missingHeaders.length > 0) {
+        alert(`Missing required headers: ${missingHeaders.join(', ')}\nRequired headers: name, description, price, origin\nOptional: image or imageurl`);
+        setCsvUploading(false);
+        return;
+      }
+
+      const results = {
+        added: 0,
+        updated: 0,
+        errors: []
+      };
+
+      // Check if default logo already exists, upload once if needed
+      let defaultLogoPath = null;
+      const getOrUploadDefaultLogo = async () => {
+        if (defaultLogoPath) return defaultLogoPath; // Return if already determined
+        
+        // First check if any product already has the default logo
+        const existingProductWithLogo = products.find(p => 
+          p.image && (
+            p.image.includes('fresh-berry-logo') || 
+            p.image.includes('default-logo') ||
+            p.image.includes('logo.jpg')
+          )
+        );
+        
+        if (existingProductWithLogo) {
+          defaultLogoPath = existingProductWithLogo.image;
+          console.log("🔄 Reusing existing default logo:", defaultLogoPath);
+          return defaultLogoPath;
+        }
+        
+        // If no existing logo found, upload it once
+        try {
+          const defaultImageBlob = await fetch('/logo.jpg').then(r => r.blob());
+          const logoFormData = new FormData();
+          logoFormData.append("name", "Default Fresh Berry Logo");
+          logoFormData.append("description", "Default logo for Fresh Berry products");
+          logoFormData.append("price", "0");
+          logoFormData.append("origin", "Fresh Berry");
+          logoFormData.append("image", defaultImageBlob, 'fresh-berry-default-logo.jpg');
+
+          const logoResponse = await axios.post(`${API_URL}/api/products/add`, logoFormData, {
+            headers: { "Content-Type": "multipart/form-data" },
+          });
+
+          defaultLogoPath = logoResponse.data.image;
+          console.log("📷 Default logo uploaded once:", defaultLogoPath);
+          
+          // Remove the temporary logo product (we only needed it to upload the image)
+          await axios.delete(`${API_URL}/api/products/${logoResponse.data._id}`);
+          console.log("🗑️ Temporary logo product removed, keeping image file");
+          
+          return defaultLogoPath;
+        } catch (error) {
+          console.warn("Could not upload default logo:", error);
+          return null;
+        }
+      };
+
+      // Process each row
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',').map(v => v.trim());
+        
+        if (values.length !== headers.length) {
+          results.errors.push(`Row ${i + 1}: Column count mismatch`);
+          continue;
+        }
+
+        const rowData = {};
+        headers.forEach((header, index) => {
+          rowData[header] = values[index];
+        });
+
+        // Validate required fields
+        if (!rowData.name || !rowData.description || !rowData.price || !rowData.origin) {
+          results.errors.push(`Row ${i + 1}: Missing required fields`);
+          continue;
+        }
+
+        try {
+          // Check if product exists (by name)
+          const existingProduct = products.find(p => 
+            p.name.toLowerCase() === rowData.name.toLowerCase()
+          );
+
+          // Determine image handling
+          const imageUrl = rowData.image || rowData.imageurl || rowData.image_url;
+          const hasImageUrl = imageUrl && imageUrl.trim() && imageUrl !== '';
+
+          if (existingProduct) {
+            // Update existing product
+            const formData = new FormData();
+            formData.append("name", rowData.name);
+            formData.append("description", rowData.description);
+            formData.append("price", rowData.price);
+            formData.append("origin", rowData.origin);
+            
+            // Handle image update logic
+            if (hasImageUrl) {
+              // Always update image if CSV provides an image URL
+              formData.append("imageUrl", imageUrl.trim());
+              console.log(`🔄 Updating product "${rowData.name}" with new image URL: ${imageUrl.trim()}`);
+            } else {
+              // If no image URL in CSV, check if product has default logo and needs updating
+              const hasDefaultLogo = existingProduct.image && 
+                (existingProduct.image.includes('logo.jpg') || 
+                 existingProduct.image.includes('logo.png') || 
+                 existingProduct.image.includes('default-logo'));
+              
+              if (hasDefaultLogo) {
+                console.log(`ℹ️ Product "${rowData.name}" has default logo but no new image URL provided, keeping existing image`);
+              }
+              // Don't add imageUrl field if no URL provided - keeps existing image
+            }
+
+            const response = await axios.put(
+              `${API_URL}/api/products/${existingProduct._id}`,
+              formData,
+              { headers: { "Content-Type": "multipart/form-data" } }
+            );
+
+            setProducts((prev) =>
+              prev.map((p) => (p._id === existingProduct._id ? response.data : p))
+            );
+            results.updated++;
+          } else {
+            // Add new product
+            const formData = new FormData();
+            formData.append("name", rowData.name);
+            formData.append("description", rowData.description);
+            formData.append("price", rowData.price);
+            formData.append("origin", rowData.origin);
+            
+            if (hasImageUrl) {
+              // Use provided image URL
+              formData.append("imageUrl", imageUrl.trim());
+            } else {
+              // Use shared default logo path
+              const logoPath = await getOrUploadDefaultLogo();
+              if (logoPath) {
+                formData.append("imageUrl", `${API_URL}${logoPath}`);
+                console.log("🔗 Using shared default logo:", logoPath);
+              } else {
+                console.warn("Could not get default logo, proceeding without image");
+              }
+            }
+
+            const response = await axios.post(`${API_URL}/api/products/add`, formData, {
+              headers: { "Content-Type": "multipart/form-data" },
+            });
+
+            setProducts((prev) => [...prev, response.data]);
+            results.added++;
+          }
+        } catch (err) {
+          results.errors.push(`Row ${i + 1}: ${err.response?.data?.error || err.message}`);
+        }
+      }
+
+      setCsvResults(results);
+      
+      // Show summary
+      let message = `CSV Upload Complete!\n`;
+      message += `• Added: ${results.added} products\n`;
+      message += `• Updated: ${results.updated} products\n`;
+      if (results.errors.length > 0) {
+        message += `• Errors: ${results.errors.length}\n\nErrors:\n${results.errors.join('\n')}`;
+      }
+      alert(message);
+
+    } catch (err) {
+      console.error("CSV upload error:", err);
+      alert(`Failed to process CSV file: ${err.message}`);
+    }
+
+    setCsvUploading(false);
+    if (csvInputRef.current) {
+      csvInputRef.current.value = "";
+    }
+  };
+
+  const downloadSampleCsv = () => {
+    const sampleData = `name,description,price,origin,imageUrl
+Fresh Apples,Crispy red apples from local farms,5.99,Local Farm,https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6
+Organic Bananas,Sweet organic bananas,3.49,Ecuador,
+Premium Oranges,Juicy Valencia oranges,4.99,Spain,https://images.unsplash.com/photo-1547036967-23d11aacaee0
+Local Berries,Fresh mixed berries,7.99,Local Farm,
+Tomatoes,Fresh red tomatoes,6.49,Local Farm,https://images.unsplash.com/photo-1592924357228-91a4daadcfea`;
+
+    const blob = new Blob([sampleData], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sample-products.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
   return (
     <div className={s.container}>
       <h2 className={s.title}>Admin Products</h2>
+      
+      {/* CSV Upload Section */}
+      <div className={s.csvSection}>
+        <h3 className={s.csvTitle}>📁 Bulk Upload Products</h3>
+        <div className={s.csvActions}>
+          <input
+            type="file"
+            accept=".csv"
+            onChange={handleCsvUpload}
+            ref={csvInputRef}
+            className={s.csvInput}
+            disabled={csvUploading}
+          />
+          <button
+            className={s.button}
+            onClick={downloadSampleCsv}
+            type="button"
+            style={{ background: "#059669" }}
+          >
+            📥 Download Sample CSV
+          </button>
+          <div className={s.csvInfo}>
+            <small>
+              Upload a CSV file with columns: <strong>name, description, price, origin</strong>
+              <br />
+              Optional: <strong>imageUrl</strong> - Provide image links to replace default logos or update existing images
+              <br />
+              • Existing products will be updated with new data and images (if provided)
+              <br />
+              • New products get Fresh Berry logo by default (unless imageUrl provided)
+            </small>
+          </div>
+        </div>
+        {csvUploading && (
+          <div className={s.csvStatus}>
+            🔄 Processing CSV file, please wait...
+          </div>
+        )}
+      </div>
+
+      {/* Add Product Form */}
       <form className={s.form} onSubmit={handleAdd}>
         <input
           id="product-name"
