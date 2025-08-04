@@ -46,7 +46,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className={s.navBar} data-theme={theme}>
+    <div className={s.navBar} data-theme={theme.text}>
       <NavLink to="/" className={s.logo} onClick={() => setMenuOpen(false)}>
         <img src={logo} alt="Fresh Berry Logo" />
       </NavLink>

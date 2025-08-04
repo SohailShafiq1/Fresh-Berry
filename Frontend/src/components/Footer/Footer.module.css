@@ -9,6 +9,14 @@
   font-family: 'Quicksand', sans-serif;
   color: #222;
   box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Dark mode footer - checking for white text which indicates dark mode */
+.footer[data-theme*="#fff"] {
+  background: #1a1a1a;
+  color: #ffffff;
+  border-top: 2px solid #555;
 }
 
 .leftSection {
@@ -43,6 +51,12 @@
   gap: 12px;
   font-size: 1rem;
   color: #222;
+  transition: color 0.3s ease;
+}
+
+/* Dark mode licensing row */
+.footer[data-theme*="#fff"] .licensingRow {
+  color: #ffffff;
 }
 
 .dot {
@@ -62,10 +76,20 @@
   font-size: 1.3rem;
   color: #222;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.3s ease;
 }
+
 .socialIcon:hover {
   color: #5C128B;
+}
+
+/* Dark mode social icons */
+.footer[data-theme*="#fff"] .socialIcon {
+  color: #ffffff;
+}
+
+.footer[data-theme*="#fff"] .socialIcon:hover {
+  color: #8a4db8;
 }
 
 .rightSection {
@@ -82,17 +106,33 @@
   font-weight: 400;
   color: #222;
   margin-bottom: 0;
+  transition: color 0.3s ease;
+}
+
+/* Dark mode links row */
+.footer[data-theme*="#fff"] .linksRow {
+  color: #ffffff;
 }
 
 .link {
   color: #222;
   text-decoration: none;
   margin: 0 2px;
-  transition: color 0.2s;
+  transition: color 0.3s ease;
   font-size: 1rem;
 }
+
 .link:hover {
   color: #5C128B;
+}
+
+/* Dark mode links */
+.footer[data-theme*="#fff"] .link {
+  color: #ffffff;
+}
+
+.footer[data-theme*="#fff"] .link:hover {
+  color: #8a4db8;
 }
 
 .copyright {
@@ -100,7 +140,15 @@
   color: #888;
   margin-top: 0;
   text-align: right;
+  transition: color 0.3s ease;
 }
+
+/* Dark mode copyright */
+.footer[data-theme*="#fff"] .copyright {
+  color: #cccccc;
+}
+  
+
 
 @media (max-width: 900px) {
   .footer {
