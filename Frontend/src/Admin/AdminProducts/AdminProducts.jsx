@@ -436,6 +436,45 @@ Tomatoes,Fresh red tomatoes,6.49,Local Farm,https://images.unsplash.com/photo-15
     window.URL.revokeObjectURL(url);
   };
 
+  const downloadAllProductsCsv = () => {
+    if (products.length === 0) {
+      alert('No products available to download');
+      return;
+    }
+
+    // Create CSV headers
+    const headers = ['name', 'description', 'price', 'origin', ];
+    
+    // Convert products to CSV format
+    const csvData = products.map(product => {
+      const imageUrl = product.image 
+        ? (product.image.startsWith('/uploads/') 
+            ? `${API_URL}${product.image}` 
+            : product.image)
+        : '';
+      
+      return [
+        `"${(product.name || '').replace(/"/g, '""')}"`,
+        `"${(product.description || '').replace(/"/g, '""')}"`,
+        product.price || '',
+        `"${(product.origin || '').replace(/"/g, '""')}"`,
+       
+      ].join(',');
+    });
+
+    // Combine headers and data
+    const csvContent = [headers.join(','), ...csvData].join('\n');
+
+    // Create and download the file
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `fresh-berry-products-${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
   return (
     <div className={s.container}>
       <h2 className={s.title}>Admin Products</h2>
@@ -460,6 +499,15 @@ Tomatoes,Fresh red tomatoes,6.49,Local Farm,https://images.unsplash.com/photo-15
           >
             📥 Download Sample CSV
           </button>
+          <button
+            className={s.button}
+            onClick={downloadAllProductsCsv}
+            type="button"
+            style={{ background: "#1976d2" }}
+            disabled={products.length === 0}
+          >
+            📊 Download All Products CSV
+          </button>
           <div className={s.csvInfo}>
             <small>
               Upload a CSV file with columns: <strong>name, description, price, origin</strong>
@@ -469,6 +517,8 @@ Tomatoes,Fresh red tomatoes,6.49,Local Farm,https://images.unsplash.com/photo-15
               • Existing products will be updated with new data and images (if provided)
               <br />
               • New products get Fresh Berry logo by default (unless imageUrl provided)
+              <br />
+              • Download all products to get current database in CSV format
             </small>
           </div>
         </div>
