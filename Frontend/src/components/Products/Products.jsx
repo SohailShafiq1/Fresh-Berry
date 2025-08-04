@@ -1,16 +1,17 @@
 import { MdSort } from "react-icons/md";
 import { AiFillFilter } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import style from "./Products.module.css";
 import { ThemeContext } from "../../context/Theme/ThemeContext";
 import { useContext } from "react";
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const Products = () => {
+const Products = () => {
   const { theme } = useContext(ThemeContext);
   const isBlack = theme.text === "#fff";
   const location = useLocation();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -86,6 +87,8 @@ export const Products = () => {
     setNameSearch("");
     setMinPrice("");
     setMaxPrice("");
+    // Clear URL search parameters when clearing filters
+    navigate('/products', { replace: true });
   };
 
   return (
@@ -273,15 +276,31 @@ export const Products = () => {
                   background: isBlack ? "#111" : "#fff",
                 }}
               >
-                <img
-                  src={
-                    product.image && product.image.startsWith("/uploads/")
-                      ? `${API_URL}${product.image}`
-                      : product.image
-                  }
-                  alt="product"
-                  className={style.image}
-                />
+                {product.image && product.image.trim() !== "" ? (
+                  <img
+                    src={
+                      product.image.startsWith("/uploads/")
+                        ? `${API_URL}${product.image}`
+                        : product.image
+                    }
+                    alt={product.name || "product"}
+                    className={style.image}
+                  />
+                ) : (
+                  <div 
+                    className={style.image}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: isBlack ? '#555' : '#f0f0f0',
+                      color: isBlack ? '#999' : '#666',
+                      fontSize: '0.8rem'
+                    }}
+                  >
+                    No Image
+                  </div>
+                )}
               </div>
               <h4
                 style={{

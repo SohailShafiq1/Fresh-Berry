@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import style from "./NavBar.module.css";
 import logo from "../../assets/logo.jpg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FiPhoneCall, FiMenu, FiX } from "react-icons/fi";
 import { BsSearch, BsSun, BsMoon } from "react-icons/bs";
 import { ThemeContext } from "../../context/Theme/ThemeContext";
@@ -11,8 +11,39 @@ const s = style;
 const NavBar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      // Navigate to products page with search query
+      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery(""); // Clear search after navigation
+      setMenuOpen(false); // Close mobile menu if open
+    }
+  };
+
+  const handleSearchInputChange = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    
+    // Real-time search - navigate immediately as user types
+    if (value.trim()) {
+      navigate(`/products?search=${encodeURIComponent(value.trim())}`);
+    } else {
+      // If search is empty, go to products page without search
+      navigate('/products');
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch(e);
+    }
+  };
 
   return (
     <div className={s.navBar} data-theme={theme}>
@@ -21,8 +52,14 @@ const NavBar = () => {
       </NavLink>
 
       <div className={s.searchWrapper}>
-        <input type="text" placeholder="Type to search" />
-        <button>
+        <input 
+          type="text" 
+          placeholder="Search products..." 
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+          onKeyPress={handleKeyPress}
+        />
+        <button onClick={handleSearch} type="button">
           <BsSearch />
         </button>
       </div>
