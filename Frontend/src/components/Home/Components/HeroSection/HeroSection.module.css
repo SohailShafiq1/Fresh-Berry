@@ -259,7 +259,7 @@
   .mobileMainContent {
     display: flex !important;
     align-items: flex-start;
-    padding: 0 20px;
+    padding: 0 40px;
     gap: 15px;
     margin-bottom: 20px;
   }
