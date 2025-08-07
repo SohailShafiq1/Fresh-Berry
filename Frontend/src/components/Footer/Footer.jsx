@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import style from './Footer.module.css';
 import logo from '../../assets/logo.jpg';
-import logoblack from '../../assets/logoblack.jpg';
 import { ThemeContext } from '../../context/Theme/ThemeContext';
 
 export const Footer = () => {

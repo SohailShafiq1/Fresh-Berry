@@ -30,8 +30,12 @@ const AdminProducts = () => {
   const [deleting, setDeleting] = useState("");
   const [csvUploading, setCsvUploading] = useState(false);
   const [csvResults, setCsvResults] = useState(null);
+  const [folderUploading, setFolderUploading] = useState(false);
+  const [folderResults, setFolderResults] = useState(null);
+  const [removingAll, setRemovingAll] = useState(false);
   const fileInputRef = useRef(null);
   const csvInputRef = useRef(null);
+  const folderInputRef = useRef(null);
 
   // Fetch products on component mount
   useEffect(() => {
@@ -65,9 +69,7 @@ const AdminProducts = () => {
     e.preventDefault();
     setAdding(true);
     
-    console.log("🔧 Adding product...");
-    console.log("📝 Form data:", form);
-    console.log("🌐 API_URL:", API_URL);
+
     
     try {
       const formData = new FormData();
@@ -78,7 +80,6 @@ const AdminProducts = () => {
       
       if (form.image) {
         formData.append("image", form.image);
-        console.log("📷 Image added to FormData:", form.image.name);
       } else {
         // If no image provided, check if default logo exists and use it
         const existingProductWithLogo = products.find(p => 
@@ -92,17 +93,14 @@ const AdminProducts = () => {
         
         if (existingProductWithLogo) {
           formData.append("imageUrl", `${API_URL}${existingProductWithLogo.image}`);
-          console.log("🔗 Using existing default logo for new product:", existingProductWithLogo.image);
         }
       }
 
-      console.log("🚀 Sending POST request to:", `${API_URL}/api/products`);
       
       const response = await axios.post(`${API_URL}/api/products/add`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      console.log("✅ Product added successfully:", response.data);
       setProducts((prev) => [...prev, response.data]);
       setForm({ name: "", image: "", description: "", price: "", origin: "" });
       if (fileInputRef.current) {
@@ -229,8 +227,8 @@ const AdminProducts = () => {
 
       // Parse CSV headers
       const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
-      const requiredHeaders = ['name', 'description', 'price', 'origin'];
-      const optionalHeaders = ['image', 'imageurl', 'image_url'];
+      const requiredHeaders = ['name', 'description', 'price'];
+      const optionalHeaders = ['origin', 'image', 'imageurl', 'image_url'];
       
       // Check if required headers exist
       const missingHeaders = requiredHeaders.filter(header => 
@@ -238,7 +236,7 @@ const AdminProducts = () => {
       );
       
       if (missingHeaders.length > 0) {
-        alert(`Missing required headers: ${missingHeaders.join(', ')}\nRequired headers: name, description, price, origin\nOptional: image or imageurl`);
+        alert(`Missing required headers: ${missingHeaders.join(', ')}\nRequired headers: name, description, price\nOptional: origin, image or imageurl`);
         setCsvUploading(false);
         return;
       }
@@ -265,7 +263,6 @@ const AdminProducts = () => {
         
         if (existingProductWithLogo) {
           defaultLogoPath = existingProductWithLogo.image;
-          console.log("🔄 Reusing existing default logo:", defaultLogoPath);
           return defaultLogoPath;
         }
         
@@ -284,11 +281,9 @@ const AdminProducts = () => {
           });
 
           defaultLogoPath = logoResponse.data.image;
-          console.log("📷 Default logo uploaded once:", defaultLogoPath);
           
           // Remove the temporary logo product (we only needed it to upload the image)
           await axios.delete(`${API_URL}/api/products/${logoResponse.data._id}`);
-          console.log("🗑️ Temporary logo product removed, keeping image file");
           
           return defaultLogoPath;
         } catch (error) {
@@ -312,8 +307,8 @@ const AdminProducts = () => {
         });
 
         // Validate required fields
-        if (!rowData.name || !rowData.description || !rowData.price || !rowData.origin) {
-          results.errors.push(`Row ${i + 1}: Missing required fields`);
+        if (!rowData.name || !rowData.description || !rowData.price) {
+          results.errors.push(`Row ${i + 1}: Missing required fields (name, description, price)`);
           continue;
         }
 
@@ -333,13 +328,12 @@ const AdminProducts = () => {
             formData.append("name", rowData.name);
             formData.append("description", rowData.description);
             formData.append("price", rowData.price);
-            formData.append("origin", rowData.origin);
+            formData.append("origin", rowData.origin || ""); // Allow empty origin
             
             // Handle image update logic
             if (hasImageUrl) {
               // Always update image if CSV provides an image URL
               formData.append("imageUrl", imageUrl.trim());
-              console.log(`🔄 Updating product "${rowData.name}" with new image URL: ${imageUrl.trim()}`);
             } else {
               // If no image URL in CSV, check if product has default logo and needs updating
               const hasDefaultLogo = existingProduct.image && 
@@ -348,7 +342,6 @@ const AdminProducts = () => {
                  existingProduct.image.includes('default-logo'));
               
               if (hasDefaultLogo) {
-                console.log(`ℹ️ Product "${rowData.name}" has default logo but no new image URL provided, keeping existing image`);
               }
               // Don't add imageUrl field if no URL provided - keeps existing image
             }
@@ -369,7 +362,7 @@ const AdminProducts = () => {
             formData.append("name", rowData.name);
             formData.append("description", rowData.description);
             formData.append("price", rowData.price);
-            formData.append("origin", rowData.origin);
+            formData.append("origin", rowData.origin || ""); // Allow empty origin
             
             if (hasImageUrl) {
               // Use provided image URL
@@ -379,7 +372,6 @@ const AdminProducts = () => {
               const logoPath = await getOrUploadDefaultLogo();
               if (logoPath) {
                 formData.append("imageUrl", `${API_URL}${logoPath}`);
-                console.log("🔗 Using shared default logo:", logoPath);
               } else {
                 console.warn("Could not get default logo, proceeding without image");
               }
@@ -419,13 +411,156 @@ const AdminProducts = () => {
     }
   };
 
+  // Folder Upload functionality
+  const handleFolderUpload = async (event) => {
+    const files = Array.from(event.target.files);
+    if (!files || files.length === 0) return;
+
+    setFolderUploading(true);
+    setFolderResults(null);
+
+
+    const results = {
+      added: 0,
+      updated: 0,
+      skipped: 0,
+      errors: []
+    };
+
+    try {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        
+        // Only process image files
+        if (!file.type.startsWith('image/')) {
+          results.skipped++;
+          console.log(`⏭️ Skipping "${file.name}" - not an image file`);
+          continue;
+        }
+
+        try {
+          // Extract product name from filename (remove extension and format nicely)
+          const fileName = file.name.replace(/\.[^/.]+$/, ""); // Remove extension
+          let productName = fileName
+            .replace(/[-_]/g, " ") // Replace dashes and underscores with spaces
+            .replace(/[^a-zA-Z0-9\s]/g, " ") // Replace other special characters with spaces
+            .replace(/\s+/g, " ") // Replace multiple spaces with single space
+            .trim(); // Remove leading/trailing spaces
+          
+          // Capitalize first letter of each word for better formatting
+          productName = productName
+            .split(" ")
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(" ");
+          
+          // If productName is empty or only spaces, use original filename
+          if (!productName || productName.trim() === "") {
+            productName = fileName || `Product ${i + 1}`;
+          }
+          
+          // Check if product with this name already exists
+          const existingProduct = products.find(p => 
+            p.name.toLowerCase() === productName.toLowerCase()
+          );
+
+          if (existingProduct) {
+            // Update existing product with new image
+            try {
+              const formData = new FormData();
+              formData.append("name", existingProduct.name); // Keep original name
+              formData.append("description", existingProduct.description); // Keep original description
+              formData.append("price", existingProduct.price); // Keep original price
+              formData.append("origin", existingProduct.origin || ""); // Keep original origin
+              formData.append("image", file); // Replace with new image
+
+              console.log(`🔄 Updating existing product "${productName}" with new image`);
+
+              const response = await axios.put(
+                `${API_URL}/api/products/${existingProduct._id}`,
+                formData,
+                { headers: { "Content-Type": "multipart/form-data" } }
+              );
+
+              setProducts((prev) =>
+                prev.map((p) => (p._id === existingProduct._id ? response.data : p))
+              );
+              results.updated = (results.updated || 0) + 1;
+              continue;
+            } catch (err) {
+              const errorMessage = err.response?.data?.error || err.response?.data?.details || err.message;
+              results.errors.push(`${file.name} (update): ${errorMessage}`);
+              console.error(`❌ Failed to update product for ${file.name}:`, {
+                error: errorMessage,
+                status: err.response?.status,
+                data: err.response?.data
+              });
+              continue;
+            }
+          }
+
+          // Generate random price under 100
+          const randomPrice = (Math.random() * 99 + 1).toFixed(2);
+
+          // Create FormData for new product
+          const formData = new FormData();
+          formData.append("name", productName);
+          formData.append("description", `Fresh and organic ${productName.toLowerCase()}`);
+          formData.append("price", randomPrice);
+          formData.append("origin", ""); // Empty origin as requested
+          formData.append("image", file);
+
+
+          const response = await axios.post(`${API_URL}/api/products/add`, formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+          });
+
+          setProducts((prev) => [...prev, response.data]);
+          results.added++;
+
+        } catch (err) {
+          const errorMessage = err.response?.data?.error || err.response?.data?.details || err.message;
+          results.errors.push(`${file.name}: ${errorMessage}`);
+          console.error(`❌ Failed to add product for ${file.name}:`, {
+            error: errorMessage,
+            status: err.response?.status,
+            data: err.response?.data
+          });
+        }
+      }
+
+      setFolderResults(results);
+      
+      // Show summary
+      let message = `Folder Upload Complete!\n`;
+      message += `• Added: ${results.added} new products\n`;
+      message += `• Updated: ${results.updated || 0} existing products (images replaced)\n`;
+      message += `• Skipped: ${results.skipped} non-image files\n`;
+      if (results.errors.length > 0) {
+        message += `• Errors: ${results.errors.length}\n\nErrors:\n${results.errors.slice(0, 5).join('\n')}`;
+        if (results.errors.length > 5) {
+          message += `\n... and ${results.errors.length - 5} more errors`;
+        }
+      }
+      alert(message);
+
+    } catch (err) {
+      console.error("Folder upload error:", err);
+      alert(`Failed to process folder: ${err.message}`);
+    }
+
+    setFolderUploading(false);
+    if (folderInputRef.current) {
+      folderInputRef.current.value = "";
+    }
+  };
+
   const downloadSampleCsv = () => {
     const sampleData = `name,description,price,origin,imageUrl
 Fresh Apples,Crispy red apples from local farms,5.99,Local Farm,https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6
 Organic Bananas,Sweet organic bananas,3.49,Ecuador,
-Premium Oranges,Juicy Valencia oranges,4.99,Spain,https://images.unsplash.com/photo-1547036967-23d11aacaee0
+Premium Oranges,Juicy Valencia oranges,4.99,,https://images.unsplash.com/photo-1547036967-23d11aacaee0
 Local Berries,Fresh mixed berries,7.99,Local Farm,
-Tomatoes,Fresh red tomatoes,6.49,Local Farm,https://images.unsplash.com/photo-1592924357228-91a4daadcfea`;
+Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-1592924357228-91a4daadcfea`;
 
     const blob = new Blob([sampleData], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
@@ -475,6 +610,68 @@ Tomatoes,Fresh red tomatoes,6.49,Local Farm,https://images.unsplash.com/photo-15
     window.URL.revokeObjectURL(url);
   };
 
+  // Remove All Products functionality
+  const handleRemoveAllProducts = async () => {
+    const confirmMessage = `⚠️ WARNING: This will permanently delete ALL ${products.length} products!\n\nThis action cannot be undone. Are you absolutely sure you want to continue?`;
+    
+    if (!window.confirm(confirmMessage)) {
+      return;
+    }
+
+    // Double confirmation
+    const doubleConfirm = window.confirm("🚨 FINAL CONFIRMATION: Delete ALL products permanently?");
+    if (!doubleConfirm) {
+      return;
+    }
+
+    setRemovingAll(true);
+
+    try {
+      let successCount = 0;
+      let errorCount = 0;
+      const errors = [];
+
+      console.log(`🗑️ Starting bulk deletion of ${products.length} products...`);
+
+      // Delete products one by one to handle individual errors
+      for (const product of products) {
+        try {
+          await axios.delete(`${API_URL}/api/products/${product._id}`);
+          successCount++;
+          console.log(`✅ Deleted: ${product.name}`);
+        } catch (err) {
+          errorCount++;
+          errors.push(`${product.name}: ${err.response?.data?.error || err.message}`);
+          console.error(`❌ Failed to delete ${product.name}:`, err);
+        }
+      }
+
+      // Update local state to remove all products
+      setProducts([]);
+
+      // Show results
+      let message = `Bulk Deletion Complete!\n`;
+      message += `• Successfully deleted: ${successCount} products\n`;
+      if (errorCount > 0) {
+        message += `• Failed to delete: ${errorCount} products\n\nErrors:\n${errors.slice(0, 3).join('\n')}`;
+        if (errors.length > 3) {
+          message += `\n... and ${errors.length - 3} more errors`;
+        }
+      }
+      
+      alert(message);
+
+      // Refresh products list to ensure sync with backend
+      await fetchProducts();
+
+    } catch (err) {
+      console.error("Bulk deletion error:", err);
+      alert(`Failed to delete all products: ${err.message}`);
+    }
+
+    setRemovingAll(false);
+  };
+
   return (
     <div className={s.container}>
       <h2 className={s.title}>Admin Products</h2>
@@ -508,23 +705,78 @@ Tomatoes,Fresh red tomatoes,6.49,Local Farm,https://images.unsplash.com/photo-15
           >
             📊 Download All Products CSV
           </button>
+          <button
+            className={s.button}
+            onClick={handleRemoveAllProducts}
+            type="button"
+            style={{ background: "#dc3545", color: "#fff" }}
+            disabled={products.length === 0 || removingAll}
+          >
+            {removingAll ? "🗑️ Removing All..." : "🗑️ Remove All Products"}
+          </button>
           <div className={s.csvInfo}>
             <small>
-              Upload a CSV file with columns: <strong>name, description, price, origin</strong>
+              Upload a CSV file with columns: <strong>name, description, price</strong>
               <br />
-              Optional: <strong>imageUrl</strong> - Provide image links to replace default logos or update existing images
+              Optional: <strong>origin, imageUrl</strong> - Provide image links to replace default logos or update existing images
               <br />
               • Existing products will be updated with new data and images (if provided)
               <br />
               • New products get Fresh Berry logo by default (unless imageUrl provided)
               <br />
+              • Origin is optional and can be left empty
+              <br />
               • Download all products to get current database in CSV format
+              <br />
+              • <strong>⚠️ Remove All Products will permanently delete everything</strong>
             </small>
           </div>
         </div>
         {csvUploading && (
           <div className={s.csvStatus}>
             🔄 Processing CSV file, please wait...
+          </div>
+        )}
+      </div>
+
+      {/* Folder Upload Section */}
+      <div className={s.csvSection}>
+        <h3 className={s.csvTitle}>🖼️ Bulk Upload Images (Folder)</h3>
+        <div className={s.csvActions}>
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            webkitdirectory="true"
+            directory="true"
+            onChange={handleFolderUpload}
+            ref={folderInputRef}
+            className={s.csvInput}
+            disabled={folderUploading}
+          />
+          <div className={s.csvInfo}>
+            <small>
+              <strong>📁 Upload a folder of images to auto-create/update products:</strong>
+              <br />
+              • Product name will be the image filename (without extension)
+              <br />
+              • Description will be "Fresh and organic [product name]"
+              <br />
+              • Price will be randomly generated under $100 (for new products only)
+              <br />
+              • Origin will be empty (optional field)
+              <br />
+              • <strong>Existing products with same names will have their images replaced</strong>
+              <br />
+              • Only image files will be processed, others skipped
+              <br />
+              • Special characters in filenames will be cleaned and formatted
+            </small>
+          </div>
+        </div>
+        {folderUploading && (
+          <div className={s.csvStatus}>
+            🔄 Processing folder images, please wait...
           </div>
         )}
       </div>
@@ -539,13 +791,19 @@ Tomatoes,Fresh red tomatoes,6.49,Local Farm,https://images.unsplash.com/photo-15
           placeholder="Name"
           required
         />
-        <input
-          id="product-image"
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          ref={fileInputRef}
-        />
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <input
+            id="product-image"
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            ref={fileInputRef}
+            style={{ flex: 1 }}
+          />
+          <small style={{ color: '#666', fontSize: '12px' }}>
+            Single image for this product
+          </small>
+        </div>
         <input
           id="product-description"
           name="description"
@@ -568,8 +826,7 @@ Tomatoes,Fresh red tomatoes,6.49,Local Farm,https://images.unsplash.com/photo-15
           name="origin"
           value={form.origin}
           onChange={handleChange}
-          placeholder="Origin"
-          required
+          placeholder="Origin (optional)"
         />
         <button className={s.button} type="submit" disabled={adding}>
           {adding ? "Adding..." : "Add Product"}
