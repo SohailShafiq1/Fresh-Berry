@@ -76,7 +76,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  /* box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25); */
 }
 
 .image {
@@ -151,75 +151,82 @@
   }
   
   .grid {
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 8px;
+    justify-content: center;
     width: 100%;
-    padding: 0;
+    padding: 0 0.5rem;
   }
   
   .card {
-    width: calc(100vw - 2rem);
-    max-width: 320px;
-    padding: 1rem;
-    border-radius: 20px;
+    width: 100%;
+    max-width: 140px;
+    padding: 8px 6px;
+    border-radius: 12px;
     height: auto;
     box-sizing: border-box;
+    justify-self: center;
   }
   
   .imageWrapper {
-    border-radius: 16px;
-    width: 180px;
-    height: 150px;
-    margin: 1rem auto;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 100px;
+    height: 90px;
+    margin: 0.3rem auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    /* box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25); */
   }
   
   .image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 16px;
+    border-radius: 10px;
   }
   
   .name {
-    font-size: 22px;
+    font-size: 14px;
     font-weight: 700;
     color: #111;
-    margin: 0.5rem 0 0.25rem 0;
+    margin: 0.3rem 0 0.2rem 0;
     font-family: "Baloo 2";
+    line-height: 1.1;
+    text-align: center;
   }
   
   .desc {
     font-family: "Quicksand";
-    font-size: 13px;
-    margin-bottom: 0.5rem;
+    font-size: 10px;
+    margin-bottom: 0.3rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
   }
   
   .price {
     font-family: "Quicksand";
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 500;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
   }
   
   .orderBtn {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 3px;
     background: #075e54;
     color: white;
-    padding: 12px;
-    border-radius: 16px;
+    padding: 6px 4px;
+    border-radius: 8px;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 10px;
     font-weight: 500;
     transition: 0.2s ease;
     font-family: "Quicksand";
@@ -228,14 +235,14 @@
   }
   
   .orderBtn img {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
   }
   
   .country {
-    top: 12px;
-    left: 12px;
-    font-size: 11px;
-    padding: 3px 8px;
+    top: 8px;
+    left: 8px;
+    font-size: 10px;
+    padding: 2px 6px;
   }
 }

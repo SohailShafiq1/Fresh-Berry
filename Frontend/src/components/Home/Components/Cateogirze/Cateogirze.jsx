@@ -32,16 +32,30 @@ const categories = [
     image: Leaf,
     color: "#A1D70A",
   },
-  {
-    name: "Custom Orders",
-    image: Bag,
-    color: "#5C128B",
-  },
+  // {
+  //   name: "Custom Orders",
+  //   image: Bag,
+  //   color: "#5C128B",
+  // },
 ];
 
 export const Cateogirze = () => {
   const { theme } = useContext(ThemeContext);
   const isBlack = theme.text === "#fff";
+
+  const handleCategoryClick = (categoryName) => {
+    const phoneNumber = "971585878022"; // WhatsApp format without + and spaces
+    const message = ` Freshberryuae.com
+
+Hi! I have just visited your site and I want to place an order for ${categoryName.toLowerCase()}. Please provide me with pricing and products available.
+
+Thank you! 😊`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+    // Open WhatsApp in a new tab
+    window.open(whatsappUrl, '_blank');
+  };
 
   return (
     <div
@@ -55,8 +69,10 @@ export const Cateogirze = () => {
         {categories.map((cat, idx) => (
           <div
             className={s.card}
-            style={{ background: cat.color }}
+            style={{ background: cat.color, cursor: 'pointer' }}
             key={cat.name}
+            onClick={() => handleCategoryClick(cat.name)}
+            title={`Order ${cat.name} via WhatsApp`}
           >
             <div className={s.imageWrapper}>
               <img src={cat.image} alt={cat.name} className={s.image} />
