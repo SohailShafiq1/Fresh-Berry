@@ -327,7 +327,7 @@ const Products = () => {
                 {product.price}
               </p>
               <a
-                href="https://wa.me/"
+                href={`https://wa.me/971585917800?text=Hello%20Fresh%20Berry%20UAE!%0A%0AI%20am%20interested%20in%20ordering%20${encodeURIComponent(product.name || 'this product')}.%0A%0AProduct%20Details:%0A-%20Name:%20${encodeURIComponent(product.name || 'N/A')}%0A-%20Price:%20${encodeURIComponent(product.price || 'N/A')}%0A-%20Description:%20${encodeURIComponent((product.description || product.desc || 'N/A').substring(0, 50))}%0A%0ACould%20you%20please%20provide%20me%20with%20more%20information%20about%20availability%20and%20delivery%20options?%0A%0AThank%20you!%0A%0AWebsite:%20freshberryuae.com`}
                 className={style.orderBtn}
                 target="_blank"
                 rel="noopener noreferrer"
