@@ -164,16 +164,66 @@ export const HeroSection = () => {
             viewBox="0 0 60 40"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            className={s.mobileWhyUsSvg}
           >
+            <defs>
+              <linearGradient id="mobilePathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor={isBlack ? "#9101eaff" : "#5C128B"} stopOpacity="0.3" />
+                <stop offset="50%" stopColor={isBlack ? "#9101eaff" : "#5C128B"} stopOpacity="0.8" />
+                <stop offset="100%" stopColor={isBlack ? "#9101eaff" : "#5C128B"} stopOpacity="0.3" />
+              </linearGradient>
+              <filter id="mobileGlow">
+                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                <feMerge> 
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
             <path
               d="M10 30 Q30 10 50 30"
-              stroke="#5C128B"
-              strokeWidth="2"
+              stroke="url(#mobilePathGradient)"
+              strokeWidth="3"
               fill="none"
+              className={s.mobileSvgPath}
             />
-            <circle cx="10" cy="30" r="2" fill="#5C128B" />
-            <circle cx="50" cy="30" r="2" fill="#5C128B" />
-            <circle cx="30" cy="10" r="2" fill="#5C128B" />
+            <circle 
+              cx="10" 
+              cy="30" 
+              r="3" 
+              fill={isBlack ? "#9101eaff" : "#5C128B"}
+              className={`${s.mobileSvgCircle} ${s.mobileCircleStart}`}
+              filter="url(#mobileGlow)"
+            />
+            <circle 
+              cx="50" 
+              cy="30" 
+              r="3" 
+              fill={isBlack ? "#9101eaff" : "#5C128B"}
+              className={`${s.mobileSvgCircle} ${s.mobileCircleEnd}`}
+              filter="url(#mobileGlow)"
+            />
+            <circle 
+              cx="30" 
+              cy="10" 
+              r="4" 
+              fill={isBlack ? "#04d755ff" : "#016327"}
+              className={`${s.mobileSvgCircle} ${s.mobileCircleMiddle} ${s.mobileActiveCircle}`}
+              filter="url(#mobileGlow)"
+            />
+            {/* Animated dot that moves along the path */}
+            <circle 
+              r="2" 
+              fill="#FFA928"
+              className={s.mobileMovingDot}
+              filter="url(#mobileGlow)"
+            >
+              <animateMotion
+                dur="2s"
+                repeatCount="indefinite"
+                path="M10 30 Q30 10 50 30"
+              />
+            </circle>
           </svg>
           <div
             className={s.mobileWhyUsText}
@@ -292,16 +342,66 @@ export const HeroSection = () => {
               viewBox="0 0 60 40"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              className={s.whyUsSvg}
             >
+              <defs>
+                <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor={isBlack ? "#9101eaff" : "#5C128B"} stopOpacity="0.3" />
+                  <stop offset="50%" stopColor={isBlack ? "#9101eaff" : "#5C128B"} stopOpacity="0.8" />
+                  <stop offset="100%" stopColor={isBlack ? "#9101eaff" : "#5C128B"} stopOpacity="0.3" />
+                </linearGradient>
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                  <feMerge> 
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
               <path
                 d="M10 30 Q30 10 50 30"
-                stroke="#5C128B"
-                strokeWidth="2"
+                stroke="url(#pathGradient)"
+                strokeWidth="3"
                 fill="none"
+                className={s.svgPath}
               />
-              <circle cx="10" cy="30" r="2" fill="#5C128B" />
-              <circle cx="50" cy="30" r="2" fill="#5C128B" />
-              <circle cx="30" cy="10" r="2" fill="#5C128B" />
+              <circle 
+                cx="10" 
+                cy="30" 
+                r="3" 
+                fill={isBlack ? "#9101eaff" : "#5C128B"}
+                className={`${s.svgCircle} ${s.circleStart}`}
+                filter="url(#glow)"
+              />
+              <circle 
+                cx="50" 
+                cy="30" 
+                r="3" 
+                fill={isBlack ? "#9101eaff" : "#5C128B"}
+                className={`${s.svgCircle} ${s.circleEnd}`}
+                filter="url(#glow)"
+              />
+              <circle 
+                cx="30" 
+                cy="10" 
+                r="4" 
+                fill={isBlack ? "#04d755ff" : "#016327"}
+                className={`${s.svgCircle} ${s.circleMiddle} ${s.activeCircle}`}
+                filter="url(#glow)"
+              />
+              {/* Animated dot that moves along the path */}
+              <circle 
+                r="2" 
+                fill="#FFA928"
+                className={s.movingDot}
+                filter="url(#glow)"
+              >
+                <animateMotion
+                  dur="2s"
+                  repeatCount="indefinite"
+                  path="M10 30 Q30 10 50 30"
+                />
+              </circle>
             </svg>
             <div
               className={s.whyUsText}
