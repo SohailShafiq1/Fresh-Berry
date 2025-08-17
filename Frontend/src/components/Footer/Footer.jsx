@@ -13,7 +13,7 @@ export const Footer = () => {
       <div className={style.leftSection}>
         <div className={style.logoRow}>
           <img 
-            src={theme.text === "#fff" ? logoblack : logo} 
+            src={theme.text === "#fff" ? logo : logo} 
             alt="Fresh Berry Logo" 
             className={style.logo} 
           />
@@ -26,9 +26,24 @@ export const Footer = () => {
         </div>
         <div className={style.socialRow}>
           <span>Follow Us:</span>
-          <a href="#" className={style.socialIcon} aria-label="Facebook"><FaFacebookF /></a>
-          <a href="#" className={style.socialIcon} aria-label="Instagram"><FaInstagram /></a>
-          <a href="#" className={style.socialIcon} aria-label="WhatsApp"><FaWhatsapp /></a>
+          <a 
+            href="https://www.instagram.com/freshberry.ae?igsh=MXpxMzFsc24xcDZy" 
+            className={style.socialIcon} 
+            aria-label="Instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaInstagram />
+          </a>
+          <a 
+            href="https://wa.me/971585878022" 
+            className={style.socialIcon} 
+            aria-label="WhatsApp"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaWhatsapp />
+          </a>
         </div>
       </div>
       <div className={style.rightSection}>

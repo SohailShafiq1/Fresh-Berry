@@ -17,12 +17,12 @@ const Contact = () => {
     {
       icon: <BsFillTelephoneFill />,
       title: "Phone",
-      info: "0123123123",
+      info: "+971 58 587 8022",
     },
     {
       icon: <BsWhatsapp />,
       title: "WhatsApp",
-      info: "0123123123",
+      info: "+971 58 587 8022",
     },
     {
       icon: <MdEmail />,
