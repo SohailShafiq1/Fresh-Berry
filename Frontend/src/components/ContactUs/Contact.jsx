@@ -10,6 +10,9 @@ import Bag from "../../assets/bag.png";
 const s = styles;
 
 const Contact = () => {
+  const [showPhoneModal, setShowPhoneModal] = React.useState(false);
+  const [copied, setCopied] = React.useState(false);
+  const phoneNumber = "971585878022";
   const { theme } = useContext(ThemeContext);
   // Use isBlack for ternary color logic
   const isBlack = theme.text === "#fff";
@@ -38,6 +41,70 @@ const Contact = () => {
 
   return (
     <>
+      {showPhoneModal && (
+        <div style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          background: "rgba(0,0,0,0.3)",
+          zIndex: 9999,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+          onClick={() => setShowPhoneModal(false)}
+        >
+          <div style={{
+            background: isBlack ? "#222" : "#fff",
+            color: isBlack ? "#fff" : "#000",
+            padding: "2rem 1.5rem",
+            borderRadius: "16px",
+            minWidth: "260px",
+            boxShadow: "0 2px 12px #0002",
+            position: "relative"
+          }}
+            onClick={e => e.stopPropagation()}
+          >
+            <h3 style={{marginBottom: "1rem"}}>Call Us</h3>
+            <div style={{fontSize: "1.2rem", fontWeight: 600, marginBottom: "1rem", letterSpacing: 1}}>{phoneNumber}</div>
+            <button
+              style={{
+                background: "#5c128b",
+                color: "#fff",
+                border: "none",
+                borderRadius: "8px",
+                padding: "0.5rem 1.2rem",
+                fontWeight: 500,
+                cursor: "pointer",
+                marginBottom: "0.5rem"
+              }}
+              onClick={() => {
+                navigator.clipboard.writeText(phoneNumber);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1200);
+              }}
+            >
+              {copied ? "Copied!" : "Copy Number"}
+            </button>
+            <button
+              style={{
+                background: "#ccc",
+                color: isBlack ? "#222" : "#333",
+                border: "none",
+                borderRadius: "8px",
+                padding: "0.5rem 1.2rem",
+                fontWeight: 500,
+                cursor: "pointer"
+              }}
+              onClick={() => setShowPhoneModal(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
       <div
         className={s.container}
         style={{ background: isBlack ? "#111" : "#f5f5f5" }}
@@ -54,10 +121,22 @@ const Contact = () => {
                 assist!
               </p>
               <div className={s.topButtons}>
-                <button className={s.button} style={{ color: "#fff" }}>
-                  <BsWhatsapp /> Whatsapp
-                </button>
-                <button className={s.button} style={{ color: "#fff" }}>
+                      <button
+                        className={s.button}
+                        style={{ color: "#fff" }}
+                        onClick={() => {
+                          const phone = "971585878022";
+                          const msg = "I have reviewed your website and I want to make a purchase. Please provide me details.";
+                          window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
+                        }}
+                      >
+                        <BsWhatsapp /> Whatsapp
+                      </button>
+                <button
+                  className={s.button}
+                  style={{ color: "#fff" }}
+                  onClick={() => setShowPhoneModal(true)}
+                >
                   <BsFillTelephoneFill /> Call Now
                 </button>
               </div>
@@ -219,12 +298,16 @@ const Contact = () => {
                 }}
               >
                 <div className={s.socialHeader}>
-                  <div
+                  <a
+                    href="https://www.instagram.com/freshberry.ae?igsh=MXpxMzFsc24xcDZy"
                     className={s.socialIcon}
                     style={{ color: isBlack ? "#fff" : "#000" }}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
                   >
                     <BsInstagram />
-                  </div>
+                  </a>
                   <div className={s.socialInfo}>
                     <h3
                       className={s.socialTitle}
@@ -247,7 +330,13 @@ const Contact = () => {
                   Follow us on Instagram for daily price lists, updates on
                   seasonal produce, special offers, and industry news.
                 </p>
-                <button className={s.followButton} style={{ color: "#fff" }}>
+                <button
+                  className={s.followButton}
+                  style={{ color: "#fff" }}
+                  onClick={() => {
+                    window.open("https://www.instagram.com/freshberry.ae?igsh=MXpxMzFsc24xcDZy", "_blank");
+                  }}
+                >
                   Follow Us
                 </button>
               </div>
@@ -259,12 +348,16 @@ const Contact = () => {
                 }}
               >
                 <div className={s.socialHeader}>
-                  <div
+                  <a
+                    href="https://wa.me/971585878022"
                     className={s.socialIcon}
                     style={{ color: isBlack ? "#fff" : "#000" }}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="WhatsApp"
                   >
                     <BsWhatsapp />
-                  </div>
+                  </a>
                   <div className={s.socialInfo}>
                     <h3
                       className={s.socialTitle}
@@ -287,7 +380,15 @@ const Contact = () => {
                   Use the WhatsApp chat button on our website for instant
                   support and join our channel for real-time updates.
                 </p>
-                <button className={s.joinButton} style={{ color: "#fff" }}>
+                <button
+                  className={s.joinButton}
+                  style={{ color: "#fff" }}
+                  onClick={() => {
+                    const phone = "971585878022";
+                    const msg = "I have reviewed your website and I want to make a purchase. Please provide me details.";
+                    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
+                  }}
+                >
                   Join Channel
                 </button>
               </div>
