@@ -1,3 +1,79 @@
+/* Top Contact Bar */
+.topBar {
+  font-family: "Quicksand";
+  display: flex;
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #e9ecef;
+  transition: background-color 0.3s ease;
+}
+
+.topBar[data-theme*="#fff"] {
+  background-color: #2d2d2d;
+  border-bottom: 1px solid #444;
+}
+
+.topBarContent {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.contactInfo {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.emailLink,
+.phoneLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.topBar[data-theme*="#fff"] .emailLink,
+.topBar[data-theme*="#fff"] .phoneLink {
+  color: #ccc;
+}
+
+.emailLink:hover,
+.phoneLink:hover {
+  color: #5c128b;
+}
+
+.topBar[data-theme*="#fff"] .emailLink:hover,
+.topBar[data-theme*="#fff"] .phoneLink:hover {
+  color: #8e44ad;
+}
+
+.phoneLinks {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.whatsappLink {
+  display: flex;
+  align-items: center;
+  color: #25d366;
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.whatsappLink:hover {
+  transform: scale(1.2);
+  color: #128c7e;
+}
+
 /* Only show Contact Us in menu on mobile */
 .mobileContact {
   display: none;
@@ -6,6 +82,28 @@
 @media screen and (max-width: 768px) {
   .mobileContact {
     display: block;
+  }
+  
+  .topBar {
+    font-size: 0.8rem;
+    padding: 0.4rem 0;
+  }
+  
+  .contactInfo {
+    gap: 1rem;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .emailLink span,
+  .phoneLink span {
+    display: none;
+  }
+  
+  .emailLink,
+  .phoneLink,
+  .whatsappLink {
+    font-size: 1rem;
   }
 }
 /* Already present styles */
