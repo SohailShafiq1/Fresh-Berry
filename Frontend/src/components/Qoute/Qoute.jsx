@@ -61,7 +61,7 @@ const Quote = () => {
 
   const handleWhatsAppClick = () => {
     // Handle WhatsApp contact
-    window.open("https://wa.me/1234567890", "_blank");
+    window.open("https://wa.me/971585878022", "_blank");
   };
 
   return (
