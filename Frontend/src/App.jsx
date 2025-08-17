@@ -6,7 +6,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import NavBar from "./components/NavBar/NavBar";
+import NavBar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import AboutUs from "./components/About Us/AboutUs";
 import Contact from "./components/ContactUs/Contact";
@@ -21,6 +21,7 @@ import AdminRoute from "./Admin/AdminRoute/AdminRoute";
 import AdminQoute from "./Admin/AdminQoute/AdminQoute";
 import AdminProducts from "./Admin/AdminProducts/AdminProducts";
 import Footer from "./components/Footer/Footer";
+import WhatsAppFloat from "./components/WhatsAppFloat/WhatsAppFloat";
 
 function App() {
   console.log("📱 App - Component rendered");
@@ -77,6 +78,7 @@ function App() {
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
             <Footer />
+            <WhatsAppFloat />
           </Router>
         </div>
       </AdminAuthProvider>
