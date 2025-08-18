@@ -93,7 +93,7 @@ export const addProduct = async (req, res) => {
   console.log("📷 Request file:", req.file);
   
   try {
-    const { name, description, price, origin, imageUrl } = req.body;
+  const { name, description, price, origin, imageUrl, category, unit } = req.body;
     
     console.log("📋 Extracted data:", { name, description, price, origin, imageUrl });
     
@@ -120,7 +120,9 @@ export const addProduct = async (req, res) => {
       image: imagePath,
       description,
       price,
-      origin,
+  origin,
+  category,
+  unit,
     });
     
     console.log("💾 Product to save:", product);

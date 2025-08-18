@@ -15,6 +15,8 @@ const AdminProducts = () => {
     description: "",
     price: "",
     origin: "",
+  category: "",
+  unit: "kg",
   });
   const [editId, setEditId] = useState(null);
   const [editForm, setEditForm] = useState({
@@ -22,7 +24,13 @@ const AdminProducts = () => {
     description: "",
     price: "",
     origin: "",
+    category: "",
+    unit: "kg",
   });
+  const [categories, setCategories] = useState(["Fruit", "Vegetables", "Poultry"]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [newCategory, setNewCategory] = useState("");
+  const units = ["kg", "dozen", "litres"];
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [adding, setAdding] = useState(false);
@@ -76,6 +84,9 @@ const AdminProducts = () => {
       formData.append("name", form.name);
       formData.append("description", form.description);
       formData.append("price", form.price);
+  // category & unit
+  if (form.category) formData.append("category", form.category);
+  if (form.unit) formData.append("unit", form.unit);
       formData.append("origin", form.origin);
       
       if (form.image) {
@@ -102,7 +113,7 @@ const AdminProducts = () => {
       });
 
       setProducts((prev) => [...prev, response.data]);
-      setForm({ name: "", image: "", description: "", price: "", origin: "" });
+  setForm({ name: "", image: "", description: "", price: "", origin: "", category: "", unit: "kg" });
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
@@ -153,6 +164,8 @@ const AdminProducts = () => {
       formData.append("name", editForm.name);
       formData.append("description", editForm.description);
       formData.append("price", editForm.price);
+  if (editForm.category) formData.append("category", editForm.category);
+  if (editForm.unit) formData.append("unit", editForm.unit);
       formData.append("origin", editForm.origin);
       if (editForm.image) {
         formData.append("image", editForm.image);
@@ -170,7 +183,7 @@ const AdminProducts = () => {
         prev.map((p) => (p._id === id ? response.data : p))
       );
       setEditId(null);
-      setEditForm({ name: "", description: "", price: "", origin: "" });
+  setEditForm({ name: "", description: "", price: "", origin: "", category: "", unit: "kg" });
     } catch (err) {
       alert("Failed to update product");
     }
@@ -229,6 +242,9 @@ const AdminProducts = () => {
       const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
       const requiredHeaders = ['name', 'description', 'price'];
       const optionalHeaders = ['origin', 'image', 'imageurl', 'image_url'];
+  // CSV may also contain category and unit
+  optionalHeaders.push('category');
+  optionalHeaders.push('unit');
       
       // Check if required headers exist
       const missingHeaders = requiredHeaders.filter(header => 
@@ -320,6 +336,8 @@ const AdminProducts = () => {
 
           // Determine image handling
           const imageUrl = rowData.image || rowData.imageurl || rowData.image_url;
+            const rowCategory = rowData.category || "";
+            const rowUnit = rowData.unit || "";
           const hasImageUrl = imageUrl && imageUrl.trim() && imageUrl !== '';
 
           if (existingProduct) {
@@ -362,7 +380,9 @@ const AdminProducts = () => {
             formData.append("name", rowData.name);
             formData.append("description", rowData.description);
             formData.append("price", rowData.price);
-            formData.append("origin", rowData.origin || ""); // Allow empty origin
+              formData.append("origin", rowData.origin || ""); // Allow empty origin
+              if (rowCategory) formData.append('category', rowCategory);
+              if (rowUnit) formData.append('unit', rowUnit);
             
             if (hasImageUrl) {
               // Use provided image URL
@@ -426,6 +446,13 @@ const AdminProducts = () => {
       skipped: 0,
       errors: []
     };
+
+    if (!selectedCategory) {
+      alert('Please select a category before uploading a folder of images.');
+      setFolderUploading(false);
+      if (folderInputRef.current) folderInputRef.current.value = "";
+      return;
+    }
 
     try {
       for (let i = 0; i < files.length; i++) {
@@ -507,6 +534,11 @@ const AdminProducts = () => {
           formData.append("description", `Fresh and organic ${productName.toLowerCase()}`);
           formData.append("price", randomPrice);
           formData.append("origin", ""); // Empty origin as requested
+          // attach selected category
+          formData.append('category', selectedCategory);
+          // assign random unit
+          const randomUnit = units[Math.floor(Math.random() * units.length)];
+          formData.append('unit', randomUnit);
           formData.append("image", file);
 
 
@@ -749,11 +781,33 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
             multiple
             webkitdirectory="true"
             directory="true"
-            onChange={handleFolderUpload}
+              onChange={handleFolderUpload}
             ref={folderInputRef}
             className={s.csvInput}
             disabled={folderUploading}
           />
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginLeft: 8 }}>
+              <label style={{ fontSize: 12 }}>Category:</label>
+              <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+                <option value="">-- Select Category --</option>
+                {categories.map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+              <input
+                placeholder="Add category"
+                value={newCategory}
+                onChange={(e) => setNewCategory(e.target.value)}
+                style={{ padding: '4px 6px' }}
+              />
+              <button type="button" className={s.button} onClick={() => {
+                const trimmed = newCategory.trim();
+                if (!trimmed) return;
+                if (!categories.includes(trimmed)) setCategories(prev => [...prev, trimmed]);
+                setSelectedCategory(trimmed);
+                setNewCategory("");
+              }}>Add</button>
+            </div>
           <div className={s.csvInfo}>
             <small>
               <strong>📁 Upload a folder of images to auto-create/update products:</strong>
@@ -828,6 +882,24 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
           onChange={handleChange}
           placeholder="Origin (optional)"
         />
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <label style={{ fontSize: 12 }}>Category:</label>
+          <select
+            name="category"
+            value={form.category}
+            onChange={handleChange}
+            required
+          >
+            <option value="">-- Select Category --</option>
+            {categories.map((c) => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
+          <label style={{ fontSize: 12 }}>Unit:</label>
+          <select name="unit" value={form.unit} onChange={handleChange}>
+            {units.map(u => <option key={u} value={u}>{u}</option>)}
+          </select>
+        </div>
         <button className={s.button} type="submit" disabled={adding}>
           {adding ? "Adding..." : "Add Product"}
         </button>
@@ -952,6 +1024,24 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
               placeholder="Origin"
               className={s.input}
             />
+            
+              <label style={{ fontSize: 12 }}>Category:</label>
+              <select
+                name="category"
+                value={editForm.category}
+                onChange={handleEditChange}
+                className={s.input}
+              >
+                <option value="">-- Select Category --</option>
+                {categories.map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+              <label style={{ fontSize: 12 }}>Unit:</label>
+              <select name="unit" value={editForm.unit} onChange={handleEditChange} className={s.input}>
+                {units.map(u => <option key={u} value={u}>{u}</option>)}
+              </select>
+            </div>
             <div className={s.modalActions}>
               <button
                 className={s.button}
@@ -966,7 +1056,6 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
               >
                 Cancel
               </button>
-            </div>
           </div>
         </div>
       )}

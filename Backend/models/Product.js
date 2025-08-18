@@ -6,6 +6,8 @@ const productSchema = new mongoose.Schema({
   description: { type: String, required: true },
   price: { type: Number, required: true },
   origin: { type: String, required: false },
+  category: { type: String, required: false },
+  unit: { type: String, required: false },
   hotselling: { type: Boolean, default: false },
 });
 
