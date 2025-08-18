@@ -395,6 +395,7 @@
 
   .mobileFreshBerry {
     font-size: 1.4rem;
+    margin-top: -3px;
     font-weight: 700;
     margin-bottom: 15px;
     font-family: "Quicksand", "Baloo 2", sans-serif;

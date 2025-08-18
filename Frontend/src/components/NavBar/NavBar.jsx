@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import style from "./NavBar.module.css";
 import logo from "../../assets/logo.jpg";
 import { NavLink, useNavigate } from "react-router-dom";
-import { FiPhoneCall, FiMenu, FiX } from "react-icons/fi";
+import { FiPhoneCall, FiMenu, FiX, FiHome, FiGrid, FiTruck, FiFileText, FiUsers, FiMail } from "react-icons/fi";
 import { BsSearch, BsSun, BsMoon, BsWhatsapp } from "react-icons/bs";
 import { MdEmail, MdPhone } from "react-icons/md";
 import { ThemeContext } from "../../context/Theme/ThemeContext";
@@ -121,8 +121,9 @@ const NavBar = () => {
       </div>
 
       <div className={`${s.btns} ${menuOpen ? s.open : ""}`}>
-        <NavLink to="/" onClick={() => setMenuOpen(false)}>
-          Home
+        <NavLink to="/" onClick={() => setMenuOpen(false)} className={s.navItem}>
+          <FiHome className={s.navIcon} />
+          <span>Home</span>
         </NavLink>
         <div 
           className={s.productsDropdown}
@@ -130,8 +131,9 @@ const NavBar = () => {
           onMouseLeave={() => !isMobile && setShowProductDropdown(false)}
           onClick={() => isMobile && setShowProductDropdown(!showProductDropdown)}
         >
-          <NavLink to="/products" onClick={() => !isMobile && setMenuOpen(false)}>
-            Products
+          <NavLink to="/products" onClick={() => !isMobile && setMenuOpen(false)} className={s.navItem}>
+            <FiGrid className={s.navIcon} />
+            <span>Products</span>
           </NavLink>
           {((showProductDropdown && !isMobile) || (showProductDropdown && isMobile)) && categories.length > 0 && (
             <div className={s.dropdownMenu} data-theme={theme.text}>
@@ -155,14 +157,17 @@ const NavBar = () => {
             </div>
           )}
         </div>
-        <NavLink to="/horeca-supply" onClick={() => setMenuOpen(false)}>
-          HoReCa Supply
+        <NavLink to="/horeca-supply" onClick={() => setMenuOpen(false)} className={s.navItem}>
+          <FiTruck className={s.navIcon} />
+          <span>HoReCa Supply</span>
         </NavLink>
-        <NavLink to="/qoute" onClick={() => setMenuOpen(false)}>
-          Request a Quote
+        <NavLink to="/qoute" onClick={() => setMenuOpen(false)} className={s.navItem}>
+          <FiFileText className={s.navIcon} />
+          <span>Request a Quote</span>
         </NavLink>
-        <NavLink to="/about" onClick={() => setMenuOpen(false)}>
-          About Us
+        <NavLink to="/about" onClick={() => setMenuOpen(false)} className={s.navItem}>
+          <FiUsers className={s.navIcon} />
+          <span>About Us</span>
         </NavLink>
           {/* <NavLink to="/admin/login" onClick={() => setMenuOpen(false)}>
           Admin
@@ -170,9 +175,10 @@ const NavBar = () => {
         <NavLink
           to="/contact"
           onClick={() => setMenuOpen(false)}
-          className={s.mobileContact}
+          className={`${s.mobileContact} ${s.navItem}`}
         >
-          Contact Us
+          <FiMail className={s.navIcon} />
+          <span>Contact Us</span>
         </NavLink>
       </div>
 
