@@ -22,13 +22,19 @@ const Products = () => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [nameSearch, setNameSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
-  // Get search query from URL parameters
+  // Get search query and category from URL parameters
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const searchQuery = searchParams.get('search');
+    const categoryQuery = searchParams.get('category');
+    
     if (searchQuery) {
       setNameSearch(searchQuery);
+    }
+    if (categoryQuery) {
+      setSelectedCategory(categoryQuery);
     }
   }, [location.search]);
 
@@ -51,6 +57,11 @@ const Products = () => {
   // Enhanced filtered and sorted products
   const filteredProducts = products
     .filter((p) => {
+      // Category filter
+      if (selectedCategory && p.category !== selectedCategory) {
+        return false;
+      }
+      
       // Enhanced name search filter (includes partial matches in name, description, and origin)
       if (nameSearch) {
         const searchTerm = nameSearch.toLowerCase();
@@ -81,12 +92,13 @@ const Products = () => {
     });
 
   // Check if any filter is applied
-  const isFilterApplied = nameSearch || minPrice || maxPrice;
+  const isFilterApplied = nameSearch || minPrice || maxPrice || selectedCategory;
 
   const clearFilters = () => {
     setNameSearch("");
     setMinPrice("");
     setMaxPrice("");
+    setSelectedCategory("");
     // Clear URL search parameters when clearing filters
     navigate('/products', { replace: true });
   };
@@ -255,6 +267,42 @@ const Products = () => {
           <MdSort /> Sort
         </span>
       </div>
+      
+      {/* Category Filter Display */}
+      {selectedCategory && (
+        <div style={{
+          padding: "1rem",
+          textAlign: "center",
+          background: isBlack ? "#222" : "#f8f9fa",
+          border: `1px solid ${isBlack ? "#444" : "#e9ecef"}`,
+          borderRadius: "8px",
+          margin: "0 1rem 1rem 1rem",
+          color: isBlack ? "#fff" : "#333"
+        }}>
+          <span style={{ fontSize: "14px", fontWeight: "500" }}>
+            Showing products in category: <strong>{selectedCategory}</strong>
+          </span>
+          <button
+            onClick={() => {
+              setSelectedCategory("");
+              navigate('/products', { replace: true });
+            }}
+            style={{
+              marginLeft: "1rem",
+              padding: "4px 8px",
+              background: "#e53935",
+              color: "#fff",
+              border: "none",
+              borderRadius: "4px",
+              fontSize: "12px",
+              cursor: "pointer"
+            }}
+          >
+            Clear
+          </button>
+        </div>
+      )}
+      
       {loading ? (
         <div>Loading...</div>
       ) : error ? (

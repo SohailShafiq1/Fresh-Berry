@@ -168,3 +168,15 @@ export const unmarkHotSelling = async (req, res) => {
     res.status(400).json({ error: "Failed to update product" });
   }
 };
+
+// Get unique categories
+export const getCategories = async (req, res) => {
+  try {
+    const categories = await Product.distinct("category");
+    // Filter out null/empty categories and sort
+    const validCategories = categories.filter(cat => cat && cat.trim() !== "").sort();
+    res.json(validCategories);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch categories" });
+  }
+};

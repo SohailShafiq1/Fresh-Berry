@@ -234,6 +234,58 @@
   text-decoration: underline;
 }
 
+/* Products Dropdown */
+.productsDropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  z-index: 1000;
+  padding: 8px 0;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.2s ease;
+}
+
+.dropdownMenu[data-theme*="#fff"] {
+  background: #2a2a2a;
+  border: 1px solid #555;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.dropdownItem {
+  display: block;
+  padding: 10px 16px;
+  color: #374151;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+  border-bottom: none;
+}
+
+.dropdownMenu[data-theme*="#fff"] .dropdownItem {
+  color: #e5e7eb;
+}
+
+.dropdownItem:hover {
+  background-color: #f3f4f6;
+  color: #5c128b;
+}
+
+.dropdownMenu[data-theme*="#fff"] .dropdownItem:hover {
+  background-color: #374151;
+  color: #8e44ad;
+}
+
 /* Toggle theme */
 .toggle {
   border: 1px solid #000;
@@ -325,6 +377,8 @@
     justify-content: center;
     display: none;
     transition: background-color 0.3s ease;
+    width: 100%;
+    min-height: calc(100vh - 5rem);
   }
 
   /* Dark mode mobile menu */
@@ -335,6 +389,47 @@
 
   .btns.open {
     display: flex !important;
+  }
+
+  /* Mobile dropdown styles */
+  .productsDropdown {
+    width: 100%;
+    text-align: center;
+  }
+
+  .dropdownMenu {
+    position: static;
+    width: 100%;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 8px 0 0 0;
+    margin-top: 8px;
+  }
+
+  .dropdownMenu[data-theme*="#fff"] {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .dropdownItem {
+    padding: 8px 16px;
+    border-radius: 6px;
+    margin: 2px 0;
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .dropdownMenu[data-theme*="#fff"] .dropdownItem {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .dropdownItem:hover {
+    background: rgba(92, 18, 139, 0.1);
+  }
+
+  .dropdownMenu[data-theme*="#fff"] .dropdownItem:hover {
+    background: rgba(142, 68, 173, 0.2);
   }
 
   .menuIcon {

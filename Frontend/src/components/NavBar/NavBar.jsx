@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import style from "./NavBar.module.css";
 import logo from "../../assets/logo.jpg";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -13,7 +13,34 @@ const NavBar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showProductDropdown, setShowProductDropdown] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
+
+  // Check if mobile view
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Fetch categories on component mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/products/categories`);
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
@@ -97,9 +124,37 @@ const NavBar = () => {
         <NavLink to="/" onClick={() => setMenuOpen(false)}>
           Home
         </NavLink>
-        <NavLink to="/products" onClick={() => setMenuOpen(false)}>
-          Products
-        </NavLink>
+        <div 
+          className={s.productsDropdown}
+          onMouseEnter={() => !isMobile && setShowProductDropdown(true)}
+          onMouseLeave={() => !isMobile && setShowProductDropdown(false)}
+          onClick={() => isMobile && setShowProductDropdown(!showProductDropdown)}
+        >
+          <NavLink to="/products" onClick={() => !isMobile && setMenuOpen(false)}>
+            Products
+          </NavLink>
+          {((showProductDropdown && !isMobile) || (showProductDropdown && isMobile)) && categories.length > 0 && (
+            <div className={s.dropdownMenu} data-theme={theme.text}>
+              <NavLink 
+                to="/products" 
+                onClick={() => {setMenuOpen(false); setShowProductDropdown(false);}}
+                className={s.dropdownItem}
+              >
+                All Products
+              </NavLink>
+              {categories.map((category) => (
+                <NavLink
+                  key={category}
+                  to={`/products?category=${encodeURIComponent(category)}`}
+                  onClick={() => {setMenuOpen(false); setShowProductDropdown(false);}}
+                  className={s.dropdownItem}
+                >
+                  {category}
+                </NavLink>
+              ))}
+            </div>
+          )}
+        </div>
         <NavLink to="/horeca-supply" onClick={() => setMenuOpen(false)}>
           HoReCa Supply
         </NavLink>
