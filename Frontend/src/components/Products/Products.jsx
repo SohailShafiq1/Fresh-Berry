@@ -268,40 +268,8 @@ const Products = () => {
         </span>
       </div>
       
-      {/* Category Filter Display */}
-      {selectedCategory && (
-        <div style={{
-          padding: "1rem",
-          textAlign: "center",
-          background: isBlack ? "#222" : "#f8f9fa",
-          border: `1px solid ${isBlack ? "#444" : "#e9ecef"}`,
-          borderRadius: "8px",
-          margin: "0 1rem 1rem 1rem",
-          color: isBlack ? "#fff" : "#333"
-        }}>
-          <span style={{ fontSize: "14px", fontWeight: "500" }}>
-            Showing products in category: <strong>{selectedCategory}</strong>
-          </span>
-          <button
-            onClick={() => {
-              setSelectedCategory("");
-              navigate('/products', { replace: true });
-            }}
-            style={{
-              marginLeft: "1rem",
-              padding: "4px 8px",
-              background: "#e53935",
-              color: "#fff",
-              border: "none",
-              borderRadius: "4px",
-              fontSize: "12px",
-              cursor: "pointer"
-            }}
-          >
-            Clear
-          </button>
-        </div>
-      )}
+  
+   
       
       {loading ? (
         <div>Loading...</div>

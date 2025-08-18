@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./Cateogirze.module.css";
+import { useNavigate } from "react-router-dom";
 
 import Fruits from "./assets/fruite.png";
 import Vegetables from "./assets/vegetable.png";
@@ -16,21 +17,25 @@ const categories = [
     name: "Fresh Fruits",
     image: Fruits,
     color: "#016327",
+    backendCategory: "Fruit", // Maps to backend category
   },
   {
     name: "Vegetables",
     image: Vegetables,
     color: "#FFA928",
+    backendCategory: "Vegetables", // Maps to backend category
   },
   {
     name: "Egg & Poultry",
     image: Egg,
     color: "#D72323",
+    backendCategory: "Poultry", // Maps to backend category
   },
   {
     name: "Seasonal Picks",
     image: Leaf,
     color: "#A1D70A",
+    backendCategory: "Seasonal Picks", // New category for backend
   },
   // {
   //   name: "Custom Orders",
@@ -41,20 +46,12 @@ const categories = [
 
 export const Cateogirze = () => {
   const { theme } = useContext(ThemeContext);
+  const navigate = useNavigate();
   const isBlack = theme.text === "#fff";
 
-  const handleCategoryClick = (categoryName) => {
-    const phoneNumber = "971585878022"; // WhatsApp format without + and spaces
-    const message = ` Freshberryuae.com
-
-Hi! I have just visited your site and I want to place an order for ${categoryName.toLowerCase()}. Please provide me with pricing and products available.
-
-Thank you! 😊`;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    
-    // Open WhatsApp in a new tab
-    window.open(whatsappUrl, '_blank');
+  const handleCategoryClick = (category) => {
+    // Navigate to products page with category filter
+    navigate(`/products?category=${encodeURIComponent(category.backendCategory)}`);
   };
 
   return (
@@ -71,8 +68,8 @@ Thank you! 😊`;
             className={s.card}
             style={{ background: cat.color, cursor: 'pointer' }}
             key={cat.name}
-            onClick={() => handleCategoryClick(cat.name)}
-            title={`Order ${cat.name} via WhatsApp`}
+            onClick={() => handleCategoryClick(cat)}
+            title={`View ${cat.name} products`}
           >
             <div className={s.imageWrapper}>
               <img src={cat.image} alt={cat.name} className={s.image} />

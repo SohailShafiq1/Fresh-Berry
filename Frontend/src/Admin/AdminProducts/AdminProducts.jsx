@@ -27,7 +27,7 @@ const AdminProducts = () => {
     category: "",
     unit: "kg",
   });
-  const [categories, setCategories] = useState(["Fruit", "Vegetables", "Poultry"]);
+  const [categories, setCategories] = useState(["Fruit", "Vegetables", "Poultry", "Seasonal Picks"]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [newCategory, setNewCategory] = useState("");
   const units = ["kg", "dozen", "litres"];
