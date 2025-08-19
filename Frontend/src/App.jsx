@@ -6,7 +6,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import NavBar from "./components/Navbar/Navbar";
+import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
 import AboutUs from "./components/About Us/AboutUs";
 import Contact from "./components/ContactUs/Contact";
@@ -24,12 +24,7 @@ import Footer from "./components/Footer/Footer";
 import WhatsAppFloat from "./components/WhatsAppFloat/WhatsAppFloat";
 
 function App() {
-  console.log("📱 App - Component rendered");
-  
-  // Add a simple test to see if routing is working
-  React.useEffect(() => {
-    console.log("📱 App - Current location:", window.location.pathname);
-  }, []);
+
   
   return (
     <ThemeProvider>
