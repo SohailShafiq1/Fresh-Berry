@@ -25,60 +25,64 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 260px;
-  height: 300px;
-  border-top-left-radius: 24px;
-  border-top-right-radius: 24px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  width: 320px;
+  height: 240px;
+  border-radius: 20px;
   cursor: pointer;
-  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  background: #fff;
 }
 
 .card:hover {
-  height: 200px;
-  transform: translateY(45px);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 .imageWrapper {
   width: 100%;
-  height: 80%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* Allow image to overflow upward */
-  overflow: visible;
-  /* Position relative so child .image can move outside */
+  height: 100%;
   position: relative;
-  z-index: 2;
-  overflow: visible;
+  overflow: hidden;
+  border-radius: 20px;
 }
 
 .image {
-  width: 80%;
-  height: 80%;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
 }
 
-/* On hover, move image upward outside the card, keep size unchanged */
 .card:hover .image {
-  transform: translateY(-10px);
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    transparent,
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.7)
+  );
+  padding: 40px 20px 20px 20px;
+  display: flex;
+  align-items: flex-end;
 }
 
 .label {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-family: "Quicksand", sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   text-align: left;
-  z-index: 3;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.5px;
 }
 
 @media (max-width: 768px) {
@@ -92,52 +96,38 @@
   .card {
     width: 280px;
     max-width: 90%;
-    height: 300px;
-    /* Remove hover effect on mobile */
-    transition: none !important;
+    height: 200px;
+    border-radius: 16px;
   }
   
-  /* Completely disable hover effects on mobile */
+  /* Disable hover effects on mobile */
   .card:hover {
-    height: 300px !important;
+    transform: none !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  .card:hover .image {
     transform: none !important;
   }
   
   .imageWrapper {
     width: 100%;
-    height: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: visible;
-    position: relative;
-    z-index: 2;
+    height: 100%;
+    border-radius: 16px;
   }
   
   .image {
-    width: 80%;
-    height: 80%;
-    object-fit: contain;
-    /* Remove hover effect on image */
-    transition: none !important;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   
-  /* Ensure no transform on mobile hover */
-  .card:hover .image {
-    transform: none !important;
-    width: 80% !important;
-    height: 80% !important;
+  .overlay {
+    padding: 30px 16px 16px 16px;
   }
   
   .label {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    color: #fff;
-    font-size: 1.2rem;
-    font-family: "Quicksand", sans-serif;
-    font-weight: 600;
-    text-align: left;
-    z-index: 3;
+    font-size: 1.4rem;
+    font-weight: 700;
   }
 }

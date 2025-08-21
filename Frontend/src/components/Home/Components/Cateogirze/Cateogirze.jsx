@@ -2,8 +2,8 @@ import React from "react";
 import style from "./Cateogirze.module.css";
 import { useNavigate } from "react-router-dom";
 
-import Fruits from "./assets/fruite.png";
-import Vegetables from "./assets/vegetable.png";
+import Fruits from "./assets/fruit.jpeg";
+import Vegetables from "./assets/vegetables.jpeg";
 import Egg from "./assets/egg.png";
 import Leaf from "./assets/picks.png";
 import Bag from "./assets/box.png";
@@ -66,15 +66,16 @@ export const Cateogirze = () => {
         {categories.map((cat, idx) => (
           <div
             className={s.card}
-            style={{ background: cat.color, cursor: 'pointer' }}
             key={cat.name}
             onClick={() => handleCategoryClick(cat)}
             title={`View ${cat.name} products`}
           >
             <div className={s.imageWrapper}>
               <img src={cat.image} alt={cat.name} className={s.image} />
+              <div className={s.overlay}>
+                <div className={s.label}>{cat.name}</div>
+              </div>
             </div>
-            <div className={s.label}>{cat.name}</div>
           </div>
         ))}
       </div>
