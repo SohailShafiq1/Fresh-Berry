@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./Comitments.module.css";
-import img from "./image.png";
+import img from "./Healthy.png";
 const s = style;
 import { ThemeContext } from "../../../../context/Theme/ThemeContext";
 import { useContext } from "react";
