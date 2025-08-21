@@ -2,8 +2,8 @@ import { BsPatchQuestionFill } from "react-icons/bs";
 import { AiOutlineEye } from "react-icons/ai";
 import React from "react";
 import style from "./AboutUs.module.css";
-import farmerImage from "../../assets/truck.png"; // replace with your image
-import globeImage from "../../assets/truck.png"; // replace with your image
+import farmerImage from "../../assets/about1.png"; // replace with your image
+import globeImage from "../../assets/about2.png"; // replace with your image
 import {
   FaAward,
   FaGlobe,
@@ -56,7 +56,7 @@ const AboutUs = () => {
             <FaAward /> Over 10 Years of Excellence
           </div>
         </div>
-        <div className={s.rightCard} style={{ backgroundColor: "#016327" }}>
+        <div className={s.rightCard}>
           <h2>Our Story</h2>
           <img src={farmerImage} alt="Farmer on Tractor" />
         </div>
@@ -64,7 +64,7 @@ const AboutUs = () => {
 
       {/* Section 2: Global Sourcing Network */}
       <div className={s.section}>
-        <div className={s.leftCard} style={{ backgroundColor: "#5C128B" }}>
+        <div className={s.leftCard}>
           <h2>Global Sourcing Network</h2>
           <img src={globeImage} alt="Globe and Transport" />
         </div>

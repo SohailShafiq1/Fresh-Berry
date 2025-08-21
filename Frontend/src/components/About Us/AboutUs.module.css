@@ -25,19 +25,34 @@
 .leftCard {
   flex: 1;
   padding: 2rem;
-  border-radius: 25px 25px 0 0; /* Only top corners rounded */
-  color: white;
+  border-radius: 25px;
+  background: transparent;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-width: 200px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.rightCard h2,
+.leftCard h2 {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 2;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  margin: 0;
 }
 
 .rightCard img,
 .leftCard img {
   width: 100%;
-  max-height: 250px;
-  object-fit: contain;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 15px;
 }
 
 h1,
