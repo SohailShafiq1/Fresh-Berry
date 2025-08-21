@@ -2,9 +2,9 @@ import React from "react";
 import style from "./Services.module.css";
 const s = style;
 
-import orchardImg from "../../../../Products/Orchard.png";
-import businessImg from "../../../../Products/Business.png";
-import logisticsImg from "../../../../Products/Logistics.png";
+import orchardImg from "../../../../Products/fr1.png";
+import businessImg from "../../../../Products/fr2.png";
+import logisticsImg from "../../../../Products/fr3.png";
 import { ThemeContext } from "../../../../context/Theme/ThemeContext";
 import { useContext } from "react";
 
