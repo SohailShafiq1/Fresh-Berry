@@ -78,7 +78,7 @@ const AboutUs = () => {
           <p>
             At Fresh Berry, we embrace innovation and sustainability. We invest
             in cold chain logistics and implement strict quality control systems
-            that meet Dubai Municipality standards and HACCP certification.
+            that meet Dubai Municipality standards and HACCP certification.6
           </p>
           <ul
             className={s.iconList}
@@ -88,7 +88,7 @@ const AboutUs = () => {
               <FaGlobe /> Global Suppliers
             </li>
             <li>
-              <FaClipboardCheck /> HACCP Certified
+              <FaClipboardCheck /> HACCP Certified 
             </li>
             <li>
               <FaSnowflake /> Cold Chain Logistics
