@@ -17,6 +17,54 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Search Section */
+.searchSection {
+  background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.searchSection:hover {
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+}
+
+.searchInput {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  background: #fff;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.searchInput:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background: #fefefe;
+}
+
+.searchInput::placeholder {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.searchResults {
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: #f1f5f9;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #475569;
+  text-align: center;
+  font-weight: 500;
+}
+
 /* CSV Upload Section */
 .csvSection {
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);

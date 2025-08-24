@@ -15,8 +15,8 @@ const AdminProducts = () => {
     description: "",
     price: "",
     origin: "",
-  category: "",
-  unit: "kg",
+    category: "",
+    unit: "kg",
   });
   const [editId, setEditId] = useState(null);
   const [editForm, setEditForm] = useState({
@@ -41,6 +41,7 @@ const AdminProducts = () => {
   const [folderUploading, setFolderUploading] = useState(false);
   const [folderResults, setFolderResults] = useState(null);
   const [removingAll, setRemovingAll] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const fileInputRef = useRef(null);
   const csvInputRef = useRef(null);
   const folderInputRef = useRef(null);
@@ -76,44 +77,44 @@ const AdminProducts = () => {
   const handleAdd = async (e) => {
     e.preventDefault();
     setAdding(true);
-    
 
-    
+
+
     try {
       const formData = new FormData();
       formData.append("name", form.name);
       formData.append("description", form.description);
       formData.append("price", form.price);
-  // category & unit
-  if (form.category) formData.append("category", form.category);
-  if (form.unit) formData.append("unit", form.unit);
+      // category & unit
+      if (form.category) formData.append("category", form.category);
+      if (form.unit) formData.append("unit", form.unit);
       formData.append("origin", form.origin);
-      
+
       if (form.image) {
         formData.append("image", form.image);
       } else {
         // If no image provided, check if default logo exists and use it
-        const existingProductWithLogo = products.find(p => 
+        const existingProductWithLogo = products.find(p =>
           p.image && (
-            p.image.includes('fresh-berry-logo') || 
+            p.image.includes('fresh-berry-logo') ||
             p.image.includes('fresh-berry-default-logo') ||
             p.image.includes('default-logo') ||
             p.image.includes('logo.jpg')
           )
         );
-        
+
         if (existingProductWithLogo) {
           formData.append("imageUrl", `${API_URL}${existingProductWithLogo.image}`);
         }
       }
 
-      
+
       const response = await axios.post(`${API_URL}/api/products/add`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
       setProducts((prev) => [...prev, response.data]);
-  setForm({ name: "", image: "", description: "", price: "", origin: "", category: "", unit: "kg" });
+      setForm({ name: "", image: "", description: "", price: "", origin: "", category: "", unit: "kg" });
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
@@ -164,8 +165,8 @@ const AdminProducts = () => {
       formData.append("name", editForm.name);
       formData.append("description", editForm.description);
       formData.append("price", editForm.price);
-  if (editForm.category) formData.append("category", editForm.category);
-  if (editForm.unit) formData.append("unit", editForm.unit);
+      if (editForm.category) formData.append("category", editForm.category);
+      if (editForm.unit) formData.append("unit", editForm.unit);
       formData.append("origin", editForm.origin);
       if (editForm.image) {
         formData.append("image", editForm.image);
@@ -183,7 +184,7 @@ const AdminProducts = () => {
         prev.map((p) => (p._id === id ? response.data : p))
       );
       setEditId(null);
-  setEditForm({ name: "", description: "", price: "", origin: "", category: "", unit: "kg" });
+      setEditForm({ name: "", description: "", price: "", origin: "", category: "", unit: "kg" });
     } catch (err) {
       alert("Failed to update product");
     }
@@ -231,7 +232,7 @@ const AdminProducts = () => {
     try {
       const text = await file.text();
       const lines = text.split('\n').filter(line => line.trim());
-      
+
       if (lines.length === 0) {
         alert("CSV file is empty");
         setCsvUploading(false);
@@ -242,15 +243,15 @@ const AdminProducts = () => {
       const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
       const requiredHeaders = ['name', 'description', 'price'];
       const optionalHeaders = ['origin', 'image', 'imageurl', 'image_url'];
-  // CSV may also contain category and unit
-  optionalHeaders.push('category');
-  optionalHeaders.push('unit');
-      
+      // CSV may also contain category and unit
+      optionalHeaders.push('category');
+      optionalHeaders.push('unit');
+
       // Check if required headers exist
-      const missingHeaders = requiredHeaders.filter(header => 
+      const missingHeaders = requiredHeaders.filter(header =>
         !headers.includes(header)
       );
-      
+
       if (missingHeaders.length > 0) {
         alert(`Missing required headers: ${missingHeaders.join(', ')}\nRequired headers: name, description, price\nOptional: origin, image or imageurl`);
         setCsvUploading(false);
@@ -267,21 +268,21 @@ const AdminProducts = () => {
       let defaultLogoPath = null;
       const getOrUploadDefaultLogo = async () => {
         if (defaultLogoPath) return defaultLogoPath; // Return if already determined
-        
+
         // First check if any product already has the default logo
-        const existingProductWithLogo = products.find(p => 
+        const existingProductWithLogo = products.find(p =>
           p.image && (
-            p.image.includes('fresh-berry-logo') || 
+            p.image.includes('fresh-berry-logo') ||
             p.image.includes('default-logo') ||
             p.image.includes('logo.jpg')
           )
         );
-        
+
         if (existingProductWithLogo) {
           defaultLogoPath = existingProductWithLogo.image;
           return defaultLogoPath;
         }
-        
+
         // If no existing logo found, upload it once
         try {
           const defaultImageBlob = await fetch('/logo.jpg').then(r => r.blob());
@@ -297,10 +298,10 @@ const AdminProducts = () => {
           });
 
           defaultLogoPath = logoResponse.data.image;
-          
+
           // Remove the temporary logo product (we only needed it to upload the image)
           await axios.delete(`${API_URL}/api/products/${logoResponse.data._id}`);
-          
+
           return defaultLogoPath;
         } catch (error) {
           console.warn("Could not upload default logo:", error);
@@ -311,7 +312,7 @@ const AdminProducts = () => {
       // Process each row
       for (let i = 1; i < lines.length; i++) {
         const values = lines[i].split(',').map(v => v.trim());
-        
+
         if (values.length !== headers.length) {
           results.errors.push(`Row ${i + 1}: Column count mismatch`);
           continue;
@@ -330,14 +331,14 @@ const AdminProducts = () => {
 
         try {
           // Check if product exists (by name)
-          const existingProduct = products.find(p => 
+          const existingProduct = products.find(p =>
             p.name.toLowerCase() === rowData.name.toLowerCase()
           );
 
           // Determine image handling
           const imageUrl = rowData.image || rowData.imageurl || rowData.image_url;
-            const rowCategory = rowData.category || "";
-            const rowUnit = rowData.unit || "";
+          const rowCategory = rowData.category || "";
+          const rowUnit = rowData.unit || "";
           const hasImageUrl = imageUrl && imageUrl.trim() && imageUrl !== '';
 
           if (existingProduct) {
@@ -347,18 +348,18 @@ const AdminProducts = () => {
             formData.append("description", rowData.description);
             formData.append("price", rowData.price);
             formData.append("origin", rowData.origin || ""); // Allow empty origin
-            
+
             // Handle image update logic
             if (hasImageUrl) {
               // Always update image if CSV provides an image URL
               formData.append("imageUrl", imageUrl.trim());
             } else {
               // If no image URL in CSV, check if product has default logo and needs updating
-              const hasDefaultLogo = existingProduct.image && 
-                (existingProduct.image.includes('logo.jpg') || 
-                 existingProduct.image.includes('logo.png') || 
-                 existingProduct.image.includes('default-logo'));
-              
+              const hasDefaultLogo = existingProduct.image &&
+                (existingProduct.image.includes('logo.jpg') ||
+                  existingProduct.image.includes('logo.png') ||
+                  existingProduct.image.includes('default-logo'));
+
               if (hasDefaultLogo) {
               }
               // Don't add imageUrl field if no URL provided - keeps existing image
@@ -380,10 +381,10 @@ const AdminProducts = () => {
             formData.append("name", rowData.name);
             formData.append("description", rowData.description);
             formData.append("price", rowData.price);
-              formData.append("origin", rowData.origin || ""); // Allow empty origin
-              if (rowCategory) formData.append('category', rowCategory);
-              if (rowUnit) formData.append('unit', rowUnit);
-            
+            formData.append("origin", rowData.origin || ""); // Allow empty origin
+            if (rowCategory) formData.append('category', rowCategory);
+            if (rowUnit) formData.append('unit', rowUnit);
+
             if (hasImageUrl) {
               // Use provided image URL
               formData.append("imageUrl", imageUrl.trim());
@@ -410,7 +411,7 @@ const AdminProducts = () => {
       }
 
       setCsvResults(results);
-      
+
       // Show summary
       let message = `CSV Upload Complete!\n`;
       message += `• Added: ${results.added} products\n`;
@@ -457,7 +458,7 @@ const AdminProducts = () => {
     try {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        
+
         // Only process image files
         if (!file.type.startsWith('image/')) {
           results.skipped++;
@@ -473,20 +474,20 @@ const AdminProducts = () => {
             .replace(/[^a-zA-Z0-9\s]/g, " ") // Replace other special characters with spaces
             .replace(/\s+/g, " ") // Replace multiple spaces with single space
             .trim(); // Remove leading/trailing spaces
-          
+
           // Capitalize first letter of each word for better formatting
           productName = productName
             .split(" ")
             .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
             .join(" ");
-          
+
           // If productName is empty or only spaces, use original filename
           if (!productName || productName.trim() === "") {
             productName = fileName || `Product ${i + 1}`;
           }
-          
+
           // Check if product with this name already exists
-          const existingProduct = products.find(p => 
+          const existingProduct = products.find(p =>
             p.name.toLowerCase() === productName.toLowerCase()
           );
 
@@ -561,7 +562,7 @@ const AdminProducts = () => {
       }
 
       setFolderResults(results);
-      
+
       // Show summary
       let message = `Folder Upload Complete!\n`;
       message += `• Added: ${results.added} new products\n`;
@@ -610,22 +611,22 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
     }
 
     // Create CSV headers
-    const headers = ['name', 'description', 'price', 'origin', ];
-    
+    const headers = ['name', 'description', 'price', 'origin', 'unit'];
+
     // Convert products to CSV format
     const csvData = products.map(product => {
-      const imageUrl = product.image 
-        ? (product.image.startsWith('/uploads/') 
-            ? `${API_URL}${product.image}` 
-            : product.image)
+      const imageUrl = product.image
+        ? (product.image.startsWith('/uploads/')
+          ? `${API_URL}${product.image}`
+          : product.image)
         : '';
-      
+
       return [
         `"${(product.name || '').replace(/"/g, '""')}"`,
         `"${(product.description || '').replace(/"/g, '""')}"`,
         product.price || '',
         `"${(product.origin || '').replace(/"/g, '""')}"`,
-       
+
       ].join(',');
     });
 
@@ -645,7 +646,7 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
   // Remove All Products functionality
   const handleRemoveAllProducts = async () => {
     const confirmMessage = `⚠️ WARNING: This will permanently delete ALL ${products.length} products!\n\nThis action cannot be undone. Are you absolutely sure you want to continue?`;
-    
+
     if (!window.confirm(confirmMessage)) {
       return;
     }
@@ -690,7 +691,7 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
           message += `\n... and ${errors.length - 3} more errors`;
         }
       }
-      
+
       alert(message);
 
       // Refresh products list to ensure sync with backend
@@ -704,10 +705,34 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
     setRemovingAll(false);
   };
 
+  // Filter products based on search term
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.origin.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className={s.container}>
       <h2 className={s.title}>Admin Products</h2>
-      
+
+      {/* Search Bar */}
+      <div className={s.searchSection}>
+        <input
+          type="text"
+          placeholder="🔍 Search products by name, description, category, or origin..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className={s.searchInput}
+        />
+        {searchTerm && (
+          <div className={s.searchResults}>
+            Found {filteredProducts.length} of {products.length} products
+          </div>
+        )}
+      </div>
+
       {/* CSV Upload Section */}
       <div className={s.csvSection}>
         <h3 className={s.csvTitle}>📁 Bulk Upload Products</h3>
@@ -781,33 +806,33 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
             multiple
             webkitdirectory="true"
             directory="true"
-              onChange={handleFolderUpload}
+            onChange={handleFolderUpload}
             ref={folderInputRef}
             className={s.csvInput}
             disabled={folderUploading}
           />
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginLeft: 8 }}>
-              <label style={{ fontSize: 12 }}>Category:</label>
-              <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-                <option value="">-- Select Category --</option>
-                {categories.map((c) => (
-                  <option key={c} value={c}>{c}</option>
-                ))}
-              </select>
-              <input
-                placeholder="Add category"
-                value={newCategory}
-                onChange={(e) => setNewCategory(e.target.value)}
-                style={{ padding: '4px 6px' }}
-              />
-              <button type="button" className={s.button} onClick={() => {
-                const trimmed = newCategory.trim();
-                if (!trimmed) return;
-                if (!categories.includes(trimmed)) setCategories(prev => [...prev, trimmed]);
-                setSelectedCategory(trimmed);
-                setNewCategory("");
-              }}>Add</button>
-            </div>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginLeft: 8 }}>
+            <label style={{ fontSize: 12 }}>Category:</label>
+            <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+              <option value="">-- Select Category --</option>
+              {categories.map((c) => (
+                <option key={c} value={c}>{c}</option>
+              ))}
+            </select>
+            <input
+              placeholder="Add category"
+              value={newCategory}
+              onChange={(e) => setNewCategory(e.target.value)}
+              style={{ padding: '4px 6px' }}
+            />
+            <button type="button" className={s.button} onClick={() => {
+              const trimmed = newCategory.trim();
+              if (!trimmed) return;
+              if (!categories.includes(trimmed)) setCategories(prev => [...prev, trimmed]);
+              setSelectedCategory(trimmed);
+              setNewCategory("");
+            }}>Add</button>
+          </div>
           <div className={s.csvInfo}>
             <small>
               <strong>📁 Upload a folder of images to auto-create/update products:</strong>
@@ -911,7 +936,7 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
         <div style={{ color: "red" }}>{error}</div>
       ) : (
         <div className={s.grid}>
-          {products.map((p) => (
+          {filteredProducts.map((p) => (
             <div key={p._id} className={s.card}>
               <div className={s.imageWrap}>
                 {p.image ? (
@@ -1024,38 +1049,38 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
               placeholder="Origin"
               className={s.input}
             />
-            
-              <label style={{ fontSize: 12 }}>Category:</label>
-              <select
-                name="category"
-                value={editForm.category}
-                onChange={handleEditChange}
-                className={s.input}
-              >
-                <option value="">-- Select Category --</option>
-                {categories.map((c) => (
-                  <option key={c} value={c}>{c}</option>
-                ))}
-              </select>
-              <label style={{ fontSize: 12 }}>Unit:</label>
-              <select name="unit" value={editForm.unit} onChange={handleEditChange} className={s.input}>
-                {units.map(u => <option key={u} value={u}>{u}</option>)}
-              </select>
-            </div>
-            <div className={s.modalActions}>
-              <button
-                className={s.button}
-                onClick={() => handleEditSave(editId)}
-              >
-                Save
-              </button>
-              <button
-                className={s.button}
-                onClick={handleEditCancel}
-                style={{ marginLeft: 8 }}
-              >
-                Cancel
-              </button>
+
+            <label style={{ fontSize: 12 }}>Category:</label>
+            <select
+              name="category"
+              value={editForm.category}
+              onChange={handleEditChange}
+              className={s.input}
+            >
+              <option value="">-- Select Category --</option>
+              {categories.map((c) => (
+                <option key={c} value={c}>{c}</option>
+              ))}
+            </select>
+            <label style={{ fontSize: 12 }}>Unit:</label>
+            <select name="unit" value={editForm.unit} onChange={handleEditChange} className={s.input}>
+              {units.map(u => <option key={u} value={u}>{u}</option>)}
+            </select>
+          </div>
+          <div className={s.modalActions}>
+            <button
+              className={s.button}
+              onClick={() => handleEditSave(editId)}
+            >
+              Save
+            </button>
+            <button
+              className={s.button}
+              onClick={handleEditCancel}
+              style={{ marginLeft: 8 }}
+            >
+              Cancel
+            </button>
           </div>
         </div>
       )}
