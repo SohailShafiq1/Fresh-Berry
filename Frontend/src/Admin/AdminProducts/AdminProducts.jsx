@@ -16,7 +16,7 @@ const AdminProducts = () => {
     price: "",
     origin: "",
     category: "",
-    unit: "kg",
+    unit: "",
   });
   const [editId, setEditId] = useState(null);
   const [editForm, setEditForm] = useState({
@@ -25,12 +25,11 @@ const AdminProducts = () => {
     price: "",
     origin: "",
     category: "",
-    unit: "kg",
+    unit: "",
   });
   const [categories, setCategories] = useState(["Fruit", "Vegetables", "Poultry", "Seasonal Picks"]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [newCategory, setNewCategory] = useState("");
-  const units = ["kg", "dozen", "litres"];
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [adding, setAdding] = useState(false);
@@ -145,6 +144,8 @@ const AdminProducts = () => {
       description: product.description,
       price: product.price,
       origin: product.origin,
+      category: product.category || "",
+      unit: product.unit || "kg",
     });
   };
 
@@ -348,6 +349,8 @@ const AdminProducts = () => {
             formData.append("description", rowData.description);
             formData.append("price", rowData.price);
             formData.append("origin", rowData.origin || ""); // Allow empty origin
+            if (rowCategory) formData.append('category', rowCategory);
+            if (rowUnit) formData.append('unit', rowUnit);
 
             // Handle image update logic
             if (hasImageUrl) {
@@ -588,12 +591,14 @@ const AdminProducts = () => {
   };
 
   const downloadSampleCsv = () => {
-    const sampleData = `name,description,price,origin,imageUrl
-Fresh Apples,Crispy red apples from local farms,5.99,Local Farm,https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6
-Organic Bananas,Sweet organic bananas,3.49,Ecuador,
-Premium Oranges,Juicy Valencia oranges,4.99,,https://images.unsplash.com/photo-1547036967-23d11aacaee0
-Local Berries,Fresh mixed berries,7.99,Local Farm,
-Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-1592924357228-91a4daadcfea`;
+    const sampleData = `name,description,price,origin,category,unit,imageUrl
+Fresh Apples,Crispy red apples from local farms,5.99,Local Farm,Fruit,kg,https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6
+Organic Bananas,Sweet organic bananas,3.49,Ecuador,Fruit,dozen,
+Premium Oranges,Juicy Valencia oranges,4.99,,Fruit,kg,https://images.unsplash.com/photo-1547036967-23d11aacaee0
+Local Berries,Fresh mixed berries,7.99,Local Farm,Seasonal Picks,kg,
+Tomatoes,Fresh red tomatoes,6.49,,Vegetables,kg,https://images.unsplash.com/photo-1592924357228-91a4daadcfea
+Fresh Eggs,Farm fresh eggs,4.99,Local Farm,Poultry,dozen,
+Milk,Fresh whole milk,3.99,Local Dairy,Poultry,litres,`;
 
     const blob = new Blob([sampleData], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
@@ -611,7 +616,7 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
     }
 
     // Create CSV headers
-    const headers = ['name', 'description', 'price', 'origin', 'unit'];
+    const headers = ['name', 'description', 'price', 'origin', 'category', 'unit'];
 
     // Convert products to CSV format
     const csvData = products.map(product => {
@@ -626,7 +631,8 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
         `"${(product.description || '').replace(/"/g, '""')}"`,
         product.price || '',
         `"${(product.origin || '').replace(/"/g, '""')}"`,
-
+        `"${(product.category || '').replace(/"/g, '""')}"`,
+        `"${(product.unit || '').replace(/"/g, '""')}"`,
       ].join(',');
     });
 
@@ -921,9 +927,14 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
             ))}
           </select>
           <label style={{ fontSize: 12 }}>Unit:</label>
-          <select name="unit" value={form.unit} onChange={handleChange}>
-            {units.map(u => <option key={u} value={u}>{u}</option>)}
-          </select>
+          <input
+            type="text"
+            name="unit"
+            value={form.unit}
+            onChange={handleChange}
+            placeholder="Enter unit (e.g., kg, dozen, litres)"
+            className={s.input}
+          />
         </div>
         <button className={s.button} type="submit" disabled={adding}>
           {adding ? "Adding..." : "Add Product"}
@@ -956,6 +967,8 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
                 <div className={s.desc}>{p.description}</div>
                 <div className={s.price}>{p.price}</div>
                 <div className={s.origin}>Origin: {p.origin}</div>
+                {p.category && <div className={s.category}>Category: {p.category}</div>}
+                {p.unit && <div className={s.unit}>Unit: {p.unit}</div>}
                 <div
                   className={s.hot}
                   style={{ color: p.hotselling ? "#20b958" : "#e53935" }}
@@ -1063,9 +1076,14 @@ Tomatoes,Fresh red tomatoes,6.49,,https://images.unsplash.com/photo-159292435722
               ))}
             </select>
             <label style={{ fontSize: 12 }}>Unit:</label>
-            <select name="unit" value={editForm.unit} onChange={handleEditChange} className={s.input}>
-              {units.map(u => <option key={u} value={u}>{u}</option>)}
-            </select>
+            <input
+              type="text"
+              name="unit"
+              value={editForm.unit}
+              onChange={handleEditChange}
+              placeholder="Enter unit (e.g., kg, dozen, litres)"
+              className={s.input}
+            />
           </div>
           <div className={s.modalActions}>
             <button
