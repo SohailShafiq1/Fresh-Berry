@@ -93,12 +93,12 @@ const OurProducts = () => {
               >
                 {product.name}
               </h4>
-              <p
+              {/* <p
                 style={{ color: isBlack ? "#fff" : "#222" }}
                 className={style.desc}
               >
                 {product.description || product.desc}
-              </p>
+              </p> */}
               <p
                 style={{ color: isBlack ? "#fff" : "#222" }}
                 className={style.price}

@@ -326,14 +326,14 @@ const Products = () => {
               >
                 {product.name}
               </h4>
-              <p
+              {/* <p
                 style={{
                   color: isBlack ? "#fff" : "#333",
                 }}
                 className={style.desc}
               >
                 {product.description || product.desc}
-              </p>
+              </p> */}
               <p
                 style={{
                   color: isBlack ? "#fff" : "#333",
