@@ -203,16 +203,7 @@ const Contact = () => {
                 Find Us
               </h2>
               <div className={s.mapContainer}>
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345096933!2d144.9537353153167!3d-37.81627997975171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f3f3f3f3%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1642090000000!5m2!1sen!2sus"
-                  width="100%"
-                  height="250"
-                  style={{ border: 0, borderRadius: "8px" }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Store Location"
-                />
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6136.080809256227!2d55.38934232604433!3d25.176232877789705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f67dc06b35bfb%3A0xfc952032d398fb3f!2sFresh%20Berry%20UAE!5e0!3m2!1sen!2s!4v1758228964822!5m2!1sen!2s" width="600" height="450" ></iframe>
               </div>
             </div>
 
